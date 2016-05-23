@@ -1055,11 +1055,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   allGuns:
-  - {fileID: 11433006, guid: d1dfbfe1532e2334cb33cc8ea9a20350, type: 2}
-  - {fileID: 11473516, guid: 3cff10bd3f2867645a327d74056fcc68, type: 2}
   - {fileID: 11433006, guid: 1c57d7cebd153a44880bb4291616a7c4, type: 2}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 11433006, guid: d1dfbfe1532e2334cb33cc8ea9a20350, type: 2}
+  - {fileID: 11401786, guid: 9f4f3dfd6f279e3438a41673b5e8ca38, type: 2}
+  - {fileID: 11473516, guid: 3cff10bd3f2867645a327d74056fcc68, type: 2}
+  - {fileID: 11476592, guid: 0ef5f0601d38f294997621ea15d717b7, type: 2}
   player: {fileID: 1908873467}
 --- !u!4 &2138555349
 Transform:

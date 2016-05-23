@@ -55,11 +55,11 @@ public class Player : MonoBehaviour {
 
 		// Weapon Input
 		// { SINGLE_SHOT, SEMI_AUTOMATIC, AUTOMATIC, SPREAD, SPRAY, PROJECTILE };
-		if (new []{ WeaponType.AUTOMATIC, WeaponType.SEMI_AUTOMATIC, WeaponType.SPRAY }.Contains (weaponController.GetWeaponType ())) {//weaponController.GetWeaponType() == WeaponType.AUTOMATIC || ) {
+		if (new []{ WeaponFireType.AUTOMATIC, WeaponFireType.SEMI_AUTOMATIC, WeaponFireType.SPRAY }.Contains (weaponController.GetWeaponFireType ())) {//weaponController.GetWeaponFireType() == WeaponFireType.AUTOMATIC || ) {
 			if (Input.GetMouseButton (0)) {
 				weaponController.Shoot ();
 			}
-		} else if (!(new []{ WeaponType.AUTOMATIC, WeaponType.SEMI_AUTOMATIC, WeaponType.SPRAY }.Contains (weaponController.GetWeaponType ()))) {
+		} else if (!(new []{ WeaponFireType.AUTOMATIC, WeaponFireType.SEMI_AUTOMATIC, WeaponFireType.SPRAY }.Contains (weaponController.GetWeaponFireType ()))) {
 			if (Input.GetMouseButtonDown (0)) {
 				weaponController.Shoot ();
 			}

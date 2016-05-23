@@ -6,12 +6,6 @@ public class SprayWeapon : WeaponBase {
 	[Header("Overriden Gun Settings")]
 	public Projectile projectile;
 
-	void Start () {
-
-		weaponType = WeaponType.SPRAY;
-
-	}
-
 	protected override void OverrideShoot (Transform loc)
 	{
 				

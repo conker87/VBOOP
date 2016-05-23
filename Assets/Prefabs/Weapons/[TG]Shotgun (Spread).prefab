@@ -388,13 +388,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shootFromLocation:
   - {fileID: 452196}
-  weaponType: 3
+  weaponFireType: 0
+  weaponHanded: 0
+  weaponType: 0
+  weaponQuality: 0
+  weaponPrefix: 0
+  weaponSuffix: 4
+  weaponProjectileType: 3
+  weaponName: GOOD MAN_MURDERING SHOTGUN FORTITUDE, with BURNING rounds.
   attackSpeed: 0.7
-  projectilesPerShot: 1
+  projectilesPerShot: 8
   projectilesPerClip: 8
   projectileMinimumDamage: 5
   projectileMaximumDamage: 10
-  damagePerSecond: 0
+  damagePerSecond: 85.71429
   projectileVelocity: 50
   projectile: {fileID: 11420312, guid: c4664d539fa1f204e844622ac48ce1b6, type: 2}
   bulletSpread: 10

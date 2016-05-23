@@ -19,7 +19,7 @@ public class Weapon : MonoBehaviour {
 	public float projectileVelocity = 35f;
 	public float variance = 5f;
 
-	public WeaponType weaponType = WeaponType.SINGLE_SHOT;
+	public WeaponFireType WeaponFireType = WeaponFireType.SINGLE_SHOT;
 
 	float nextShotTime;
 
@@ -31,7 +31,7 @@ public class Weapon : MonoBehaviour {
 
 			Debug.Log ("Weapon::Shoot -- Shooting.");
 
-			if (new []{ WeaponType.SPREAD }.Contains (weaponType)) {
+			if (new []{ WeaponFireType.SPREAD }.Contains (WeaponFireType)) {
 
 				for (int i = 0; i < projectilesPerShot; i++) {
 					
@@ -97,4 +97,4 @@ public class Weapon : MonoBehaviour {
 
 }
 
-///public enum WeaponType { SINGLE_SHOT, SEMI_AUTOMATIC, AUTOMATIC, SPREAD, SPRAY, PROJECTILE };
+///public enum WeaponFireType { SINGLE_SHOT, SEMI_AUTOMATIC, AUTOMATIC, SPREAD, SPRAY, PROJECTILE };

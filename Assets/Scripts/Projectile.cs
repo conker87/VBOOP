@@ -5,12 +5,13 @@ using System.Linq;
 public class Projectile : MonoBehaviour {
 
 	// Speed and Damage values.
-	float speed = 1f, damage, lifetime = 8f;
+	float speed = 1f, damage, currentDamage, lifetime = 8f;
+	bool isPiercing = false, isFlaming = false, isFreezing = false;
 
 	[SerializeField]
 	float destroyingIn;
 
-	int timeHits = 0;
+	int timesHit = 0;
 
 	public void SetSpeed(float _speed) {
 		
@@ -40,6 +41,8 @@ public class Projectile : MonoBehaviour {
 
 		destroyingIn = lifetime;
 
+		currentDamage = damage;
+
 	}
 
 	void Update () {
@@ -55,12 +58,24 @@ public class Projectile : MonoBehaviour {
 
 		if (!(new []{ "Player", "Weapon" }.Contains (other.tag))) {
 
-			timeHits++;
+			timesHit++;
 
 
-			Debug.Log ("This gameObject: " + gameObject.name + ", other: " + other.gameObject.name + ", timesHit: " + timeHits);
+			Debug.Log ("This gameObject: " + gameObject.name + ", other: " + other.gameObject.name + ", timesHit: " + timesHit + ", for damage: " + currentDamage);
 
-			Debug.Log ("Damage taken from projectile: " + damage);
+			if (isPiercing && timesHit > 4) {
+
+				Destroy (gameObject);
+
+			}
+
+			if (!isPiercing && timesHit > 1) {
+
+				Destroy (gameObject);
+
+			}
+
+			currentDamage -= (damage / 4);
 		}
 
 		//Destroy(other.gameObject);

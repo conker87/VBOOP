@@ -9,6 +9,14 @@ public class SpreadWeapon : WeaponBase {
 	[Range(0f, 25f)]
 	public float bulletSpread = 5f;
 
+	protected override void Start() {
+
+		base.Start ();
+
+		// You can override the start method to force weapons to be certain qualities and have certain attributes.
+
+	}
+
 	protected override void OverrideShoot (Transform loc)
 	{
 

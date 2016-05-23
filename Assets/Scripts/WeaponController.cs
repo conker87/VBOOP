@@ -46,8 +46,8 @@ public class WeaponController : MonoBehaviour {
 
 	}
 
-	public WeaponType GetWeaponType() {
-		return equippedWeapon.weaponType;
+	public WeaponFireType GetWeaponFireType() {
+		return equippedWeapon.weaponFireType;
 	}
 
 	public void SetAttackSpeed(float _time) {
