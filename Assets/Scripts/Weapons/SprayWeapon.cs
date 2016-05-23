@@ -8,7 +8,7 @@ public class SprayWeapon : WeaponBase {
 
 	protected override void OverrideShoot (Transform loc)
 	{
-
+				
 		Quaternion fireRotation = loc.rotation;
 
 		Projectile newProjectile = Instantiate (projectile, loc.position, fireRotation) as Projectile;

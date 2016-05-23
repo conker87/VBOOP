@@ -19,31 +19,32 @@ public abstract class WeaponBase : MonoBehaviour {
 	public float projectileVelocity = 35f;
 	public float projectilesPerShot = 1f, projectilesPerClip = 8f;
 	[Space(5)]
-	public float projectileMinimumDamage = 5f;
-	public float projectileMaximumDamage = 10f;
+	public float projectileMinimumDamage = 5f, projectileMaximumDamage = 10f;
+	protected float damagePerProjectile;
 
 	float nextShotTime;
 
 	protected abstract void OverrideShoot (Transform loc);
+	//protected abstract void OverrideShoot (Transform loc);
 
 	public virtual void Shoot () {
 
 		if (Time.time > nextShotTime) {
 
-			nextShotTime = Time.time + timeBetweenNextShots / 1000;
+				nextShotTime = Time.time + timeBetweenNextShots / 1000;
 
-			Debug.Log ("Weapon::Shoot -- Shooting.");
+				for (int i = 0; i < projectilesPerShot; i++) {
 
-			for (int i = 0; i < projectilesPerShot; i++) {
+					foreach (Transform loc in shootFromLocation) {
 
-				foreach (Transform loc in shootFromLocation) {
+						OverrideShoot (loc);
 
-					OverrideShoot (loc);
-
+					}
 				}
 
+				Debug.Log ("Weapon::Shoot -- Shooting.");
+
 			}
-		}
 
 	}
 

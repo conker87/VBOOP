@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class AutomaticWeapon: WeaponBase {
+public class AutomaticWeapon : WeaponBase {
 
 	[Header("Overriden Gun Settings")]
 	public Projectile projectile;

@@ -4,10 +4,23 @@ using System.Collections;
 public class Projectile : MonoBehaviour {
 
 	float speed = 5f;
+	public float damage = 5f;
 
-	public void SetSpeed(float newSpeed) {
+	public void SetSpeed(float _speed) {
 		
-		speed = newSpeed;
+		speed = _speed;
+
+	}
+
+	public void SetDamage(float _damage) {
+
+		damage = _damage;
+
+	}
+
+	void Start () {
+
+		SetDamage (0);
 
 	}
 

@@ -9,10 +9,10 @@ public class SingleShotWeapon : WeaponBase {
 	protected override void OverrideShoot (Transform loc)
 	{
 
-		Quaternion fireRotation = loc.rotation;
+			Quaternion fireRotation = loc.rotation;
 
-		Projectile newProjectile = Instantiate (projectile, loc.position, fireRotation) as Projectile;
-		newProjectile.SetSpeed (projectileVelocity);
+			Projectile newProjectile = Instantiate (projectile, loc.position, fireRotation) as Projectile;
+			newProjectile.SetSpeed (projectileVelocity);
 
 	}
 
