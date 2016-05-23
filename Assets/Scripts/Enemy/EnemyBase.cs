@@ -3,12 +3,27 @@ using System.Collections;
 
 public class EnemyBase : MonoBehaviour {
 
-	public float health, mana;
-	public WeaponBase equippedWeapon;
+	public Transform weaponLocation;
 
-	// Use this for initialization
-	void Start () {
-	
+	public float health, mana;
+	public WeaponBase startingWeapon;
+	WeaponBase equippedWeapon;
+
+	void Start ()
+	{
+		if (startingWeapon != null) {
+			EquipWeapon (startingWeapon);
+		}
+	}
+
+	public void EquipWeapon(WeaponBase weaponToEquip) {
+
+		if (equippedWeapon != null) {
+			Destroy (equippedWeapon.gameObject);
+		}
+		equippedWeapon = Instantiate (weaponToEquip, weaponLocation.position, weaponLocation.rotation) as WeaponBase;
+		equippedWeapon.transform.parent = weaponLocation;
+
 	}
 	
 	// Update is called once per frame
