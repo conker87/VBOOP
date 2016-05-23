@@ -38,6 +38,10 @@ public class SpreadWeapon : WeaponBase {
 		newProjectile.SetDamage (damagePerProjectile);
 		newProjectile.SetLifetime (5f);
 
+		newProjectile.SetIsPiercing((weaponProjectileType == WeaponProjectileType.PIERCING) ? true : false);
+		newProjectile.SetIsBurning((weaponProjectileType == WeaponProjectileType.BURNING) ? true : false);
+		newProjectile.SetIsPiercing((weaponProjectileType == WeaponProjectileType.FREEZING) ? true : false);
+
 	}
 
 }

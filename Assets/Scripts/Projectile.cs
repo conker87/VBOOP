@@ -6,7 +6,7 @@ public class Projectile : MonoBehaviour {
 
 	// Speed and Damage values.
 	float speed = 1f, damage, currentDamage, lifetime = 8f;
-	bool isPiercing = false, isFlaming = false, isFreezing = false;
+	bool isPiercing = false, isBurning = false, isFreezing = false;
 
 	[SerializeField]
 	float destroyingIn;
@@ -22,6 +22,24 @@ public class Projectile : MonoBehaviour {
 	public void SetDamage(float _damage) {
 
 		damage = _damage;
+
+	}
+
+	public void SetIsPiercing(bool _isPiercing) {
+
+		isPiercing = _isPiercing;
+
+	}
+
+	public void SetIsBurning(bool _isBurning) {
+
+		isBurning = _isBurning;
+
+	}
+
+	public void SetIsFreezing(bool _isFreezing) {
+
+		isFreezing = _isFreezing;
 
 	}
 
@@ -76,6 +94,7 @@ public class Projectile : MonoBehaviour {
 			}
 
 			currentDamage -= (damage / 4);
+
 		}
 
 		//Destroy(other.gameObject);
