@@ -387,7 +387,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shootFromLocation:
-  - {fileID: 0}
+  - {fileID: 485992}
   localPositionOffset: {x: 0, y: 0, z: 0}
   timeBetweenNextShots: 50
   weaponType: 2

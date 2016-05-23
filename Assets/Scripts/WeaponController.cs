@@ -35,7 +35,7 @@ public class WeaponController : MonoBehaviour {
 
 	void Update ()
 	{
-		Debug.Log (equippedWeapon.transform.localPosition.ToString());
+		//Debug.Log (equippedWeapon.transform.localPosition.ToString());
 	}
 
 	public void Shoot() {
