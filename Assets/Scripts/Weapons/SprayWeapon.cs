@@ -14,6 +14,8 @@ public class SprayWeapon : WeaponBase {
 		Projectile newProjectile = Instantiate (projectile, loc.position, fireRotation) as Projectile;
 		newProjectile.SetSpeed (projectileVelocity);
 
+		//TODO: Spray weapons need their own way of dealing with damage due to them being more of a continuous DoT than anything else;
+
 	}
 
 }

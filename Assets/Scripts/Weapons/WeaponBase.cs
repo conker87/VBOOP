@@ -43,6 +43,7 @@ public abstract class WeaponBase : MonoBehaviour {
 
 						OverrideShoot (loc);
 
+						shouldDamageBeCalulated = false;
 					}
 				}
 

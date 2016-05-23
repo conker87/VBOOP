@@ -3,8 +3,8 @@ using System.Collections;
 
 public class Projectile : MonoBehaviour {
 
-	float speed = 5f;
-	public float damage = 5f;
+	float speed;
+	public float damage;
 
 	public void SetSpeed(float _speed) {
 		
@@ -15,12 +15,6 @@ public class Projectile : MonoBehaviour {
 	public void SetDamage(float _damage) {
 
 		damage = _damage;
-
-	}
-
-	void Start () {
-
-		SetDamage (0);
 
 	}
 

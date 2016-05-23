@@ -14,6 +14,16 @@ public class SemiAutomaticWeapon : WeaponBase {
 		Projectile newProjectile = Instantiate (projectile, loc.position, fireRotation) as Projectile;
 		newProjectile.SetSpeed (projectileVelocity);
 
+		if (shouldDamageBeCalulated) {
+			float gunDamageThisShot = Random.Range (projectileMinimumDamage, projectileMaximumDamage);
+			damagePerProjectile = gunDamageThisShot / projectilesPerShot;
+
+			newProjectile.SetDamage (damagePerProjectile);
+
+			Debug.Log ("SpreadWeapon::OverrideShot (Override) -- gunDamageThisShot: " + gunDamageThisShot + ", damagePerProjectile: " + damagePerProjectile);
+		}
+
+
 	}
 
 }

@@ -29,8 +29,6 @@ public class SpreadWeapon : WeaponBase {
 			Debug.Log ("SpreadWeapon::OverrideShot (Override) -- gunDamageThisShot: " + gunDamageThisShot + ", damagePerProjectile: " + damagePerProjectile);
 		}
 
-		shouldDamageBeCalulated = false;
-
 	}
 
 }
