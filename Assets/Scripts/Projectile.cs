@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Linq;
 
 public class Projectile : MonoBehaviour {
 
@@ -23,4 +24,18 @@ public class Projectile : MonoBehaviour {
 		transform.Translate (Vector3.forward * Time.deltaTime * speed);
 
 	}
+
+	void OnTriggerEnter(Collider other) {
+
+		if (!(new []{ "Player", "Weapon" }.Contains (other.tag))) {
+			Debug.Log ("This gameObject: " + gameObject.name + ", other: " + other.gameObject.name);
+
+
+			Debug.Log ("Damage taken from projectile: " + damage);
+		}
+
+		//Destroy(other.gameObject);
+
+	}
+
 }

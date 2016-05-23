@@ -20,14 +20,14 @@ public class SpreadWeapon : WeaponBase {
 
 		newProjectile.SetSpeed (projectileVelocity);
 
-		if (shouldDamageBeCalulated) {
+		if (shouldDamageBeCalculated) {
 			float gunDamageThisShot = Random.Range (projectileMinimumDamage, projectileMaximumDamage);
 			damagePerProjectile = gunDamageThisShot / projectilesPerShot;
 
-			newProjectile.SetDamage (damagePerProjectile);
-
 			Debug.Log ("SpreadWeapon::OverrideShot (Override) -- gunDamageThisShot: " + gunDamageThisShot + ", damagePerProjectile: " + damagePerProjectile);
 		}
+
+		newProjectile.SetDamage (damagePerProjectile);
 
 	}
 

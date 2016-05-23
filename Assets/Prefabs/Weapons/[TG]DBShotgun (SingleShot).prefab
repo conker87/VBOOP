@@ -11,9 +11,9 @@ GameObject:
   - 33: {fileID: 3352560}
   - 65: {fileID: 6502034}
   - 23: {fileID: 2346456}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Handle
-  m_TagString: Untagged
+  m_TagString: Weapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -26,7 +26,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 495390}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Muzzle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -44,9 +44,9 @@ GameObject:
   - 33: {fileID: 3346168}
   - 65: {fileID: 6520424}
   - 23: {fileID: 2362854}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Barrel
-  m_TagString: Untagged
+  m_TagString: Weapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -62,9 +62,9 @@ GameObject:
   - 33: {fileID: 3316524}
   - 65: {fileID: 6512248}
   - 23: {fileID: 2364362}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Barrel
-  m_TagString: Untagged
+  m_TagString: Weapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -80,9 +80,9 @@ GameObject:
   - 33: {fileID: 3398228}
   - 65: {fileID: 6550198}
   - 23: {fileID: 2301258}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Middle
-  m_TagString: Untagged
+  m_TagString: Weapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -95,7 +95,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 493920}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Muzzle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -112,7 +112,7 @@ GameObject:
   - 4: {fileID: 465542}
   - 33: {fileID: 3363408}
   - 23: {fileID: 2312610}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -128,9 +128,9 @@ GameObject:
   m_Component:
   - 4: {fileID: 473422}
   - 114: {fileID: 11433006}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: '[TG]DBShotgun (SingleShot)'
-  m_TagString: Untagged
+  m_TagString: Weapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -143,9 +143,9 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 400478}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Model
-  m_TagString: Untagged
+  m_TagString: Weapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -160,7 +160,7 @@ GameObject:
   - 4: {fileID: 417496}
   - 33: {fileID: 3315982}
   - 23: {fileID: 2309892}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -557,8 +557,10 @@ MonoBehaviour:
   - {fileID: 495390}
   - {fileID: 493920}
   localPositionOffset: {x: 0, y: 0, z: 0}
-  timeBetweenNextShots: 275
+  attackSpeed: 0.75
+  timeBetweenNextShots: 100
   weaponType: 0
+  damagePerSecond: 0
   projectileVelocity: 50
   projectilesPerShot: 1
   projectilesPerClip: 2

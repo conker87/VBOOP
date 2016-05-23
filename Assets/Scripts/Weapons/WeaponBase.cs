@@ -9,33 +9,44 @@ public abstract class WeaponBase : MonoBehaviour {
 	public Vector3 localPositionOffset = Vector3.zero;
 
 	// Gun details
-	[Header("Gun Settings")]
-	public float timeBetweenNextShots = 100f;
+	[Header("Damage Settings")]
+	public float attackSpeed = 1f;
 	public WeaponType weaponType;
+	public float projectilesPerShot = 1f, projectilesPerClip = 8f;
+	[Space(5)]
+	public float projectileMinimumDamage = 5f, projectileMaximumDamage = 10f;
+	protected float damagePerProjectile;
+	[SerializeField]
+	float damagePerSecond;
 
 	// Projectile settings
 	[Header("Projectile Settings")]
 	[Range(5f, 250f)]
 	public float projectileVelocity = 35f;
-	public float projectilesPerShot = 1f, projectilesPerClip = 8f;
-	[Space(5)]
-	public float projectileMinimumDamage = 5f, projectileMaximumDamage = 10f;
-	protected float damagePerProjectile;
 
-	protected bool shouldDamageBeCalulated = true;
+
+	protected bool shouldDamageBeCalculated = true;
 
 	float nextShotTime;
 
 	protected abstract void OverrideShoot (Transform loc);
 	//protected abstract void OverrideShoot (Transform loc);
 
+	void Update () {
+
+		damagePerSecond = ( (1 / attackSpeed) * ( ( projectileMinimumDamage + projectileMaximumDamage ) / 2 ) ) * projectilesPerShot;
+
+	}
+
 	public virtual void Shoot () {
+
+		Debug.Log ("Time: " + Time.time + ", nextShotTime: " + nextShotTime);
 
 		if (Time.time > nextShotTime) {
 
-			shouldDamageBeCalulated = true;
+			shouldDamageBeCalculated = true;
 
-				nextShotTime = Time.time + timeBetweenNextShots / 1000;
+			nextShotTime = Time.time + attackSpeed;
 
 				for (int i = 0; i < projectilesPerShot; i++) {
 
@@ -43,7 +54,7 @@ public abstract class WeaponBase : MonoBehaviour {
 
 						OverrideShoot (loc);
 
-						shouldDamageBeCalulated = false;
+						shouldDamageBeCalculated = false;
 					}
 				}
 
@@ -53,9 +64,9 @@ public abstract class WeaponBase : MonoBehaviour {
 
 	}
 
-	public void SetTimeBetweenNextShots(float _timeBetweenNextShots) {
+	public void SetAttackSpeed(float _attackSpeed) {
 
-		timeBetweenNextShots = _timeBetweenNextShots;
+		attackSpeed = _attackSpeed;
 
 	}
 

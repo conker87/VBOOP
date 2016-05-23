@@ -14,7 +14,7 @@ public class SemiAutomaticWeapon : WeaponBase {
 		Projectile newProjectile = Instantiate (projectile, loc.position, fireRotation) as Projectile;
 		newProjectile.SetSpeed (projectileVelocity);
 
-		if (shouldDamageBeCalulated) {
+		if (shouldDamageBeCalculated) {
 			float gunDamageThisShot = Random.Range (projectileMinimumDamage, projectileMaximumDamage);
 			damagePerProjectile = gunDamageThisShot / projectilesPerShot;
 

@@ -11,9 +11,9 @@ GameObject:
   - 33: {fileID: 3373318}
   - 65: {fileID: 6557244}
   - 23: {fileID: 2317532}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Sight
-  m_TagString: Untagged
+  m_TagString: Weapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -29,9 +29,9 @@ GameObject:
   - 33: {fileID: 3352560}
   - 65: {fileID: 6502034}
   - 23: {fileID: 2346456}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Handle
-  m_TagString: Untagged
+  m_TagString: Weapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -46,7 +46,7 @@ GameObject:
   - 4: {fileID: 449892}
   - 33: {fileID: 3375804}
   - 23: {fileID: 2378812}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -64,9 +64,9 @@ GameObject:
   - 33: {fileID: 3398228}
   - 65: {fileID: 6550198}
   - 23: {fileID: 2301258}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Barrel
-  m_TagString: Untagged
+  m_TagString: Weapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -79,7 +79,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 441418}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Muzzle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -95,9 +95,9 @@ GameObject:
   m_Component:
   - 4: {fileID: 473422}
   - 114: {fileID: 11473516}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: '[TG]Rifle (Single Shot)'
-  m_TagString: Untagged
+  m_TagString: Weapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -110,9 +110,9 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 400478}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Model
-  m_TagString: Untagged
+  m_TagString: Weapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -128,9 +128,9 @@ GameObject:
   - 33: {fileID: 3355056}
   - 65: {fileID: 6568748}
   - 23: {fileID: 2306722}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Sight
-  m_TagString: Untagged
+  m_TagString: Weapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -146,9 +146,9 @@ GameObject:
   - 33: {fileID: 3366862}
   - 65: {fileID: 6563132}
   - 23: {fileID: 2302910}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Sight
-  m_TagString: Untagged
+  m_TagString: Weapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -541,8 +541,10 @@ MonoBehaviour:
   shootFromLocation:
   - {fileID: 441418}
   localPositionOffset: {x: 0, y: 0, z: 0}
-  timeBetweenNextShots: 700
+  attackSpeed: 0.5
+  timeBetweenNextShots: 100
   weaponType: 0
+  damagePerSecond: 0
   projectileVelocity: 75
   projectilesPerShot: 1
   projectilesPerClip: 8

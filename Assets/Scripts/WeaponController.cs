@@ -50,10 +50,12 @@ public class WeaponController : MonoBehaviour {
 		return equippedWeapon.weaponType;
 	}
 
-	public void SetTimeBetweenNextShots(float time) {
+	public void SetAttackSpeed(float _time) {
 
 		if (equippedWeapon != null) {
-			equippedWeapon.SetTimeBetweenNextShots (time);
+			
+			equippedWeapon.SetAttackSpeed (_time);
+
 		}
 
 	}
@@ -61,7 +63,9 @@ public class WeaponController : MonoBehaviour {
 	public void SetProjectileVelocity(float velocity) {
 
 		if (equippedWeapon != null) {
+			
 			equippedWeapon.SetProjectileVelocity (velocity);
+
 		}
 
 	}

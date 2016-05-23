@@ -8,7 +8,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 470474}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Muzzle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24,9 +24,9 @@ GameObject:
   m_Component:
   - 4: {fileID: 447586}
   - 114: {fileID: 11400042}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: '[TG]Flamethrower (Spray)[PH]'
-  m_TagString: Untagged
+  m_TagString: Weapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -41,7 +41,7 @@ GameObject:
   - 4: {fileID: 490194}
   - 33: {fileID: 3397452}
   - 23: {fileID: 2313108}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -59,9 +59,9 @@ GameObject:
   - 33: {fileID: 3385382}
   - 65: {fileID: 6590818}
   - 23: {fileID: 2313770}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Handle
-  m_TagString: Untagged
+  m_TagString: Weapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -74,9 +74,9 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 478362}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Model
-  m_TagString: Untagged
+  m_TagString: Weapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -92,9 +92,9 @@ GameObject:
   - 33: {fileID: 3328732}
   - 65: {fileID: 6516432}
   - 23: {fileID: 2330726}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: BarrelEnd
-  m_TagString: Untagged
+  m_TagString: Weapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -110,9 +110,9 @@ GameObject:
   - 33: {fileID: 3390088}
   - 65: {fileID: 6554362}
   - 23: {fileID: 2316434}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Barrel
-  m_TagString: Untagged
+  m_TagString: Weapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -128,9 +128,9 @@ GameObject:
   - 33: {fileID: 3337142}
   - 65: {fileID: 6546524}
   - 23: {fileID: 2366356}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Clip
-  m_TagString: Untagged
+  m_TagString: Weapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -465,8 +465,10 @@ MonoBehaviour:
   shootFromLocation:
   - {fileID: 470474}
   localPositionOffset: {x: 0, y: 0, z: 0}
-  timeBetweenNextShots: 275
+  attackSpeed: 0.25
+  timeBetweenNextShots: 100
   weaponType: 3
+  damagePerSecond: 0
   projectileVelocity: 50
   projectilesPerShot: 9
   projectilesPerClip: 8

@@ -8,7 +8,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 445714}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -26,7 +26,7 @@ GameObject:
   - 33: {fileID: 3301760}
   - 65: {fileID: 6517456}
   - 23: {fileID: 2381442}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -41,7 +41,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 499268}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: WeaponPlacement
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -58,7 +58,7 @@ GameObject:
   - 4: {fileID: 440030}
   - 114: {fileID: 11402482}
   - 54: {fileID: 5412172}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Enemy[PH]
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -75,8 +75,9 @@ GameObject:
   - 4: {fileID: 415742}
   - 33: {fileID: 3322204}
   - 65: {fileID: 6523420}
+  - 65: {fileID: 6571828}
   - 23: {fileID: 2350778}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Head
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -93,8 +94,9 @@ GameObject:
   - 4: {fileID: 488886}
   - 33: {fileID: 3392194}
   - 65: {fileID: 6549824}
+  - 65: {fileID: 6567214}
   - 23: {fileID: 2342844}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -112,7 +114,7 @@ GameObject:
   - 33: {fileID: 3319148}
   - 65: {fileID: 6526344}
   - 23: {fileID: 2350296}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Hand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -137,7 +139,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 149196}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 0.7719576, z: 0, w: 0.63567406}
   m_LocalPosition: {x: -16.663048, y: 1.3, z: 15.42}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -404,6 +406,30 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!65 &6567214
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 188000}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!65 &6571828
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 180244}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &11402482
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -416,6 +442,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponLocation: {fileID: 499268}
+  nameofEnemy: Test Enemy
   health: 250
   mana: 100
   startingWeapon: {fileID: 11400042, guid: 9f4f3dfd6f279e3438a41673b5e8ca38, type: 2}
