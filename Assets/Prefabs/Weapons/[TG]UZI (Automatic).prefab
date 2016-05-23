@@ -76,7 +76,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 473422}
-  - 114: {fileID: 11433006}
+  - 114: {fileID: 11476592}
   m_Layer: 13
   m_Name: '[TG]UZI (Automatic)'
   m_TagString: Weapon
@@ -375,7 +375,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &11433006
+--- !u!114 &11476592
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -383,23 +383,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 173696}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e1bea7d7ca53714c900761e4eec04c0, type: 3}
+  m_Script: {fileID: 11500000, guid: e3858c63e54973c4ab112c848f891167, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   shootFromLocation:
   - {fileID: 485992}
-  localPositionOffset: {x: 0, y: 0, z: 0}
-  attackSpeed: 0.12
-  timeBetweenNextShots: 100
   weaponType: 2
-  damagePerSecond: 0
-  projectileVelocity: 50
+  attackSpeed: 0.25
   projectilesPerShot: 1
   projectilesPerClip: 64
   projectileMinimumDamage: 5
   projectileMaximumDamage: 10
-  projectile: {fileID: 11420312, guid: ecbdd590f2dbdbc4a9b64eeeb3d32071, type: 2}
-  bulletSpread: 0
+  damagePerSecond: 0
+  projectileVelocity: 35
+  projectile: {fileID: 11420312, guid: c4664d539fa1f204e844622ac48ce1b6, type: 2}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

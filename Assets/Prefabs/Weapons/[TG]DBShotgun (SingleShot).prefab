@@ -556,17 +556,15 @@ MonoBehaviour:
   shootFromLocation:
   - {fileID: 495390}
   - {fileID: 493920}
-  localPositionOffset: {x: 0, y: 0, z: 0}
-  attackSpeed: 0.75
-  timeBetweenNextShots: 100
-  weaponType: 0
-  damagePerSecond: 0
-  projectileVelocity: 50
-  projectilesPerShot: 1
+  weaponType: 3
+  attackSpeed: 1.5
+  projectilesPerShot: 8
   projectilesPerClip: 2
   projectileMinimumDamage: 5
   projectileMaximumDamage: 10
-  projectile: {fileID: 11420312, guid: ecbdd590f2dbdbc4a9b64eeeb3d32071, type: 2}
+  damagePerSecond: 40
+  projectileVelocity: 50
+  projectile: {fileID: 11420312, guid: c4664d539fa1f204e844622ac48ce1b6, type: 2}
   bulletSpread: 1
 --- !u!1001 &100100000
 Prefab:

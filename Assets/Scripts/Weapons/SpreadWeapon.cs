@@ -28,6 +28,7 @@ public class SpreadWeapon : WeaponBase {
 		}
 
 		newProjectile.SetDamage (damagePerProjectile);
+		newProjectile.SetLifetime (5f);
 
 	}
 

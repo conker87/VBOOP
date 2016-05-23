@@ -2,22 +2,33 @@
 using System.Collections;
 using System.Linq;
 
+[ExecuteInEditMode]
 public abstract class WeaponBase : MonoBehaviour {
 
-	[Header("On Player Location")]
+	[Header("Location Settings")]
 	public Transform[] shootFromLocation;
-	public Vector3 localPositionOffset = Vector3.zero;
 
-	// Gun details
-	[Header("Damage Settings")]
-	public float attackSpeed = 1f;
+	// Weapon Details
+	[Header("Gun Details")]
 	public WeaponType weaponType;
-	public float projectilesPerShot = 1f, projectilesPerClip = 8f;
+	public WeaponQuality weaponQuality;
+	public WeaponPrefix weaponPrefix;
+	public WeaponSuffix[] weaponSuffix;
+	public WeaponProjectileType weaponProjectileType;
+
+	// Damage Settings
+	[Header("Damage Settings")]
+	[Range(0.0001f, 20f)]
+	public float attackSpeed = 1f;
+	public int projectilesPerShot = 1, projectilesPerClip = 8;
 	[Space(5)]
-	public float projectileMinimumDamage = 5f, projectileMaximumDamage = 10f;
-	protected float damagePerProjectile;
+	public float projectileMinimumDamage = 5f;
+	public float projectileMaximumDamage = 10f;
+	[Space(5)]
 	[SerializeField]
 	float damagePerSecond;
+
+	protected float damagePerProjectile;
 
 	// Projectile settings
 	[Header("Projectile Settings")]
@@ -79,3 +90,7 @@ public abstract class WeaponBase : MonoBehaviour {
 }
 
 public enum WeaponType { SINGLE_SHOT, SEMI_AUTOMATIC, AUTOMATIC, SPREAD, SPRAY, PROJECTILE };
+public enum WeaponQuality { AWFUL, CRAP, NORMAL, GOOD, GREAT, BRILLIANT, MAGNIFICENT, UNIQUE }
+public enum WeaponPrefix { UNDEAD_SLAYING, ABERRATION_ANNIHILATION, BEAST_BLASTING, MAN_MURDERING, CRITTER_CRUSHING, HEALING, NULL };
+public enum WeaponSuffix { MANA_REGENERATION, HEALTH_REGENERATION, FORTITUDE, MANA_CAPACITY, NULL }; //TODO: There can be more than one of these added to the var with this information needs to be an array!
+public enum WeaponProjectileType { PIERCING, NULL }

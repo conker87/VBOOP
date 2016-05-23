@@ -23,7 +23,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 447586}
-  - 114: {fileID: 11400042}
+  - 114: {fileID: 11401786}
   m_Layer: 13
   m_Name: '[TG]Flamethrower (Spray)[PH]'
   m_TagString: Weapon
@@ -451,7 +451,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &11400042
+--- !u!114 &11401786
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -459,23 +459,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 118014}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e1bea7d7ca53714c900761e4eec04c0, type: 3}
+  m_Script: {fileID: 11500000, guid: 77ca0c9859381674ebfe6a712916359e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shootFromLocation:
-  - {fileID: 470474}
-  localPositionOffset: {x: 0, y: 0, z: 0}
-  attackSpeed: 0.25
-  timeBetweenNextShots: 100
-  weaponType: 3
-  damagePerSecond: 0
-  projectileVelocity: 50
-  projectilesPerShot: 9
-  projectilesPerClip: 8
+  shootFromLocation: []
+  weaponType: 4
+  attackSpeed: 1
+  projectilesPerShot: 1
+  projectilesPerClip: 50
   projectileMinimumDamage: 5
   projectileMaximumDamage: 10
-  projectile: {fileID: 11420312, guid: c18fabe33008f294fac6e8142e314350, type: 2}
-  bulletSpread: 10
+  damagePerSecond: 7.5
+  projectileVelocity: 40
+  projectile: {fileID: 11420312, guid: c4664d539fa1f204e844622ac48ce1b6, type: 2}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
