@@ -11,7 +11,7 @@ public abstract class WeaponBase : MonoBehaviour {
 	// Gun details
 	[Header("Gun Settings")]
 	public float timeBetweenNextShots = 100f;
-	public WeaponType weaponType = WeaponType.SINGLE_SHOT;
+	public WeaponType weaponType;
 
 	// Projectile settings
 	[Header("Projectile Settings")]
