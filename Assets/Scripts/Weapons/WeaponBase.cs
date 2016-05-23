@@ -22,6 +22,8 @@ public abstract class WeaponBase : MonoBehaviour {
 	public float projectileMinimumDamage = 5f, projectileMaximumDamage = 10f;
 	protected float damagePerProjectile;
 
+	protected bool shouldDamageBeCalulated = true;
+
 	float nextShotTime;
 
 	protected abstract void OverrideShoot (Transform loc);
@@ -30,6 +32,8 @@ public abstract class WeaponBase : MonoBehaviour {
 	public virtual void Shoot () {
 
 		if (Time.time > nextShotTime) {
+
+			shouldDamageBeCalulated = true;
 
 				nextShotTime = Time.time + timeBetweenNextShots / 1000;
 
