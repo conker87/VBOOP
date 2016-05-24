@@ -556,7 +556,14 @@ MonoBehaviour:
   shootFromLocation:
   - {fileID: 495390}
   - {fileID: 493920}
+  weaponFireType: 0
+  weaponHanded: 0
   weaponType: 3
+  weaponQuality: 0
+  weaponPrefix: 0
+  weaponSuffix: 0
+  weaponProjectileType: 3
+  weaponName: 
   attackSpeed: 1.5
   projectilesPerShot: 8
   projectilesPerClip: 2

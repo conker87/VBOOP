@@ -540,14 +540,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shootFromLocation:
   - {fileID: 441418}
+  weaponFireType: 0
+  weaponHanded: 0
   weaponType: 0
+  weaponQuality: 0
+  weaponPrefix: 0
+  weaponSuffix: 0
+  weaponProjectileType: 3
+  weaponName: 
   attackSpeed: 0.5
   projectilesPerShot: 1
   projectilesPerClip: 8
   projectileMinimumDamage: 5
   projectileMaximumDamage: 10
   damagePerSecond: 0
-  projectileVelocity: 75
+  projectileVelocity: 5
   projectile: {fileID: 11420312, guid: c4664d539fa1f204e844622ac48ce1b6, type: 2}
 --- !u!1001 &100100000
 Prefab:

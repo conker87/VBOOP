@@ -388,8 +388,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shootFromLocation:
   - {fileID: 485992}
-  weaponType: 2
-  attackSpeed: 0.25
+  weaponFireType: 2
+  weaponHanded: 0
+  weaponType: 5
+  weaponQuality: 0
+  weaponPrefix: 0
+  weaponSuffix: 0
+  weaponProjectileType: 3
+  weaponName: 
+  attackSpeed: 0.1
   projectilesPerShot: 1
   projectilesPerClip: 64
   projectileMinimumDamage: 5

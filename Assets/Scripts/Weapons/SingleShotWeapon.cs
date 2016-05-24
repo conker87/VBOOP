@@ -19,10 +19,13 @@ public class SingleShotWeapon : WeaponBase {
 			damagePerProjectile = gunDamageThisShot / projectilesPerShot;
 
 			newProjectile.SetDamage (damagePerProjectile);
+			newProjectile.SetLifetime (5f);
 
-			Debug.Log ("SpreadWeapon::OverrideShot (Override) -- gunDamageThisShot: " + gunDamageThisShot + ", damagePerProjectile: " + damagePerProjectile);
+			newProjectile.SetIsPiercing((weaponProjectileType == WeaponProjectileType.PIERCING) ? true : false);
+			newProjectile.SetIsBurning((weaponProjectileType == WeaponProjectileType.BURNING) ? true : false);
+			newProjectile.SetIsPiercing((weaponProjectileType == WeaponProjectileType.FREEZING) ? true : false);
+
 		}
-
 
 	}
 

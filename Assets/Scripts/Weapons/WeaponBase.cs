@@ -66,15 +66,13 @@ public abstract class WeaponBase : MonoBehaviour {
 		if (weaponQuality == WeaponQuality.UNIQUE) { weaponQuality = WeaponQuality.MAGNIFICENT; }
 		weaponPrefix = SharedFunctions.RandomEnumValue<WeaponPrefix>();
 		weaponSuffix = SharedFunctions.RandomEnumValue<WeaponSuffix>();
-		weaponProjectileType = SharedFunctions.RandomEnumValue<WeaponProjectileType>();
+		//weaponProjectileType = SharedFunctions.RandomEnumValue<WeaponProjectileType>();
 
 		weaponName = weaponQuality + " " + weaponPrefix + " " + weaponType + " " + weaponSuffix + ", with " + weaponProjectileType + " rounds.";
 
 	}
 
 	public virtual void Shoot () {
-
-		Debug.Log ("Time: " + Time.time + ", nextShotTime: " + nextShotTime);
 
 		if (Time.time > nextShotTime) {
 
@@ -91,8 +89,6 @@ public abstract class WeaponBase : MonoBehaviour {
 						shouldDamageBeCalculated = false;
 					}
 				}
-
-				Debug.Log ("Weapon::Shoot -- Shooting.");
 
 			}
 

@@ -463,7 +463,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shootFromLocation: []
+  weaponFireType: 0
+  weaponHanded: 0
   weaponType: 4
+  weaponQuality: 0
+  weaponPrefix: 0
+  weaponSuffix: 0
+  weaponProjectileType: 3
+  weaponName: 
   attackSpeed: 1
   projectilesPerShot: 1
   projectilesPerClip: 50
