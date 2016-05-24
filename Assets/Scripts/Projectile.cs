@@ -5,8 +5,10 @@ using System.Linq;
 public class Projectile : MonoBehaviour {
 
 	// Speed and Damage values.
+	[SerializeField]
 	float speed = 1f, damage, currentDamage, lifetime = 8f;
-	public bool isPiercing = false, isBurning = false, isFreezing = false;
+	[SerializeField]
+	bool isPiercing, isBurning, isFreezing;
 
 	public GameObject dmgIndicator;
 
@@ -79,7 +81,7 @@ public class Projectile : MonoBehaviour {
 		bool doDmg = false;
 
 		if (timesHit == 0) {
-			enemyID = other.gameObject.GetInstanceID ();
+			enemyID = other.transform.parent.gameObject.GetInstanceID ();
 		}
 
 		if (!(new []{ "Player", "Weapon", "Projectile" }.Contains (other.tag))) {
@@ -88,18 +90,16 @@ public class Projectile : MonoBehaviour {
 
 			/// We want to do damage only when the times hit is equal to 1 (which means this is the first enemy it has encountered),
 			/// or if the times hit is more than 1 and that the enemy ID is no longer the same.
-			if (timesHit == 1 || (timesHit > 1 && enemyID != other.GetInstanceID ())) {
+			if (timesHit == 1 || (timesHit > 1 && enemyID != other.transform.parent.gameObject.GetInstanceID ())) {
 
-				enemyID = other.gameObject.GetInstanceID ();
+				enemyID = other.transform.parent.gameObject.GetInstanceID ();
 				doDmg = true;
-
-				Debug.Log ("Setting shit");
 
 			}
 
 			if (doDmg) {
 
-				Debug.Log (gameObject.name + " hit " + other.gameObject.name + ", timesHit: " + timesHit + ", for damage: " + currentDamage);
+				Debug.Log (gameObject.name + " hit " + other.transform.parent.gameObject.name + ", timesHit: " + timesHit + ", for damage: " + currentDamage);
 
 				/// Temp code to instantiate a temp dmg indicator.
 				//GameObject dmg = Instantiate (dmgIndicator, other.transform.position, other.transform.rotation) as GameObject;
@@ -111,9 +111,7 @@ public class Projectile : MonoBehaviour {
 				doDmg = false;
 
 				/// Destroy the gameObject now as it's either not a piercing round or it is and it has hit more than 4 enemies.
-				if (isPiercing == false || (isPiercing && timesHit == 4)) {
-
-					Debug.Log ("DESTROY NOW YOU CUNT");
+				if (isPiercing == false || (isPiercing == true && timesHit == 4)) {
 
 					Destroy (gameObject);
 

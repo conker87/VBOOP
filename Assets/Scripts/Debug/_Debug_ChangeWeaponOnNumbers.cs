@@ -48,6 +48,14 @@ public class _Debug_ChangeWeaponOnNumbers : MonoBehaviour {
 					weaponController.EquipWeapon (allGuns [0]);
 				} else if (Input.GetKeyDown (KeyCode.Alpha2)) {
 					weaponController.EquipWeapon (allGuns [1]);
+				} else if (Input.GetKeyDown (KeyCode.Alpha3)) {
+					weaponController.EquipWeapon (allGuns [2]);
+				} else if (Input.GetKeyDown (KeyCode.Alpha4)) {
+					weaponController.EquipWeapon (allGuns [3]);
+				} else if (Input.GetKeyDown (KeyCode.Alpha5)) {
+					weaponController.EquipWeapon (allGuns [4]);
+				} else if (Input.GetKeyDown (KeyCode.Alpha6)) {
+					weaponController.EquipWeapon (allGuns [5]);
 				}
 
 			}

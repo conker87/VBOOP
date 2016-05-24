@@ -13,6 +13,8 @@ public class SpreadWeapon : WeaponBase {
 
 		base.Start ();
 
+		weaponProjectileType = WeaponProjectileType.PIERCING;
+
 		// You can override the start method to force weapons to be certain qualities and have certain attributes.
 
 	}
@@ -31,16 +33,14 @@ public class SpreadWeapon : WeaponBase {
 		if (shouldDamageBeCalculated) {
 			float gunDamageThisShot = Random.Range (projectileMinimumDamage, projectileMaximumDamage);
 			damagePerProjectile = gunDamageThisShot / projectilesPerShot;
-
-			Debug.Log ("SpreadWeapon::OverrideShot (Override) -- gunDamageThisShot: " + gunDamageThisShot + ", damagePerProjectile: " + damagePerProjectile);
 		}
 
 		newProjectile.SetDamage (damagePerProjectile);
 		newProjectile.SetLifetime (5f);
 
-		newProjectile.SetIsPiercing((weaponProjectileType == WeaponProjectileType.PIERCING) ? true : false);
+		newProjectile.SetIsPiercing ((weaponProjectileType == WeaponProjectileType.PIERCING) ? true : false);
 		newProjectile.SetIsBurning((weaponProjectileType == WeaponProjectileType.BURNING) ? true : false);
-		newProjectile.SetIsPiercing((weaponProjectileType == WeaponProjectileType.FREEZING) ? true : false);
+		newProjectile.SetIsFreezing((weaponProjectileType == WeaponProjectileType.FREEZING) ? true : false);
 
 	}
 

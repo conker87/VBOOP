@@ -80,15 +80,15 @@ public abstract class WeaponBase : MonoBehaviour {
 
 			nextShotTime = Time.time + attackSpeed;
 
-				for (int i = 0; i < projectilesPerShot; i++) {
+			for (int i = 0; i < projectilesPerShot; i++) {
 
-					foreach (Transform loc in shootFromLocation) {
+				foreach (Transform loc in shootFromLocation) {
 
-						OverrideShoot (loc);
+					OverrideShoot (loc);
 
-						shouldDamageBeCalculated = false;
-					}
+					shouldDamageBeCalculated = false;
 				}
+			}
 
 			}
 
