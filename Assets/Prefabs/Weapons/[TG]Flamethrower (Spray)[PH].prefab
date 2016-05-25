@@ -463,7 +463,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shootFromLocation: []
-  weaponFireType: 0
+  weaponFireType: 4
   weaponHanded: 0
   weaponType: 4
   weaponQuality: 0

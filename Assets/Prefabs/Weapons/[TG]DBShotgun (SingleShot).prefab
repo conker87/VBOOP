@@ -556,7 +556,7 @@ MonoBehaviour:
   shootFromLocation:
   - {fileID: 495390}
   - {fileID: 493920}
-  weaponFireType: 0
+  weaponFireType: 3
   weaponHanded: 0
   weaponType: 3
   weaponQuality: 0

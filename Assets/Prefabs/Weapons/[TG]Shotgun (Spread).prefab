@@ -388,7 +388,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shootFromLocation:
   - {fileID: 452196}
-  weaponFireType: 0
+  weaponFireType: 3
   weaponHanded: 0
   weaponType: 0
   weaponQuality: 0

@@ -6,6 +6,17 @@ public class AutomaticWeapon : WeaponBase {
 	[Header("Overriden Gun Settings")]
 	public Projectile projectile;
 
+	protected override void Start() {
+
+		base.Start ();
+
+		weaponFireType = WeaponFireType.AUTOMATIC;
+
+		// You can override the start method to force weapons to be certain qualities and have certain attributes.
+
+	}
+
+
 	protected override void OverrideShoot (Transform loc)
 	{
 

@@ -28,7 +28,15 @@ public class EnemyBase : MonoBehaviour {
 
 		health += _health;
 
-		Debug.Log ("Current Health: ");
+	}
+
+	public void ChangeHealth(float _health, bool showDebug) {
+
+		float temp = health;
+
+		health += _health;
+
+		Debug.Log ("Previous/Current/Dmg: " + temp + "/" + health + "/" + _health);
 
 	}
 

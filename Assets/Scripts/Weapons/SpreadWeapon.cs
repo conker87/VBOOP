@@ -13,7 +13,7 @@ public class SpreadWeapon : WeaponBase {
 
 		base.Start ();
 
-		weaponProjectileType = WeaponProjectileType.PIERCING;
+		weaponFireType = WeaponFireType.SPREAD;
 
 		// You can override the start method to force weapons to be certain qualities and have certain attributes.
 

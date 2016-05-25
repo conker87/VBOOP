@@ -99,23 +99,33 @@ public class Projectile : MonoBehaviour {
 
 			if (doDmg) {
 
-				Debug.Log (gameObject.name + " hit " + other.transform.parent.gameObject.name + ", timesHit: " + timesHit + ", for damage: " + currentDamage);
+				Debug.Log (gameObject.name + " hit " + other.transform.parent.transform.parent.gameObject.name + ", timesHit: " + timesHit + ", for damage: " + currentDamage + ", isPiercing: " + isPiercing);
+
+				EnemyBase hitEnemy = other.gameObject.GetComponent<EnemyBase> ();
+
+				if (hitEnemy != null) {
+					hitEnemy.ChangeHealth (currentDamage, true);
+				}
+
+				/// This fires up the Static DamageIndicators class which takes in the current Projectile (to get the currentDamage) and the Enemy (to get the Transform).
+				//DamageIndictators.ShowDamageAtEnemy (this, other);
 
 				/// Temp code to instantiate a temp dmg indicator.
 				//GameObject dmg = Instantiate (dmgIndicator, other.transform.position, other.transform.rotation) as GameObject;
 				//dmg.GetComponentInChildren<TextMesh> ().text = currentDamage.ToString ();
 				//dmg.transform.LookAt (Camera.main.transform);
 
-				currentDamage -= (damage / 4);
-
-				doDmg = false;
-
 				/// Destroy the gameObject now as it's either not a piercing round or it is and it has hit more than 4 enemies.
-				if (isPiercing == false || (isPiercing == true && timesHit == 4)) {
+				if (isPiercing == false || (isPiercing == true && timesHit > 3)) {
+
+					//Debug.Log (gameObject.name + " destroyed with timesHit: " + timesHit + " and damage: " + currentDamage);
 
 					Destroy (gameObject);
 
 				}
+
+				currentDamage -= (damage / 4);
+				doDmg = false;
 			}
 		}
 
