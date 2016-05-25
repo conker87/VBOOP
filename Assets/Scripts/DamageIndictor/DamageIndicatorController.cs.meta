@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: c3b644be848ec334793e03ba9b8f9595
+timeCreated: 1464200502
+licenseType: Free
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - DamageIndicatorPrefab: {fileID: 11469792, guid: d7250d480f8ffb5458e45aa560c5c2d9,
+      type: 2}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -29,6 +29,12 @@ public class Projectile : MonoBehaviour {
 
 	}
 
+	public float GetCurrentDamage() {
+
+		return currentDamage;
+
+	}
+
 	public void SetIsPiercing(bool _isPiercing) {
 
 		isPiercing = _isPiercing;
@@ -81,7 +87,7 @@ public class Projectile : MonoBehaviour {
 		/// The projectile hit geometry and as such needs to be destroyed.
 		if ((new []{ "Geometry" }.Contains (other.tag))) {
 
-			Debug.Log ("This Projectile (" + gameObject.name + ") hit geometry and was destroyed");
+			//Debug.Log ("This Projectile (" + gameObject.name + ") hit geometry and was destroyed");
 
 			Destroy (gameObject);
 
@@ -92,7 +98,7 @@ public class Projectile : MonoBehaviour {
 		bool doDmg = false;
 
 
-		if (!(new []{ "Player", "Weapon", "Projectile", "Geometry" }.Contains (other.tag))) {
+		if (!(new []{ "Player", "Weapon", "Projectile" }.Contains (other.tag))) {
 
 			if (timesHit == 0) {
 				
@@ -123,7 +129,7 @@ public class Projectile : MonoBehaviour {
 				}
 
 				/// This fires up the Static DamageIndicators class which takes in the current Projectile (to get the currentDamage) and the Enemy (to get the Transform).
-				//DamageIndictators.ShowDamageAtEnemy (this, other);
+				DamageIndicatorController.ShowDamageAtEnemy (this, hitEnemy);
 
 				/// Temp code to instantiate a temp dmg indicator.
 				//GameObject dmg = Instantiate (dmgIndicator, other.transform.position, other.transform.rotation) as GameObject;
@@ -136,6 +142,8 @@ public class Projectile : MonoBehaviour {
 					Debug.Log (gameObject.name + " destroyed with timesHit: " + timesHit + " and damage: " + currentDamage);
 
 					Destroy (gameObject);
+
+					return;
 
 				}
 
