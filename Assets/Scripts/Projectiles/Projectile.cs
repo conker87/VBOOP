@@ -4,13 +4,13 @@ using System.Linq;
 
 public class Projectile : MonoBehaviour {
 
+	public DamageIndicator damageIndicator;
+
 	// Speed and Damage values.
 	[SerializeField]
 	float speed = 1f, damage, currentDamage, lifetime = 8f;
 	[SerializeField]
 	bool isPiercing, isBurning, isFreezing;
-
-	public GameObject dmgIndicator;
 
 	[SerializeField]
 	float destroyingIn;
@@ -65,10 +65,13 @@ public class Projectile : MonoBehaviour {
 
 	void Start () {
 
+		/// Destroys the gameObject in Lifetime seconds.
 		Destroy (gameObject, lifetime);
 
+		/// Sets the lifetime of the Projectile to a public var that shows in the inspector, this should be removed in retail.
 		destroyingIn = lifetime;
 
+		/// Sets the current damage to the total damage, this will be changed depending if the projectile is Piercing or not.
 		currentDamage = damage;
 
 	}
@@ -84,25 +87,16 @@ public class Projectile : MonoBehaviour {
 
 	void OnTriggerEnter(Collider other) {
 
-		/// The projectile hit geometry and as such needs to be destroyed.
-		if ((new []{ "Geometry" }.Contains (other.tag))) {
-
-			//Debug.Log ("This Projectile (" + gameObject.name + ") hit geometry and was destroyed");
-
-			Destroy (gameObject);
-
-			return;
-
-		}
-
 		bool doDmg = false;
 
+		EnemyBase enemyBaseParent = other.GetComponentInParent<EnemyBase>();
 
-		if (!(new []{ "Player", "Weapon", "Projectile" }.Contains (other.tag))) {
+		/// If enemyBaseParent isn't null, then GetComponentInParent found an EnemyBase comp.
+		if (enemyBaseParent != null) {
 
 			if (timesHit == 0) {
-				
-				enemyID = other.transform.parent.gameObject.GetInstanceID ();
+
+				enemyID = enemyBaseParent.GetInstanceID ();
 
 			}
 
@@ -112,7 +106,7 @@ public class Projectile : MonoBehaviour {
 			/// or if the times hit is more than 1 and that the enemy ID is no longer the same.
 			if (timesHit == 1 || (timesHit > 1 && enemyID != other.transform.parent.gameObject.GetInstanceID ())) {
 
-				enemyID = other.transform.parent.gameObject.GetInstanceID ();
+				enemyID = enemyBaseParent.GetInstanceID ();
 				doDmg = true;
 
 			}
@@ -121,15 +115,19 @@ public class Projectile : MonoBehaviour {
 
 				//Debug.Log (gameObject.name + " hit " + other.transform.parent.transform.parent.gameObject.name + ", timesHit: " + timesHit + ", for damage: " + currentDamage + ", isPiercing: " + isPiercing);
 
-				EnemyBase hitEnemy = other.transform.parent.transform.parent.GetComponent<EnemyBase> ();
-
-
-				if (hitEnemy != null) {
-					hitEnemy.ChangeHealth (-currentDamage, true);
+				if (enemyBaseParent != null) {
+					enemyBaseParent.ChangeHealth (-currentDamage);
 				}
 
 				/// This fires up the Static DamageIndicators class which takes in the current Projectile (to get the currentDamage) and the Enemy (to get the Transform).
-				DamageIndicatorController.ShowDamageAtEnemy (this, hitEnemy);
+
+				if (damageIndicator != null) {
+
+					DamageIndicator dmg = Instantiate(damageIndicator, other.transform.position, other.transform.rotation) as DamageIndicator;
+
+					dmg.GetComponentInChildren<TextMesh>().text = this.GetCurrentDamage().ToString();
+
+				}
 
 				/// Temp code to instantiate a temp dmg indicator.
 				//GameObject dmg = Instantiate (dmgIndicator, other.transform.position, other.transform.rotation) as GameObject;
@@ -139,7 +137,7 @@ public class Projectile : MonoBehaviour {
 				/// Destroy the gameObject now as it's either not a piercing round or it is and it has hit more than 4 enemies.
 				if (isPiercing == false || (isPiercing == true && timesHit > 3)) {
 
-					Debug.Log (gameObject.name + " destroyed with timesHit: " + timesHit + " and damage: " + currentDamage);
+					//Debug.Log (gameObject.name + " destroyed with timesHit: " + timesHit + " and damage: " + currentDamage);
 
 					Destroy (gameObject);
 
@@ -150,6 +148,18 @@ public class Projectile : MonoBehaviour {
 				currentDamage -= (damage / 4);
 				doDmg = false;
 			}
+
+		}
+
+		/// The projectile hit geometry and as such needs to be destroyed.
+		if ((new []{ "Geometry", "Untagged" }.Contains (other.tag))) {
+
+			//Debug.Log ("This Projectile (" + gameObject.name + ") hit geometry and was destroyed");
+
+			Destroy (gameObject);
+
+			return;
+
 		}
 
 	}

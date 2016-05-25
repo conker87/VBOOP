@@ -8,6 +8,7 @@ TagManager:
   - Projectile
   - Weapon
   - Geometry
+  - EnemyChild
   layers:
   - Default
   - TransparentFX

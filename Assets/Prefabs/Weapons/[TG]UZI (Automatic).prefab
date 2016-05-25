@@ -126,6 +126,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 401724}
   - {fileID: 436862}
@@ -142,6 +143,7 @@ Transform:
   m_LocalRotation: {x: 0.5000001, y: 0.5, z: 0.5, w: 0.49999994}
   m_LocalPosition: {x: 0, y: 0.03, z: -0.2}
   m_LocalScale: {x: 0.120000005, y: 0.045, z: 0.120000005}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 400478}
   m_RootOrder: 0
@@ -154,6 +156,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -0}
   m_LocalScale: {x: 0.120000005, y: 0.24000001, z: 0.112}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 400478}
   m_RootOrder: 1
@@ -166,6 +169,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -0}
   m_LocalScale: {x: 0.05, y: 0.05, z: 0.05}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 485992}
   m_RootOrder: 0
@@ -178,6 +182,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 1, z: 10}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 400478}
   m_Father: {fileID: 0}
@@ -191,6 +196,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0.1253, z: 0.2228}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 459582}
   m_Father: {fileID: 400478}
@@ -204,6 +210,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071067}
   m_LocalPosition: {x: 0, y: 0.12, z: -0}
   m_LocalScale: {x: 0.5, y: 0.135, z: 0.135}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 400478}
   m_RootOrder: 2
@@ -391,17 +398,17 @@ MonoBehaviour:
   weaponFireType: 2
   weaponHanded: 0
   weaponType: 5
-  weaponQuality: 0
-  weaponPrefix: 0
-  weaponSuffix: 0
+  weaponQuality: 1
+  weaponPrefix: 1
+  weaponSuffix: 1
   weaponProjectileType: 3
-  weaponName: 
-  attackSpeed: 0.1
+  weaponName: CRAP ABERRATION_ANNIHILATING UZI HEALTH_REGENERATION, with NULL rounds.
+  attackSpeed: 0.05
   projectilesPerShot: 1
   projectilesPerClip: 64
   projectileMinimumDamage: 5
   projectileMaximumDamage: 10
-  damagePerSecond: 0
+  damagePerSecond: 150
   projectileVelocity: 35
   projectile: {fileID: 11420312, guid: c4664d539fa1f204e844622ac48ce1b6, type: 2}
 --- !u!1001 &100100000

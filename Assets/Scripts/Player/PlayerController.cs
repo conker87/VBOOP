@@ -7,9 +7,15 @@ public class PlayerController : MonoBehaviour {
 	Vector3 velocity;
 	Rigidbody myRigidbody;
 
+	public Transform playerModel;
+
 	void Start () {
-		
-		myRigidbody = GetComponent<Rigidbody> ();
+
+		if (playerModel != null) {
+
+			myRigidbody = GetComponent<Rigidbody> ();
+
+		}
 
 	}
 
@@ -23,7 +29,7 @@ public class PlayerController : MonoBehaviour {
 
 		Vector3 heightCorrection = new Vector3 (point.x, transform.position.y, point.z);
 
-		transform.LookAt (heightCorrection);
+		playerModel.transform.LookAt (heightCorrection);
 	}
 
 	void FixedUpdate() {

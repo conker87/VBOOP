@@ -45,6 +45,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.10000001, y: 0.10000001, z: 0.15}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 494612}
   m_Father: {fileID: 0}
@@ -58,6 +59,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 439096}
   m_RootOrder: 0
@@ -132,6 +134,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 025ce0247d0508d4f8ef29cab954b6a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damageIndicator: {fileID: 11446104, guid: 2f55e1ce4f1c4ef41913d8df4085d6dc, type: 2}
   speed: 1
   damage: 0
   currentDamage: 0
@@ -139,7 +142,6 @@ MonoBehaviour:
   isPiercing: 0
   isBurning: 0
   isFreezing: 0
-  dmgIndicator: {fileID: 183514, guid: 2f55e1ce4f1c4ef41913d8df4085d6dc, type: 2}
   destroyingIn: 0
 --- !u!114 &11421094
 MonoBehaviour:
