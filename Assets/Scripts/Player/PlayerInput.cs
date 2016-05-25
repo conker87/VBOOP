@@ -5,7 +5,7 @@ using System.Linq;
 
 [RequireComponent(typeof(PlayerController))]
 [RequireComponent(typeof(WeaponController))]
-public class Player : MonoBehaviour {
+public class PlayerInput : MonoBehaviour {
 
 	public bool _DEBUG_FREEZE_ROTATION = false, _DEBUG_FREEZE_MOVEMENT = false;
 

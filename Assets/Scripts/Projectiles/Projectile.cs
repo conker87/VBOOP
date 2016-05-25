@@ -78,13 +78,27 @@ public class Projectile : MonoBehaviour {
 
 	void OnTriggerEnter(Collider other) {
 
-		bool doDmg = false;
+		/// The projectile hit geometry and as such needs to be destroyed.
+		if ((new []{ "Geometry" }.Contains (other.tag))) {
 
-		if (timesHit == 0) {
-			enemyID = other.transform.parent.gameObject.GetInstanceID ();
+			Debug.Log ("This Projectile (" + gameObject.name + ") hit geometry and was destroyed");
+
+			Destroy (gameObject);
+
+			return;
+
 		}
 
-		if (!(new []{ "Player", "Weapon", "Projectile" }.Contains (other.tag))) {
+		bool doDmg = false;
+
+
+		if (!(new []{ "Player", "Weapon", "Projectile", "Geometry" }.Contains (other.tag))) {
+
+			if (timesHit == 0) {
+				
+				enemyID = other.transform.parent.gameObject.GetInstanceID ();
+
+			}
 
 			timesHit++;
 
@@ -99,12 +113,13 @@ public class Projectile : MonoBehaviour {
 
 			if (doDmg) {
 
-				Debug.Log (gameObject.name + " hit " + other.transform.parent.transform.parent.gameObject.name + ", timesHit: " + timesHit + ", for damage: " + currentDamage + ", isPiercing: " + isPiercing);
+				//Debug.Log (gameObject.name + " hit " + other.transform.parent.transform.parent.gameObject.name + ", timesHit: " + timesHit + ", for damage: " + currentDamage + ", isPiercing: " + isPiercing);
 
-				EnemyBase hitEnemy = other.gameObject.GetComponent<EnemyBase> ();
+				EnemyBase hitEnemy = other.transform.parent.transform.parent.GetComponent<EnemyBase> ();
+
 
 				if (hitEnemy != null) {
-					hitEnemy.ChangeHealth (currentDamage, true);
+					hitEnemy.ChangeHealth (-currentDamage, true);
 				}
 
 				/// This fires up the Static DamageIndicators class which takes in the current Projectile (to get the currentDamage) and the Enemy (to get the Transform).
@@ -118,7 +133,7 @@ public class Projectile : MonoBehaviour {
 				/// Destroy the gameObject now as it's either not a piercing round or it is and it has hit more than 4 enemies.
 				if (isPiercing == false || (isPiercing == true && timesHit > 3)) {
 
-					//Debug.Log (gameObject.name + " destroyed with timesHit: " + timesHit + " and damage: " + currentDamage);
+					Debug.Log (gameObject.name + " destroyed with timesHit: " + timesHit + " and damage: " + currentDamage);
 
 					Destroy (gameObject);
 

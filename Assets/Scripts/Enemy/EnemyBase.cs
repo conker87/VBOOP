@@ -7,7 +7,11 @@ public class EnemyBase : MonoBehaviour {
 
 	public string nameofEnemy = "Test Enemy";
 
+	public EnemySpecies enemySpecies;
+
 	public float health, mana;
+	[SerializeField]
+	float currentHealth, currentMana;
 	public WeaponBase startingWeapon;
 	WeaponBase equippedWeapon;
 
@@ -16,53 +20,80 @@ public class EnemyBase : MonoBehaviour {
 		if (startingWeapon != null) {
 			EquipWeapon (startingWeapon);
 		}
-	}
 
-	public void SetHealth(float _health) {
-
-		health = _health;
-
-	}
-
-	public void ChangeHealth(float _health) {
-
-		health += _health;
-
-	}
-
-	public void ChangeHealth(float _health, bool showDebug) {
-
-		float temp = health;
-
-		health += _health;
-
-		Debug.Log ("Previous/Current/Dmg: " + temp + "/" + health + "/" + _health);
-
-	}
-
-	public void SetMana(float _mana) {
-
-		mana = _mana;
-
-	}
-
-	public void ChangeMana(float _mana) {
-
-		mana += _mana;
+		currentHealth = health;
+		currentMana = mana;
 
 	}
 
 	void Update () {
 
 		CheckForDeath ();
+		ClampHealthAndMana ();
+
+	}
+
+	public void SetHealth(float _health) {
+
+		currentHealth = _health;
+
+	}
+
+	public void ChangeHealth(float _health) {
+
+		currentHealth += _health;
+
+	}
+
+	public void ChangeHealth(float _health, bool showDebug) {
+
+		float temp = currentHealth;
+
+		currentHealth += _health;
+
+		Debug.Log ("Previous/Current/Dmg: " + temp + "/" + currentHealth + "/" + Mathf.Abs(_health));
+
+	}
+
+	public void SetMana(float _mana) {
+
+		currentMana = _mana;
+
+	}
+
+	public void ChangeMana(float _mana) {
+
+		currentMana += _mana;
 
 	}
 
 	public void CheckForDeath() {
 
-		if (health <= 0) {
+		if (currentHealth <= 0) {
 
 			Destroy(gameObject);
+
+		}
+
+	}
+
+	public void ClampHealthAndMana() {
+
+		if (currentMana <= 0) {
+
+			currentMana = 0;
+
+		}
+
+		if (currentMana > mana) {
+
+			currentMana = mana;
+
+		}
+
+		if (currentHealth > health) {
+
+			currentHealth = health;
 
 		}
 

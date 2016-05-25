@@ -11,7 +11,7 @@ GameObject:
   - 33: {fileID: 3331130}
   - 65: {fileID: 6576812}
   - 23: {fileID: 2317050}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Hand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -29,7 +29,7 @@ GameObject:
   - 33: {fileID: 3382824}
   - 135: {fileID: 13501618}
   - 23: {fileID: 2329214}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -47,7 +47,7 @@ GameObject:
   - 33: {fileID: 3366912}
   - 135: {fileID: 13516336}
   - 23: {fileID: 2314212}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -62,7 +62,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 440068}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: WeaponPlacement
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -80,7 +80,7 @@ GameObject:
   - 33: {fileID: 3343232}
   - 135: {fileID: 13514870}
   - 23: {fileID: 2318496}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -98,7 +98,7 @@ GameObject:
   - 33: {fileID: 3305630}
   - 65: {fileID: 6555900}
   - 23: {fileID: 2369264}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -113,7 +113,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 444362}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Face
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -128,7 +128,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 419982}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: RightEye
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -146,7 +146,7 @@ GameObject:
   - 33: {fileID: 3341214}
   - 135: {fileID: 13552016}
   - 23: {fileID: 2318512}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -161,7 +161,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 473654}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: LeftEye
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -177,13 +177,13 @@ GameObject:
   m_Component:
   - 4: {fileID: 401206}
   - 54: {fileID: 5492232}
+  - 114: {fileID: 11479772}
   - 114: {fileID: 11430850}
-  - 114: {fileID: 11488366}
   - 114: {fileID: 11468636}
   - 23: {fileID: 2312292}
   - 136: {fileID: 13609890}
   - 33: {fileID: 3318828}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Player[PH]
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -626,8 +626,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shouldWeaponScaleToPlayer: 0
   weaponLocation: {fileID: 440068}
-  startingWeapon: {fileID: 11433006, guid: 1c57d7cebd153a44880bb4291616a7c4, type: 2}
---- !u!114 &11488366
+  startingWeapon: {fileID: 11473516, guid: 3cff10bd3f2867645a327d74056fcc68, type: 2}
+--- !u!114 &11479772
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -635,12 +635,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 183310}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b8a8a7daa0f2f9e4a8e1cdd50a34d5aa, type: 3}
+  m_Script: {fileID: 11500000, guid: 2de6059ce2947c44bae891adaededa73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _DEBUG_FREEZE_ROTATION: 0
-  _DEBUG_FREEZE_MOVEMENT: 0
-  moveSpeed: 10
 --- !u!135 &13501618
 SphereCollider:
   m_ObjectHideFlags: 1
