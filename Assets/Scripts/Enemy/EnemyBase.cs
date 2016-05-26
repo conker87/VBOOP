@@ -3,6 +3,9 @@ using System.Collections;
 
 public class EnemyBase : MonoBehaviour {
 
+	// Reference to the player, I'm not sure if Player should be a singleton or not.
+	public Player player;
+
 	public Transform weaponLocation;
 
 	public string enemyName = "", enemyNameSub = "";
@@ -15,8 +18,17 @@ public class EnemyBase : MonoBehaviour {
 	public WeaponBase startingWeapon;
 	WeaponBase equippedWeapon;
 
+	// enemyXPForCurrentLevel should be calculated depending on the Player current level, if the Player is more than [3] levels above the enemy should not give XP. 1/3 of the total XP should be removed per level above enemyCurrentLevel.
+	public int enemyCurrentLevel = 1, enemyXPForCurrentLevel = 10;
+
 	void Start ()
 	{
+		if (player == null) {
+
+			player = GameObject.FindObjectOfType<Player> ();
+
+		}
+
 		if (startingWeapon != null) {
 			EquipWeapon (startingWeapon);
 		}
@@ -39,6 +51,10 @@ public class EnemyBase : MonoBehaviour {
 
 	}
 
+	/// <summary>
+	/// Changes the health based upon the amount give.
+	/// </summary>
+	/// <param name="_health">The health to change by, can be negative or positive.</param>
 	public void ChangeHealth(float _health) {
 
 		currentHealth += _health;
@@ -50,8 +66,6 @@ public class EnemyBase : MonoBehaviour {
 		float temp = currentHealth;
 
 		currentHealth += _health;
-
-		Debug.Log ("Previous/Current/Dmg: " + temp + "/" + currentHealth + "/" + Mathf.Abs(_health));
 
 	}
 
@@ -70,6 +84,8 @@ public class EnemyBase : MonoBehaviour {
 	public void CheckForDeath() {
 
 		if (currentHealth <= 0) {
+
+			player.AmendCurrentXP (enemyXPForCurrentLevel);
 
 			Destroy(gameObject);
 
