@@ -15,7 +15,17 @@ public class SetEnemyNameplates : MonoBehaviour {
 
 			if (nameNameplate != null) {
 
-				nameNameplate.text = enemyBase.enemyName;
+				if (enemyBase.name != "") {
+					
+					nameNameplate.text = enemyBase.enemyName;
+
+				} else {
+
+					nameNameplate.text = "!ERROR! " + gameObject.name + " has no name!";
+
+					Debug.LogError ("SetEnemyNameplates::Start() -- !ERROR! " + gameObject.name + " has no name!");
+
+				}
 
 			}
 

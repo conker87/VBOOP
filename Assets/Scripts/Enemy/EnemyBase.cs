@@ -5,7 +5,7 @@ public class EnemyBase : MonoBehaviour {
 
 	public Transform weaponLocation;
 
-	public string enemyName = "Name", enemyNameSub = "NameSub";
+	public string enemyName = "", enemyNameSub = "";
 
 	public EnemySpecies enemySpecies;
 
