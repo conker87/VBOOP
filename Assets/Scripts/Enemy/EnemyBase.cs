@@ -45,6 +45,32 @@ public class EnemyBase : MonoBehaviour {
 
 	}
 
+	// Get methods
+	public float GetCurrentHealth () {
+
+		return currentHealth;
+
+	}
+
+	public float GetMaximumHealth() {
+
+		return health;
+
+	}
+
+	public float GetCurrentMana() {
+
+		return currentMana;
+
+	}
+
+	public float GetMaximumMana() {
+
+		return mana;
+
+	}
+
+	// Set and Amend methods
 	public void SetHealth(float _health) {
 
 		currentHealth = _health;
@@ -56,14 +82,6 @@ public class EnemyBase : MonoBehaviour {
 	/// </summary>
 	/// <param name="_health">The health to change by, can be negative or positive.</param>
 	public void ChangeHealth(float _health) {
-
-		currentHealth += _health;
-
-	}
-
-	public void ChangeHealth(float _health, bool showDebug) {
-
-		float temp = currentHealth;
 
 		currentHealth += _health;
 

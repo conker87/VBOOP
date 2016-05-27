@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class _DEBUG_Append_InstanceID_At_Runtime : MonoBehaviour {
+public class AppendInstanceIDToNameAtRuntime : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {

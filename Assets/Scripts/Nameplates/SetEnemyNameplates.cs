@@ -3,7 +3,8 @@ using System.Collections;
 
 public class SetEnemyNameplates : MonoBehaviour {
 
-	public UnityEngine.UI.Text nameNameplate, speciesNameplate;
+	public GameObject nameNameplate, speciesNameplate;
+	public GameObject healthPanel, manaPanel;
 
 	EnemyBase enemyBase;
 
@@ -17,11 +18,11 @@ public class SetEnemyNameplates : MonoBehaviour {
 
 				if (enemyBase.name != "") {
 					
-					nameNameplate.text = enemyBase.enemyName;
+					nameNameplate.GetComponent<UnityEngine.UI.Text>().text = enemyBase.enemyName;
 
 				} else {
 
-					nameNameplate.text = "!ERROR! " + gameObject.name + " has no name!";
+					nameNameplate.GetComponent<UnityEngine.UI.Text>().text = "!ERROR! " + gameObject.name + " has no name!";
 
 					Debug.LogError ("SetEnemyNameplates::Start() -- !ERROR! " + gameObject.name + " has no name!");
 
@@ -33,17 +34,36 @@ public class SetEnemyNameplates : MonoBehaviour {
 
 				if (enemyBase.enemyNameSub != "") {
 					
-					speciesNameplate.text = enemyBase.enemyNameSub;
+					speciesNameplate.GetComponent<UnityEngine.UI.Text>().text = enemyBase.enemyNameSub;
 
 				} else {
 
-					speciesNameplate.text = enemyBase.enemySpecies.ToString ();
+					speciesNameplate.GetComponent<UnityEngine.UI.Text>().text = enemyBase.enemySpecies.ToString ();
 
 				}
-
 			}
+		}
+
+	}
+
+	void SetResourceBar(GameObject panel, float currentResource, float maximumResource) {
+
+		if (panel != null) {
+
+			float percentage = currentResource / maximumResource;
+
+			Vector3 newLocalScale = new Vector3 (percentage, 1f, 1f);
+
+			panel.transform.localScale = newLocalScale;
 
 		}
+
+	}
+
+	void Update() {
+
+		SetResourceBar (healthPanel, enemyBase.GetCurrentHealth (), enemyBase.GetMaximumHealth ());
+		SetResourceBar (manaPanel, enemyBase.GetCurrentMana (), enemyBase.GetMaximumMana ());
 
 	}
 
