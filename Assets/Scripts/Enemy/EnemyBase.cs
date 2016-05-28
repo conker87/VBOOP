@@ -3,31 +3,25 @@ using System.Collections;
 
 public class EnemyBase : MonoBehaviour {
 
-	// Reference to the player, I'm not sure if Player should be a singleton or not.
-	public Player player;
-
 	public Transform weaponLocation;
 
-	public string enemyName = "", enemyNameSub = "";
+	public string nameof = "", title = "";
 
-	public EnemySpecies enemySpecies;
+	public EnemySpecies species;
+	public EnemyQuality quality;
 
 	public float health, mana;
 	[SerializeField]
 	float currentHealth, currentMana;
+
 	public WeaponBase startingWeapon;
 	WeaponBase equippedWeapon;
 
 	// enemyXPForCurrentLevel should be calculated depending on the Player current level, if the Player is more than [3] levels above the enemy should not give XP. 1/3 of the total XP should be removed per level above enemyCurrentLevel.
-	public int enemyCurrentLevel = 1, enemyXPForCurrentLevel = 10;
+	public int currentLevel = 1, XPForCurrentLevel = 10;
 
 	void Start ()
 	{
-		if (player == null) {
-
-			player = GameObject.FindObjectOfType<Player> ();
-
-		}
 
 		if (startingWeapon != null) {
 			EquipWeapon (startingWeapon);
@@ -103,7 +97,7 @@ public class EnemyBase : MonoBehaviour {
 
 		if (currentHealth <= 0) {
 
-			player.AmendCurrentXP (enemyXPForCurrentLevel);
+			Player.current.AmendCurrentXP (XPForCurrentLevel);
 
 			Destroy(gameObject);
 
@@ -147,3 +141,4 @@ public class EnemyBase : MonoBehaviour {
 }
 
 public enum EnemySpecies { UNDEAD, ABERRATION, BEAST, HUMAN, CRITTER, MISC };
+public enum EnemyQuality { WEAK, STARDARD, ELITE, BOSS };

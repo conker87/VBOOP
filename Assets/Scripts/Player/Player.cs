@@ -3,10 +3,20 @@ using System.Collections;
 
 public class Player : MonoBehaviour {
 
+	public static Player current { get; protected set; }
+
 	public int currentLevel, currentXP;
 
 	/// Temporary value, this should be got via passing currentLevel to a shared method that calculates the total xp needed depending on their level.
-	int totalXPForLevel = 100;
+	int totalXPForLevel;
+
+	void Start () {
+
+		current = this;
+
+		totalXPForLevel = XPNeededToLevel (GetCurrentLevel());
+
+	}
 
 	public int GetCurrentLevel() {
 
@@ -47,9 +57,6 @@ public class Player : MonoBehaviour {
 
 			DoLevelUp (GetCurrentXP (), totalXPForLevel);
 
-			// MOVE TO METHOD
-			totalXPForLevel = 110;
-
 		}
 
 	}
@@ -58,9 +65,12 @@ public class Player : MonoBehaviour {
 
 		GainLevel ();
 
+		// Sort out new XP gained.
 		int overflow = _currentXP - totalXP;
-
 		SetCurrentXP (overflow);
+
+		// Set the XP needed to level to the calculated value.
+		totalXPForLevel = XPNeededToLevel (GetCurrentLevel());
 
 	}
 
@@ -76,13 +86,11 @@ public class Player : MonoBehaviour {
 
 	}
 
-	// Use this for initialization
-	void Start () {
-	
+	// TODO: This method.
+	public int XPNeededToLevel (int _currentLevel) {
+
+		return 100;
+
 	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+
 }

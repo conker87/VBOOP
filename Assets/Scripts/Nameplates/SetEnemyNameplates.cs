@@ -3,7 +3,7 @@ using System.Collections;
 
 public class SetEnemyNameplates : MonoBehaviour {
 
-	public GameObject nameNameplate, speciesNameplate;
+	public GameObject nameNameplate, titleNameplate;
 	public GameObject healthPanel, manaPanel;
 
 	EnemyBase enemyBase;
@@ -18,7 +18,7 @@ public class SetEnemyNameplates : MonoBehaviour {
 
 				if (enemyBase.name != "") {
 					
-					nameNameplate.GetComponent<UnityEngine.UI.Text>().text = enemyBase.enemyName;
+					nameNameplate.GetComponent<UnityEngine.UI.Text>().text = enemyBase.name;
 
 				} else {
 
@@ -30,15 +30,15 @@ public class SetEnemyNameplates : MonoBehaviour {
 
 			}
 
-			if (speciesNameplate != null) {
+			if (titleNameplate != null) {
 
-				if (enemyBase.enemyNameSub != "") {
+				if (enemyBase.title != "") {
 					
-					speciesNameplate.GetComponent<UnityEngine.UI.Text>().text = enemyBase.enemyNameSub;
+					titleNameplate.GetComponent<UnityEngine.UI.Text>().text = enemyBase.title;
 
 				} else {
 
-					speciesNameplate.GetComponent<UnityEngine.UI.Text>().text = enemyBase.enemySpecies.ToString ();
+					titleNameplate.GetComponent<UnityEngine.UI.Text>().text = enemyBase.species.ToString ();
 
 				}
 			}
@@ -50,11 +50,23 @@ public class SetEnemyNameplates : MonoBehaviour {
 
 		if (panel != null) {
 
-			float percentage = currentResource / maximumResource;
+			if (maximumResource == 0) {
 
-			Vector3 newLocalScale = new Vector3 (percentage, 1f, 1f);
+				float zero = 0f;
+				Vector3 newLocalScale = new Vector3 (zero, 1f, 1f);
+				panel.transform.localScale = newLocalScale;
 
-			panel.transform.localScale = newLocalScale;
+				return;
+
+			}
+
+			if (maximumResource > 0) {
+
+				float percentage = currentResource / maximumResource;
+				Vector3 newLocalScale = new Vector3 (percentage, 1f, 1f);
+				panel.transform.localScale = newLocalScale;
+
+			}
 
 		}
 
