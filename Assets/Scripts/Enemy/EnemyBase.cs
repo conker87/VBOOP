@@ -20,7 +20,7 @@ public class EnemyBase : MonoBehaviour {
 	public WeaponBase startingWeapon;
 	WeaponBase equippedWeapon;
 
-	const float levelMultiplierConstant = 17f;
+	const float levelMultiplierConstant = 10f;
 	// enemyXPForCurrentLevel should be calculated depending on the Player current level, if the Player is more than [3] levels above the enemy should not give XP. 1/3 of the total XP should be removed per level above enemyCurrentLevel.
 	public int XPForCurrentLevel = 10;
 	// currentLevel should be acquired from the Level singleton, as the player can choose what level they want to fight.
@@ -35,8 +35,8 @@ public class EnemyBase : MonoBehaviour {
 			EquipWeapon (startingWeapon);
 		}
 
-		currentHealth = maxHealth = ScaleEnemyHealthToPlayer();
-		currentMana = maxMana = ScaleEnemyManaToPlayer();
+		currentHealth = maxHealth = ScaleEnemyResourceToPlayer(baseHealth);
+		currentMana = maxMana = ScaleEnemyResourceToPlayer(baseMana);
 
 	}
 
@@ -48,25 +48,12 @@ public class EnemyBase : MonoBehaviour {
 	}
 
 	// Scaling Methods
-	float ScaleEnemyHealthToPlayer() { 
+	float ScaleEnemyResourceToPlayer(float baseResource) { 
 
 		float qualityMultiplier = GetQualityMultiplier();
 		float levelMultiplier = GetLevelMultiplier();
 
-		return baseHealth * qualityMultiplier * levelMultiplier;
-
-	}
-
-	// Scaling Methods
-	float ScaleEnemyManaToPlayer() { 
-
-		return 25;
-
-		/* 
-		float qualityMultiplier = GetQualityMultiplier();
-		float levelMultiplier = GetLevelMultiplier();
-
-		return baseHealth * qualityMultiplier * levelMultiplier; */
+		return baseResource * qualityMultiplier * levelMultiplier;
 
 	}
 

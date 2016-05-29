@@ -104,7 +104,7 @@ public class Projectile : MonoBehaviour {
 
 			/// We want to do damage only when the times hit is equal to 1 (which means this is the first enemy it has encountered),
 			/// or if the times hit is more than 1 and that the enemy ID is no longer the same.
-			if (timesHit == 1 || (timesHit > 1 && enemyID != other.transform.parent.gameObject.GetInstanceID ())) {
+			if (timesHit == 1 || (timesHit > 1 && enemyID != enemyBaseParent.GetInstanceID ())) {
 
 				enemyID = enemyBaseParent.GetInstanceID ();
 				doDmg = true;
@@ -113,7 +113,7 @@ public class Projectile : MonoBehaviour {
 
 			if (doDmg) {
 
-				//Debug.Log (gameObject.name + " hit " + other.transform.parent.transform.parent.gameObject.name + ", timesHit: " + timesHit + ", for damage: " + currentDamage + ", isPiercing: " + isPiercing);
+				Debug.Log (gameObject.name + " hit " + other.transform.name + " (" + enemyBaseParent.gameObject.name + "), timesHit: " + timesHit + ", for damage: " + currentDamage + ", isPiercing: " + isPiercing);
 
 				if (enemyBaseParent != null) {
 					enemyBaseParent.ChangeHealth (-currentDamage);
