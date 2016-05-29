@@ -5,6 +5,8 @@ using System.Linq;
 [ExecuteInEditMode]
 public abstract class WeaponBase : MonoBehaviour {
 
+	SharedFunctions sf = new SharedFunctions();
+
 	[Header("Location Settings")]
 	public Transform[] shootFromLocation;
 
@@ -62,11 +64,11 @@ public abstract class WeaponBase : MonoBehaviour {
 
 	public void GenerateWeaponQuality() {
 
-		weaponQuality = SharedFunctions.RandomEnumValue<WeaponQuality>();
+		weaponQuality = sf.RandomEnumValue<WeaponQuality>();
 		if (weaponQuality == WeaponQuality.UNIQUE) { weaponQuality = WeaponQuality.MAGNIFICENT; }
-		weaponPrefix = SharedFunctions.RandomEnumValue<WeaponPrefix>();
-		weaponSuffix = SharedFunctions.RandomEnumValue<WeaponSuffix>();
-		//weaponProjectileType = SharedFunctions.RandomEnumValue<WeaponProjectileType>();
+		weaponPrefix = sf.RandomEnumValue<WeaponPrefix>();
+		weaponSuffix = sf.RandomEnumValue<WeaponSuffix>();
+		weaponProjectileType = sf.RandomEnumValue<WeaponProjectileType>();
 
 		weaponName = weaponQuality + " " + weaponPrefix + " " + weaponType + " " + weaponSuffix + ", with " + weaponProjectileType + " rounds.";
 

@@ -3,6 +3,8 @@ using System.Collections;
 
 public class EnemyBase : MonoBehaviour {
 
+	SharedFunctions sf = new SharedFunctions();
+
 	public Transform weaponLocation;
 
 	public string nameof = "", title = "";
@@ -10,25 +12,31 @@ public class EnemyBase : MonoBehaviour {
 	public EnemySpecies species;
 	public EnemyQuality quality;
 
-	public float health, mana;
+	float baseHealth = 20, baseMana = 10;
+	public float maxHealth, maxMana;
 	[SerializeField]
 	float currentHealth, currentMana;
 
 	public WeaponBase startingWeapon;
 	WeaponBase equippedWeapon;
 
+	const float levelMultiplierConstant = 17f;
 	// enemyXPForCurrentLevel should be calculated depending on the Player current level, if the Player is more than [3] levels above the enemy should not give XP. 1/3 of the total XP should be removed per level above enemyCurrentLevel.
-	public int currentLevel = 1, XPForCurrentLevel = 10;
+	public int XPForCurrentLevel = 10;
+	// currentLevel should be acquired from the Level singleton, as the player can choose what level they want to fight.
+	public int currentLevel = 1 ;
 
 	void Start ()
 	{
+		
+		quality = sf.RandomEnumValue<EnemyQuality> ();
 
 		if (startingWeapon != null) {
 			EquipWeapon (startingWeapon);
 		}
 
-		currentHealth = health;
-		currentMana = mana;
+		currentHealth = maxHealth = ScaleEnemyHealthToPlayer();
+		currentMana = maxMana = ScaleEnemyManaToPlayer();
 
 	}
 
@@ -36,6 +44,65 @@ public class EnemyBase : MonoBehaviour {
 
 		CheckForDeath ();
 		ClampHealthAndMana ();
+
+	}
+
+	// Scaling Methods
+	float ScaleEnemyHealthToPlayer() { 
+
+		float qualityMultiplier = GetQualityMultiplier();
+		float levelMultiplier = GetLevelMultiplier();
+
+		return baseHealth * qualityMultiplier * levelMultiplier;
+
+	}
+
+	// Scaling Methods
+	float ScaleEnemyManaToPlayer() { 
+
+		return 25;
+
+		/* 
+		float qualityMultiplier = GetQualityMultiplier();
+		float levelMultiplier = GetLevelMultiplier();
+
+		return baseHealth * qualityMultiplier * levelMultiplier; */
+
+	}
+
+	float GetQualityMultiplier() {
+
+		float qualityMultiplier;
+
+		switch (quality) {
+
+			case EnemyQuality.WEAK:
+				qualityMultiplier = 0.7f;
+				break;
+			default:
+			case EnemyQuality.STANDARD:
+				qualityMultiplier = 1f;
+				break;
+			case EnemyQuality.ELITE:
+				qualityMultiplier = 1.3f;
+				break;
+			case EnemyQuality.BOSS:
+				qualityMultiplier = 1.75f;
+				break;
+
+		}
+
+		return qualityMultiplier;
+
+	}
+
+	float GetLevelMultiplier() {
+
+		float levelMultiplier;
+
+		levelMultiplier = currentLevel * levelMultiplierConstant;
+
+		return levelMultiplier;
 
 	}
 
@@ -48,7 +115,7 @@ public class EnemyBase : MonoBehaviour {
 
 	public float GetMaximumHealth() {
 
-		return health;
+		return maxHealth;
 
 	}
 
@@ -60,7 +127,7 @@ public class EnemyBase : MonoBehaviour {
 
 	public float GetMaximumMana() {
 
-		return mana;
+		return maxMana;
 
 	}
 
@@ -113,15 +180,15 @@ public class EnemyBase : MonoBehaviour {
 
 		}
 
-		if (currentMana > mana) {
+		if (currentMana > maxMana) {
 
-			currentMana = mana;
+			currentMana = maxMana;
 
 		}
 
-		if (currentHealth > health) {
+		if (currentHealth > maxHealth) {
 
-			currentHealth = health;
+			currentHealth = maxHealth;
 
 		}
 
@@ -141,4 +208,4 @@ public class EnemyBase : MonoBehaviour {
 }
 
 public enum EnemySpecies { UNDEAD, ABERRATION, BEAST, HUMAN, CRITTER, MISC };
-public enum EnemyQuality { WEAK, STARDARD, ELITE, BOSS };
+public enum EnemyQuality { WEAK, STANDARD, ELITE, BOSS };

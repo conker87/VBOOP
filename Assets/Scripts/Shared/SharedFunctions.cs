@@ -1,12 +1,13 @@
-﻿using System;
+﻿using UnityEngine;
+using System;
 using System.Collections;
 
-public class SharedFunctions {
+public class SharedFunctions : MonoBehaviour {
 
-	public static T RandomEnumValue<T> ()
+	public T RandomEnumValue<T> ()
 	{
 		var v = Enum.GetValues (typeof (T));
-		return (T) v.GetValue (new Random ().Next(v.Length));
+		return (T) v.GetValue (UnityEngine.Random.Range(0, v.Length));
 	}
 
 }

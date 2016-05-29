@@ -31,7 +31,11 @@ public class AutomaticWeapon : WeaponBase {
 
 			newProjectile.SetDamage (damagePerProjectile);
 
-			Debug.Log ("SpreadWeapon::OverrideShot (Override) -- gunDamageThisShot: " + gunDamageThisShot + ", damagePerProjectile: " + damagePerProjectile);
+			if (false) {
+			
+				Debug.Log ("SpreadWeapon::OverrideShot (Override) -- gunDamageThisShot: " + gunDamageThisShot + ", damagePerProjectile: " + damagePerProjectile);
+
+			}
 		}
 
 	}

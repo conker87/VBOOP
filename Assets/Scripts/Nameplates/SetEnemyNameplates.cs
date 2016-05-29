@@ -1,30 +1,32 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public class SetEnemyNameplates : MonoBehaviour {
 
 	public GameObject nameNameplate, titleNameplate;
 	public GameObject healthPanel, manaPanel;
+	public GameObject healthPanelPercetage, healthPanelActual, manaPanelPercetage, manaPanelActual;
 
 	EnemyBase enemyBase;
 
-	void Start () {
-	
-		enemyBase = GetComponent<EnemyBase> ();
+	bool dontSpamLog = true;
+
+	float currentHealth, maximumHealth, currentMana, maximumMana;
+
+	void SetNameplateText() {
 
 		if (enemyBase != null) {
 
 			if (nameNameplate != null) {
 
-				if (enemyBase.name != "") {
-					
-					nameNameplate.GetComponent<UnityEngine.UI.Text>().text = enemyBase.name;
+				if (enemyBase.nameof != "") {
+
+					nameNameplate.GetComponent<Text>().text = enemyBase.nameof;
 
 				} else {
 
-					nameNameplate.GetComponent<UnityEngine.UI.Text>().text = "!ERROR! " + gameObject.name + " has no name!";
-
-					Debug.LogError ("SetEnemyNameplates::Start() -- !ERROR! " + gameObject.name + " has no name!");
+					nameNameplate.GetComponent<Text>().text = gameObject.name;
 
 				}
 
@@ -33,7 +35,7 @@ public class SetEnemyNameplates : MonoBehaviour {
 			if (titleNameplate != null) {
 
 				if (enemyBase.title != "") {
-					
+
 					titleNameplate.GetComponent<UnityEngine.UI.Text>().text = enemyBase.title;
 
 				} else {
@@ -69,13 +71,47 @@ public class SetEnemyNameplates : MonoBehaviour {
 			}
 
 		}
+	}
+
+	void SetResourceBarText(GameObject panel, float value, float maximumResource) {
+
+		if (panel != null) {
+
+			if (maximumResource > 0) {
+
+				panel.GetComponent<Text> ().text = value.ToString ();
+
+			}
+
+		}
+
+	}
+
+	void Start () {
+
+		enemyBase = GetComponent<EnemyBase> ();
+
+		maximumHealth = enemyBase.GetMaximumHealth ();
+		maximumMana = enemyBase.GetMaximumMana ();
+
+		SetNameplateText ();
 
 	}
 
 	void Update() {
 
-		SetResourceBar (healthPanel, enemyBase.GetCurrentHealth (), enemyBase.GetMaximumHealth ());
-		SetResourceBar (manaPanel, enemyBase.GetCurrentMana (), enemyBase.GetMaximumMana ());
+		currentHealth = enemyBase.GetCurrentHealth ();
+		currentMana = enemyBase.GetCurrentMana ();
+
+		// Health
+		SetResourceBar(healthPanel, currentHealth, maximumHealth);
+		SetResourceBarText(healthPanelActual, currentHealth, maximumHealth);
+		SetResourceBarText (healthPanelPercetage, (currentHealth / maximumHealth) * 100, maximumHealth);
+
+		// Mana
+		SetResourceBar (manaPanel, currentMana, maximumMana);
+		SetResourceBarText(manaPanelActual, currentMana, maximumMana);
+		SetResourceBarText (manaPanelPercetage, (currentMana / maximumMana) * 100, maximumMana);
 
 	}
 
