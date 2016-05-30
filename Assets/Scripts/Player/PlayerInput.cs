@@ -8,6 +8,7 @@ using System.Linq;
 public class PlayerInput : MonoBehaviour {
 
 	public bool _DEBUG_FREEZE_ROTATION = false, _DEBUG_FREEZE_MOVEMENT = false;
+	public bool _DEBUG_CHOOSEN_TO_CARE_ABOUT_SHOOTING_INPUT = true;
 
 	PlayerController controller;
 	WeaponController weaponController;
@@ -55,14 +56,24 @@ public class PlayerInput : MonoBehaviour {
 
 		// Weapon Input
 		// { SINGLE_SHOT, SEMI_AUTOMATIC, AUTOMATIC, SPREAD, SPRAY, PROJECTILE };
-		if (new []{ WeaponFireType.AUTOMATIC, WeaponFireType.SEMI_AUTOMATIC, WeaponFireType.SPRAY }.Contains (weaponController.GetWeaponFireType ())) {//weaponController.GetWeaponFireType() == WeaponFireType.AUTOMATIC || ) {
+
+		if (_DEBUG_CHOOSEN_TO_CARE_ABOUT_SHOOTING_INPUT) {
+
+			if (new []{ WeaponFireType.AUTOMATIC, WeaponFireType.SEMI_AUTOMATIC, WeaponFireType.SPRAY }.Contains (weaponController.GetWeaponFireType ())) {//weaponController.GetWeaponFireType() == WeaponFireType.AUTOMATIC || ) {
+				if (Input.GetMouseButton (0)) {
+					weaponController.Shoot ();
+				}
+			} else if (!(new []{ WeaponFireType.AUTOMATIC, WeaponFireType.SEMI_AUTOMATIC, WeaponFireType.SPRAY }.Contains (weaponController.GetWeaponFireType ()))) {
+				if (Input.GetMouseButtonDown (0)) {
+					weaponController.Shoot ();
+				}
+			}
+		} else {
+
 			if (Input.GetMouseButton (0)) {
 				weaponController.Shoot ();
 			}
-		} else if (!(new []{ WeaponFireType.AUTOMATIC, WeaponFireType.SEMI_AUTOMATIC, WeaponFireType.SPRAY }.Contains (weaponController.GetWeaponFireType ()))) {
-			if (Input.GetMouseButtonDown (0)) {
-				weaponController.Shoot ();
-			}
+
 		}
 
 	}

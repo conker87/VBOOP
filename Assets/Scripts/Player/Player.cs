@@ -16,6 +16,9 @@ public class Player : Entity {
 
 		totalXPForLevel = XPNeededToLevel (GetCurrentLevel());
 
+		currentHealth = maximumHealth;
+		currentMana = maximumMana;
+
 	}
 
 	public int GetCurrentLevel() {

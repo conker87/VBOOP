@@ -8,8 +8,9 @@ public abstract class Effect : MonoBehaviour {
 	public string EffectDescription		{ get {	return this.effectDescription; }	set {	this.effectDescription = value; } }
 
 	protected EffectType effectType;
+	public EffectType EffectType		{ get {	return this.effectType; }			set {	this.effectType = value; } }
 
-	protected abstract void DoEffect ();
+	public abstract void DoEffect ();
 }
 
 public enum EffectType { BUFF, DEBUFF };

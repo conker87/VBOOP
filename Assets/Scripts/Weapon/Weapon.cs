@@ -10,37 +10,40 @@ public abstract class Weapon : MonoBehaviour {
 	[Header("Location Settings")]
 	public Transform[] shootFromLocation;
 
-	// Weapon Details
-	[Header("Gun Details")]
+	// Weapon Descriptors
+	[Header("Weapon Descriptors")]
 	public WeaponFireType weaponFireType;
-	[HideInInspector]
-	public WeaponHanded weaponHanded;
+	public WeaponHanded weaponHanded;						// TODO: Decide what to do with this.
 	public WeaponType weaponType; 
 	public WeaponQuality weaponQuality;
 	public WeaponPrefix weaponPrefix;
 	public WeaponSuffix weaponSuffix;
 	public WeaponProjectileType weaponProjectileType;
 	[SerializeField]
-	string weaponName = "";
+	string weaponName;
 
-	// Damage Settings
-	[Header("Damage Settings")]
+	// Damage & Projectiles Descriptors
+	[Header("Damage & Projectiles Descriptors")]
 	[Range(0.0001f, 20f)]
 	public float attackSpeed = 1f;
+	public float projectileMinimumDamage = 5f, projectileMaximumDamage = 10f;
+	[Space(5)]
 	public int projectilesPerShot = 1, projectilesPerClip = 8;
+
 	[Space(5)]
-	public float projectileMinimumDamage = 5f;
-	public float projectileMaximumDamage = 10f;
-	[Space(5)]
+
+	// Do we really need this value? Should we just calculate them in code?
 	[SerializeField]
 	float damagePerSecond;
 
 	protected float damagePerProjectile;
+	public float DamagePerProjectile	{ get {	return this.damagePerProjectile; }	set {	this.damagePerProjectile = value; } }
 
 	// Projectile settings
 	[Header("Projectile Settings")]
-	[Range(5f, 250f)]
-	public float projectileVelocity = 35f;
+	[Range(5f, 100), SerializeField]
+	protected float projectileVelocity = 35f;
+	public float ProjectileVelocity		{ get {	return this.projectileVelocity; }	set {	this.projectileVelocity = value; } }
 
 
 	protected bool shouldDamageBeCalculated = true;

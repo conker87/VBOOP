@@ -4,15 +4,30 @@ using System.Collections.Generic;
 
 public class EffectSlots : MonoBehaviour {
 
-	List<Effect> buffs		= new List<Effect>();
-	List<Effect> debuffs	= new List<Effect>();
+	Entity currentEntity;
 
-	// Update is called once per frame
+	public List<Effect> buffs	= new List<Effect>();
+	public List<Effect> debuffs	= new List<Effect>();
+
+	void Start() {
+
+		currentEntity = GetComponentInParent<Entity> ();
+
+		Debug.Log ("");
+
+	}
+
 	void Update () {
 	
 		foreach (Effect buff in buffs) {
 
+			buff.DoEffect ();
 
+		}
+
+		foreach (Effect debuff in debuffs) {
+
+			debuff.DoEffect ();
 
 		}
 
