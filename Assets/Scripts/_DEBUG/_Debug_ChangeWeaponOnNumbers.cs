@@ -3,7 +3,7 @@ using System.Collections;
 
 public class _Debug_ChangeWeaponOnNumbers : MonoBehaviour {
 
-	public WeaponBase[] allGuns;
+	public Weapon[] allGuns;
 
 	public Player player;
 	WeaponController weaponController;

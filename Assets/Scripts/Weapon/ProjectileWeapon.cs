@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class ProjectileWeapon : WeaponBase {
+public class ProjectileWeapon : Weapon {
 
 	[Header("Overriden Gun Settings")]
 	public Projectile projectile;
@@ -22,7 +22,7 @@ public class ProjectileWeapon : WeaponBase {
 		Quaternion fireRotation = loc.rotation;
 
 		Projectile newProjectile = Instantiate (projectile, loc.position, fireRotation) as Projectile;
-		newProjectile.SetSpeed (projectileVelocity);
+		newProjectile.Speed = projectileVelocity;
 
 	}
 

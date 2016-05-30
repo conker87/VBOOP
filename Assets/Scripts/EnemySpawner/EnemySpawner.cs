@@ -3,7 +3,7 @@ using System.Collections;
 
 public class EnemySpawner : MonoBehaviour {
 
-	public EnemyBase[] enemiesToSpawn;
+	public Enemy[] enemiesToSpawn;
 	public float timeBetweenSpawns = 3000f;
 
 	public bool stopSpawning = false;
@@ -25,7 +25,7 @@ public class EnemySpawner : MonoBehaviour {
 
 				nextTime = Time.time + timeBetweenSpawns / 1000;
 
-				EnemyBase enemy = Instantiate (enemiesToSpawn [random], transform.position, transform.rotation) as EnemyBase;
+				Enemy enemy = Instantiate (enemiesToSpawn [random], transform.position, transform.rotation) as Enemy;
 				enemy.transform.parent = transform;
 
 			}

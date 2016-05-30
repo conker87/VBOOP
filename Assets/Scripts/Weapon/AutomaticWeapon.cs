@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class SprayWeapon : WeaponBase {
+public class AutomaticWeapon : Weapon {
 
 	[Header("Overriden Gun Settings")]
 	public Projectile projectile;
@@ -10,21 +10,28 @@ public class SprayWeapon : WeaponBase {
 
 		base.Start ();
 
-		weaponFireType = WeaponFireType.SPRAY;
+		weaponFireType = WeaponFireType.AUTOMATIC;
 
 		// You can override the start method to force weapons to be certain qualities and have certain attributes.
 
 	}
 
+
 	protected override void OverrideShoot (Transform loc)
 	{
-				
+
 		Quaternion fireRotation = loc.rotation;
 
 		Projectile newProjectile = Instantiate (projectile, loc.position, fireRotation) as Projectile;
-		newProjectile.SetSpeed (projectileVelocity);
+		newProjectile.Speed = projectileVelocity;
 
-		//TODO: Spray weapons need their own way of dealing with damage due to them being more of a continuous DoT than anything else;
+		if (shouldDamageBeCalculated) {
+			float gunDamageThisShot = Random.Range (projectileMinimumDamage, projectileMaximumDamage);
+			damagePerProjectile = gunDamageThisShot / projectilesPerShot;
+
+			newProjectile.Damage = damagePerProjectile;
+
+		}
 
 	}
 

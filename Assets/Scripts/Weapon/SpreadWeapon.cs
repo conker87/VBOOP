@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class SpreadWeapon : WeaponBase {
+public class SpreadWeapon : Weapon {
 
 	[Header("Overriden Gun Settings")]
 	public Projectile projectile;
@@ -28,19 +28,19 @@ public class SpreadWeapon : WeaponBase {
 
 		Projectile newProjectile = Instantiate (projectile, loc.position, fireRotation) as Projectile;
 
-		newProjectile.SetSpeed (projectileVelocity);
+		newProjectile.Speed = projectileVelocity;
 
 		if (shouldDamageBeCalculated) {
 			float gunDamageThisShot = Random.Range (projectileMinimumDamage, projectileMaximumDamage);
 			damagePerProjectile = gunDamageThisShot / projectilesPerShot;
 		}
 
-		newProjectile.SetDamage (damagePerProjectile);
-		newProjectile.SetLifetime (5f);
+		newProjectile.Damage = damagePerProjectile;
+		newProjectile.Lifetime = 5f;
 
-		newProjectile.SetIsPiercing ((weaponProjectileType == WeaponProjectileType.PIERCING) ? true : false);
-		newProjectile.SetIsBurning((weaponProjectileType == WeaponProjectileType.BURNING) ? true : false);
-		newProjectile.SetIsFreezing((weaponProjectileType == WeaponProjectileType.FREEZING) ? true : false);
+		newProjectile.IsPiercing	= (weaponProjectileType == WeaponProjectileType.PIERCING) ? true : false;
+		newProjectile.IsBurning		= (weaponProjectileType == WeaponProjectileType.BURNING) ? true : false;
+		newProjectile.IsFreezing 	= (weaponProjectileType == WeaponProjectileType.FREEZING) ? true : false;
 
 	}
 

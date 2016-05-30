@@ -3,7 +3,7 @@ using System.Collections;
 using System.Linq;
 
 [ExecuteInEditMode]
-public abstract class WeaponBase : MonoBehaviour {
+public abstract class Weapon : MonoBehaviour {
 
 	SharedFunctions sf = new SharedFunctions();
 

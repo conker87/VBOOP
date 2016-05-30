@@ -8,7 +8,7 @@ public class SetEnemyNameplates : MonoBehaviour {
 	public GameObject healthPanel, manaPanel;
 	public GameObject healthPanelPercetage, healthPanelActual, manaPanelPercetage, manaPanelActual;
 
-	EnemyBase enemyBase;
+	Enemy enemy;
 
 	bool dontSpamLog = true;
 
@@ -16,13 +16,13 @@ public class SetEnemyNameplates : MonoBehaviour {
 
 	void SetNameplateText() {
 
-		if (enemyBase != null) {
+		if (enemy != null) {
 
 			if (nameNameplate != null) {
 
-				if (enemyBase.nameof != "") {
+				if (enemy.EntityName != "") {
 
-					nameNameplate.GetComponent<Text>().text = enemyBase.nameof;
+					nameNameplate.GetComponent<Text>().text = enemy.EntityName;
 
 				} else {
 
@@ -34,13 +34,13 @@ public class SetEnemyNameplates : MonoBehaviour {
 
 			if (titleNameplate != null) {
 
-				if (enemyBase.title != "") {
+				if (enemy.EntityTitle != "") {
 
-					titleNameplate.GetComponent<UnityEngine.UI.Text>().text = enemyBase.title;
+					titleNameplate.GetComponent<UnityEngine.UI.Text>().text = enemy.EntityTitle;
 
 				} else {
 
-					titleNameplate.GetComponent<UnityEngine.UI.Text>().text = enemyBase.species.ToString ();
+					titleNameplate.GetComponent<UnityEngine.UI.Text>().text = enemy.species.ToString ();
 
 				}
 			}
@@ -89,10 +89,10 @@ public class SetEnemyNameplates : MonoBehaviour {
 
 	void Start () {
 
-		enemyBase = GetComponent<EnemyBase> ();
+		enemy = GetComponent<Enemy> ();
 
-		maximumHealth = enemyBase.GetMaximumHealth ();
-		maximumMana = enemyBase.GetMaximumMana ();
+		maximumHealth = enemy.MaximumHealth;
+		maximumMana = enemy.MaximumMana;
 
 		SetNameplateText ();
 
@@ -100,8 +100,8 @@ public class SetEnemyNameplates : MonoBehaviour {
 
 	void Update() {
 
-		currentHealth = enemyBase.GetCurrentHealth ();
-		currentMana = enemyBase.GetCurrentMana ();
+		currentHealth = enemy.CurrentHealth;
+		currentMana = enemy.CurrentMana;
 
 		// Health
 		SetResourceBar(healthPanel, currentHealth, maximumHealth);

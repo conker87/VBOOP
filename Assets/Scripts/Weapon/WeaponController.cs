@@ -3,12 +3,12 @@ using System.Collections;
 
 public class WeaponController : MonoBehaviour {
 
-	WeaponBase equippedWeapon;
+	Weapon equippedWeapon;
 
 	public bool shouldWeaponScaleToPlayer = false;
 
 	public Transform weaponLocation;
-	public WeaponBase startingWeapon;
+	public Weapon startingWeapon;
 
 	void Start ()
 	{
@@ -17,12 +17,12 @@ public class WeaponController : MonoBehaviour {
 		}
 	}
 
-	public void EquipWeapon(WeaponBase weaponToEquip) {
+	public void EquipWeapon(Weapon weaponToEquip) {
 
 		if (equippedWeapon != null) {
 			Destroy (equippedWeapon.gameObject);
 		}
-		equippedWeapon = Instantiate (weaponToEquip, weaponLocation.position, weaponLocation.rotation) as WeaponBase;
+		equippedWeapon = Instantiate (weaponToEquip, weaponLocation.position, weaponLocation.rotation) as Weapon;
 		equippedWeapon.transform.parent = weaponLocation;
 
 		//equippedWeapon.transform.localPosition += weaponToEquip.localPositionOffset;

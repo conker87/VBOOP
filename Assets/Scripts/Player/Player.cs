@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Player : MonoBehaviour {
+public class Player : Entity {
 
 	public static Player current { get; protected set; }
 

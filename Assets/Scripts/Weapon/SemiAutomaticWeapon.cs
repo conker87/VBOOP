@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class AutomaticWeapon : WeaponBase {
+public class SemiAutomaticWeapon : Weapon {
 
 	[Header("Overriden Gun Settings")]
 	public Projectile projectile;
@@ -10,12 +10,11 @@ public class AutomaticWeapon : WeaponBase {
 
 		base.Start ();
 
-		weaponFireType = WeaponFireType.AUTOMATIC;
+		weaponFireType = WeaponFireType.SEMI_AUTOMATIC;
 
 		// You can override the start method to force weapons to be certain qualities and have certain attributes.
 
 	}
-
 
 	protected override void OverrideShoot (Transform loc)
 	{
@@ -23,15 +22,17 @@ public class AutomaticWeapon : WeaponBase {
 		Quaternion fireRotation = loc.rotation;
 
 		Projectile newProjectile = Instantiate (projectile, loc.position, fireRotation) as Projectile;
-		newProjectile.SetSpeed (projectileVelocity);
+		newProjectile.Speed = projectileVelocity;
 
 		if (shouldDamageBeCalculated) {
 			float gunDamageThisShot = Random.Range (projectileMinimumDamage, projectileMaximumDamage);
 			damagePerProjectile = gunDamageThisShot / projectilesPerShot;
 
-			newProjectile.SetDamage (damagePerProjectile);
+			newProjectile.Damage = damagePerProjectile;
 
+			Debug.Log ("SpreadWeapon::OverrideShot (Override) -- gunDamageThisShot: " + gunDamageThisShot + ", damagePerProjectile: " + damagePerProjectile);
 		}
+
 
 	}
 

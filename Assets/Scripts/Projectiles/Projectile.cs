@@ -9,59 +9,21 @@ public class Projectile : MonoBehaviour {
 	// Speed and Damage values.
 	[SerializeField]
 	float speed = 1f, damage, currentDamage, lifetime = 8f;
+	public float Speed			{ get {	return this.speed; }			set {	this.speed = value; } }
+	public float Damage			{ get {	return this.damage; }			set {	this.damage = value; } }
+	public float CurrentDamage	{ get {	return this.currentDamage; }	set {	this.currentDamage = value; } }
+	public float Lifetime		{ get {	return this.lifetime; }			set {	this.lifetime = value; } }
+
 	[SerializeField]
 	bool isPiercing, isBurning, isFreezing;
+	public bool IsPiercing		{ get {	return this.isPiercing; }	set {	this.isPiercing = value; } }
+	public bool IsBurning		{ get {	return this.isBurning; }	set {	this.isBurning = value; } }
+	public bool IsFreezing		{ get {	return this.isFreezing; }	set {	this.isFreezing = value; } }
 
 	[SerializeField]
 	float destroyingIn;
 
 	int timesHit = 0, enemyID;
-
-	public void SetSpeed(float _speed) {
-		
-		speed = _speed;
-
-	}
-
-	public void SetDamage(float _damage) {
-
-		damage = _damage;
-
-	}
-
-	public float GetCurrentDamage() {
-
-		return currentDamage;
-
-	}
-
-	public void SetIsPiercing(bool _isPiercing) {
-
-		isPiercing = _isPiercing;
-
-	}
-
-	public void SetIsBurning(bool _isBurning) {
-
-		isBurning = _isBurning;
-
-	}
-
-	public void SetIsFreezing(bool _isFreezing) {
-
-		isFreezing = _isFreezing;
-
-	}
-
-	/// <summary>
-	/// Sets the projectile's lifetime in seconds.
-	/// </summary>
-	/// <param name="_lifetime">Lifetime in seconds.</param>
-	public void SetLifetime(float _lifetime) {
-
-		lifetime = _lifetime;
-
-	}
 
 	void Start () {
 
@@ -89,14 +51,14 @@ public class Projectile : MonoBehaviour {
 
 		bool doDmg = false;
 
-		EnemyBase enemyBaseParent = other.GetComponentInParent<EnemyBase>();
+		Entity modelParent = other.GetComponentInParent<Entity>();
 
 		/// If enemyBaseParent isn't null, then GetComponentInParent found an EnemyBase comp.
-		if (enemyBaseParent != null) {
+		if (modelParent != null) {
 
 			if (timesHit == 0) {
 
-				enemyID = enemyBaseParent.GetInstanceID ();
+				enemyID = modelParent.GetInstanceID ();
 
 			}
 
@@ -104,19 +66,19 @@ public class Projectile : MonoBehaviour {
 
 			/// We want to do damage only when the times hit is equal to 1 (which means this is the first enemy it has encountered),
 			/// or if the times hit is more than 1 and that the enemy ID is no longer the same.
-			if (timesHit == 1 || (timesHit > 1 && enemyID != enemyBaseParent.GetInstanceID ())) {
+			if (timesHit == 1 || (timesHit > 1 && enemyID != modelParent.GetInstanceID ())) {
 
-				enemyID = enemyBaseParent.GetInstanceID ();
+				enemyID = modelParent.GetInstanceID ();
 				doDmg = true;
 
 			}
 
 			if (doDmg) {
 
-				Debug.Log (gameObject.name + " hit " + other.transform.name + " (" + enemyBaseParent.gameObject.name + "), timesHit: " + timesHit + ", for damage: " + currentDamage + ", isPiercing: " + isPiercing);
+				Debug.Log (gameObject.name + " hit " + other.transform.name + " (" + modelParent.gameObject.name + "), timesHit: " + timesHit + ", for damage: " + currentDamage + ", isPiercing: " + isPiercing);
 
-				if (enemyBaseParent != null) {
-					enemyBaseParent.ChangeHealth (-currentDamage);
+				if (modelParent != null) {
+					modelParent.CurrentHealth -= currentDamage;
 				}
 
 				/// This fires up the Static DamageIndicators class which takes in the current Projectile (to get the currentDamage) and the Enemy (to get the Transform).
@@ -125,7 +87,7 @@ public class Projectile : MonoBehaviour {
 
 					DamageIndicator dmg = Instantiate(damageIndicator, other.transform.position, other.transform.rotation) as DamageIndicator;
 
-					dmg.GetComponentInChildren<TextMesh>().text = this.GetCurrentDamage().ToString();
+					dmg.GetComponentInChildren<TextMesh>().text = this.CurrentDamage.ToString();
 
 				}
 
