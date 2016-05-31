@@ -19,6 +19,8 @@ public class Player : Entity {
 
 		base.Update();
 
+		//CheckForDeath();
+
 	}
 
 	public void AmendCurrentXP(int _currentExperience) {

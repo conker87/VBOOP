@@ -14,8 +14,6 @@ public class Enemy : Entity {
 	Weapon equippedWeapon;
 
 	const float levelMultiplierConstant = 10f;
-	// currentLevel should be acquired from the Level singleton, as the player can choose what level they want to fight.
-	public int currentLevel = 1 ;
 
 	protected override void Start ()
 	{
@@ -28,8 +26,10 @@ public class Enemy : Entity {
 			EquipWeapon (startingWeapon);
 		}
 
-		currentHealth = maximumHealth = ScaleEnemyResourceToPlayer(baseHealth);
-		currentMana = maximumMana = ScaleEnemyResourceToPlayer(baseMana);
+		CurrentHealth = MaximumHealth = ScaleEnemyResourceToPlayer(BaseHealth);
+		CurrentMana = MaximumMana = ScaleEnemyResourceToPlayer(BaseMana);
+
+		CurrentLevel = 1;
 
 	}
 
@@ -81,7 +81,7 @@ public class Enemy : Entity {
 
 		float levelMultiplier;
 
-		levelMultiplier = currentLevel * levelMultiplierConstant;
+		levelMultiplier = CurrentLevel * levelMultiplierConstant;
 
 		return levelMultiplier;
 

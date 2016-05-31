@@ -113,10 +113,10 @@ public abstract class Weapon : MonoBehaviour {
 
 }
 
-public enum WeaponFireType { SINGLE_SHOT, SEMI_AUTOMATIC, AUTOMATIC, SPREAD, SPRAY, PROJECTILE };
-public enum WeaponHanded { ONE_HANDED, TWO_HANDED }													 	// TODO: On the fence on whether to use this or not, can pistols be dual wielded?
-public enum WeaponQuality { AWFUL, CRAP, NORMAL, GOOD, GREAT, BRILLIANT, MAGNIFICENT, UNIQUE }
-public enum WeaponPrefix { UNDEAD_SLAYING, ABERRATION_ANNIHILATING, BEAST_BLASTING, MAN_MURDERING, CRITTER_CRUSHING, HEALING, NULL };
-public enum WeaponType { SHOTGUN, RIFLE, PISTOL, FLAMETHROWER, FROSTTHROWER, UZI, SUBMACHINE_GUN, MUSKET };
-public enum WeaponSuffix { MANA_REGENERATION, HEALTH_REGENERATION, FORTITUDE, MANA_CAPACITY, NULL }; 	// TODO: There can be more than one of these added to the var with this information needs to be an array!
-public enum WeaponProjectileType { PIERCING, BURNING, FREEZING, NULL } 									// TODO: There can be more than one of these added to the var with this information needs to be an array!
+public enum WeaponFireType			{ SINGLE_SHOT, SEMI_AUTOMATIC, AUTOMATIC, SPREAD, SPRAY, PROJECTILE };
+public enum WeaponHanded			{ ONE_HANDED, TWO_HANDED }													 	// TODO: On the fence on whether to use this or not, can pistols be dual wielded?
+public enum WeaponQuality			{ AWFUL, CRAP, NORMAL, GOOD, GREAT, BRILLIANT, MAGNIFICENT, UNIQUE }
+public enum WeaponPrefix			{ UNDEAD_SLAYING, ABERRATION_ANNIHILATING, BEAST_BLASTING, MAN_MURDERING, CRITTER_CRUSHING, HEALING, NULL };
+public enum WeaponType				{ SHOTGUN, RIFLE, PISTOL, FLAMETHROWER, FROSTTHROWER, UZI, SUBMACHINE_GUN, MUSKET };
+public enum WeaponSuffix			{ MANA_REGENERATION, HEALTH_REGENERATION, FORTITUDE, MANA_CAPACITY, NULL }; 	// TODO: There can be more than one of these added to the var with this information needs to be an array!
+public enum WeaponProjectileType	{ PIERCING, BURNING, FREEZING, NULL } 											// TODO: There can be more than one of these added to the var with this information needs to be an array!

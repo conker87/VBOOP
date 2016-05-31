@@ -51,14 +51,14 @@ public class Projectile : MonoBehaviour {
 
 		bool doDmg = false;
 
-		Entity modelParent = other.GetComponentInParent<Entity>();
+		Entity entity = other.GetComponentInParent<Entity>();
 
 		/// If enemyBaseParent isn't null, then GetComponentInParent found an EnemyBase comp.
-		if (modelParent != null) {
+		if (entity != null) {
 
 			if (timesHit == 0) {
 
-				enemyID = modelParent.GetInstanceID ();
+				enemyID = entity.GetInstanceID ();
 
 			}
 
@@ -66,19 +66,19 @@ public class Projectile : MonoBehaviour {
 
 			/// We want to do damage only when the times hit is equal to 1 (which means this is the first enemy it has encountered),
 			/// or if the times hit is more than 1 and that the enemy ID is no longer the same.
-			if (timesHit == 1 || (timesHit > 1 && enemyID != modelParent.GetInstanceID ())) {
+			if (timesHit == 1 || (timesHit > 1 && enemyID != entity.GetInstanceID ())) {
 
-				enemyID = modelParent.GetInstanceID ();
+				enemyID = entity.GetInstanceID ();
 				doDmg = true;
 
 			}
 
 			if (doDmg) {
 
-				Debug.Log (gameObject.name + " hit " + other.transform.name + " (" + modelParent.gameObject.name + "), timesHit: " + timesHit + ", for damage: " + currentDamage + ", isPiercing: " + isPiercing);
+				Debug.Log (gameObject.name + " hit " + other.transform.name + " (" + entity.gameObject.name + "), timesHit: " + timesHit + ", for damage: " + currentDamage + ", isPiercing: " + isPiercing);
 
-				if (modelParent != null) {
-					modelParent.CurrentHealth -= currentDamage;
+				if (entity != null) {
+					entity.CurrentHealth -= currentDamage;
 				}
 
 				/// This fires up the Static DamageIndicators class which takes in the current Projectile (to get the currentDamage) and the Enemy (to get the Transform).
@@ -96,8 +96,14 @@ public class Projectile : MonoBehaviour {
 				//dmg.GetComponentInChildren<TextMesh> ().text = currentDamage.ToString ();
 				//dmg.transform.LookAt (Camera.main.transform);
 
+				if (IsBurning) {
+
+					EffectSlots effectSlots = entity.GetComponent<EffectSlots> ();
+
+				}
+
 				/// Destroy the gameObject now as it's either not a piercing round or it is and it has hit more than 4 enemies.
-				if (isPiercing == false || (isPiercing == true && timesHit > 3)) {
+				if (IsPiercing == false || (IsPiercing == true && timesHit > 3)) {
 
 					//Debug.Log (gameObject.name + " destroyed with timesHit: " + timesHit + " and damage: " + currentDamage);
 

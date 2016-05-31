@@ -87,6 +87,35 @@ public abstract class Entity : MonoBehaviour {
 
 	}
 
+	public void BuffStat(EntityStat stat, int value) {
+		
+		switch (stat) {
+
+			case EntityStat.ARMORRATING:
+				ArmorRating += value;
+				break;
+
+			case EntityStat.HEALTHREGENERATIONPERSECOND:
+				HealthRegenerationPerSecond += value;
+				break;
+
+			case EntityStat.INTELLECT:
+				Intellect += value;
+				break;
+
+			case EntityStat.MANAREGENERATIONPERSECOND:
+				ManaRegenerationPerSecond += value;
+				break;
+
+			case EntityStat.STAMINA:
+				Stamina += value;
+				break;
+
+
+		}
+
+	}
+
 	public void CheckForDeath() {
 
 		if (CurrentHealth <= 0) {
@@ -163,3 +192,6 @@ public abstract class Entity : MonoBehaviour {
 	}
 
 }
+
+
+public enum EntityStat { STAMINA, INTELLECT, ARMORRATING, MANAREGENERATIONPERSECOND, HEALTHREGENERATIONPERSECOND };

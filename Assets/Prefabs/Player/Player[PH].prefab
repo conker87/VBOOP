@@ -329,6 +329,7 @@ GameObject:
   - 4: {fileID: 401206}
   - 54: {fileID: 5492232}
   - 114: {fileID: 11479772}
+  - 114: {fileID: 11402566}
   - 114: {fileID: 11433604}
   - 114: {fileID: 11430850}
   - 114: {fileID: 11468636}
@@ -486,7 +487,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 112522}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.2, z: 0}
+  m_LocalPosition: {x: 0, y: 2, z: 0}
   m_LocalScale: {x: 0.0015, y: 0.0015, z: 0.0015}
   m_Children:
   - {fileID: 22428008}
@@ -874,6 +875,19 @@ MonoBehaviour:
     m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: '%'
+--- !u!114 &11402566
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 183310}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2c1b84e02cb3bc44ab2a451f813b76b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buffs: []
+  debuffs: []
 --- !u!114 &11405088
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1000,6 +1014,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _DEBUG_FREEZE_ROTATION: 0
   _DEBUG_FREEZE_MOVEMENT: 0
+  _DEBUG_CHOOSEN_TO_CARE_ABOUT_SHOOTING_INPUT: 0
   moveSpeed: 12.5
 --- !u!114 &11436676
 MonoBehaviour:
@@ -1214,14 +1229,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   entityName: 
   entityTitle: 
-  currentHealth: 0
-  currentMana: 0
   maximumHealth: 10
   maximumMana: 10
+  currentHealth: 0
+  currentMana: 0
+  stamina: 1
+  intellect: 1
   armorRating: 0
-  XPForCurrentLevel: 10
-  currentLevel: 1
-  currentXP: 0
+  manaRegenerationPerSecond: 5
+  healthRegenerationPerSecond: 5
 --- !u!114 &11482546
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1303,7 +1319,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   modelPrefab: {fileID: 128010}
-  offset: {x: 0, y: 1.2, z: 0}
+  offset: {x: 0, y: 2, z: 0}
 --- !u!114 &11498648
 MonoBehaviour:
   m_ObjectHideFlags: 1
