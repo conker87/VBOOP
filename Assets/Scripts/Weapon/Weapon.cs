@@ -51,7 +51,6 @@ public abstract class Weapon : MonoBehaviour {
 	float nextShotTime;
 
 	protected abstract void OverrideShoot (Transform loc);
-	//protected abstract void OverrideShoot (Transform loc);
 
 	protected virtual void Start () {
 

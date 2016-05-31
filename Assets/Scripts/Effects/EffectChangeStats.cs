@@ -25,6 +25,7 @@ public class EffectChangeStats : Effect {
 
 		entity.BuffStat(stat, -value);
 
+		base.EndEffect ();
 	}
 
 }

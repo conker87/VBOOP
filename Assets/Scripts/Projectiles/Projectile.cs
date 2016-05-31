@@ -6,6 +6,8 @@ public class Projectile : MonoBehaviour {
 
 	public DamageIndicator damageIndicator;
 
+	public Effect DamageOverTime;
+
 	// Speed and Damage values.
 	[SerializeField]
 	float speed = 1f, damage, currentDamage, lifetime = 8f;
@@ -99,6 +101,12 @@ public class Projectile : MonoBehaviour {
 				if (IsBurning) {
 
 					EffectSlots effectSlots = entity.GetComponent<EffectSlots> ();
+
+					EffectDamageOverTime BurningDamageOverTime = Instantiate (DamageOverTime) as EffectDamageOverTime;
+
+					BurningDamageOverTime.value = CurrentDamage * 0.1f;
+
+					effectSlots.Add (BurningDamageOverTime, EffectType.DEBUFF);
 
 				}
 

@@ -30,6 +30,26 @@ public class EffectSlots : MonoBehaviour {
 
 	}
 
+	public void Add(Effect effect, EffectType effectType) {
+
+		if (effectType == EffectType.BUFF) {
+
+			buffs.Add (effect);
+
+		} else if (effectType == EffectType.DEBUFF) {
+
+			debuffs.Add (effect);
+
+		} else {
+
+			//ERROR
+
+		}
+
+
+
+	}
+
 	void Update () {
 
 		foreach (Effect buff in buffs) {

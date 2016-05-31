@@ -15,8 +15,7 @@ public class AutomaticWeapon : Weapon {
 		// You can override the start method to force weapons to be certain qualities and have certain attributes.
 
 	}
-
-
+		
 	protected override void OverrideShoot (Transform loc)
 	{
 
@@ -30,6 +29,11 @@ public class AutomaticWeapon : Weapon {
 			damagePerProjectile = gunDamageThisShot / projectilesPerShot;
 
 			newProjectile.Damage = damagePerProjectile;
+			newProjectile.Lifetime = 5f;
+
+			newProjectile.IsPiercing	= (weaponProjectileType == WeaponProjectileType.PIERCING) ? true : false;
+			newProjectile.IsBurning		= (weaponProjectileType == WeaponProjectileType.BURNING) ? true : false;
+			newProjectile.IsFreezing 	= (weaponProjectileType == WeaponProjectileType.FREEZING) ? true : false;
 
 		}
 

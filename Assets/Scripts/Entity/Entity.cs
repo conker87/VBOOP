@@ -3,6 +3,8 @@ using System.Collections;
 
 public abstract class Entity : MonoBehaviour {
 
+	EffectSlots entityEffectSlots;
+
 	// CONST
 	int healthPerStamina = 10, manaPerIntellect = 10;
 	public int HealthPerStamina	{ get {	return this.healthPerStamina; } }
@@ -49,12 +51,14 @@ public abstract class Entity : MonoBehaviour {
 	// This value reduces physical damage (all damage is physical, bar those caused by Burning & Freezing).
 	// TODO: Should this be a percentage or an actual value that increases? Percentages scale with levels, values do not.
 	[SerializeField]
-	protected int stamina = 1, intellect = 1, armorRating = 0, manaRegenerationPerSecond = 5, healthRegenerationPerSecond = 5;
+	protected int stamina = 1, intellect = 1, armorRating = 0, healthRegenerationPerSecond = 5, manaRegenerationPerSecond = 5;
+	[SerializeField] protected bool disableNaturalRegeneration = false;
 	public int Stamina						{ get {	return this.stamina; }			set {	this.stamina = value; } }
 	public int Intellect					{ get {	return this.intellect; }		set {	this.intellect = value; } }
 	public int ArmorRating					{ get {	return this.armorRating; }		set {	this.armorRating = value; } }
-	public int ManaRegenerationPerSecond	{ get {	return this.manaRegenerationPerSecond; }		set {	this.manaRegenerationPerSecond = value; } }
 	public int HealthRegenerationPerSecond	{ get {	return this.healthRegenerationPerSecond; }		set {	this.healthRegenerationPerSecond = value; } }
+	public int ManaRegenerationPerSecond	{ get {	return this.manaRegenerationPerSecond; }		set {	this.manaRegenerationPerSecond = value; } }
+	public bool DisableNaturalRegeneration	{ get {	return this.disableNaturalRegeneration; }		set {	this.disableNaturalRegeneration = value; } }
 
 	// **************
 	// * EXPERIENCE *
@@ -165,6 +169,8 @@ public abstract class Entity : MonoBehaviour {
 
 	protected virtual void Start() {
 
+		entityEffectSlots = GetComponent<EffectSlots> ();
+
 		// Clamps the Health and Mana values to 0f and to their maximum.
 		ClampHealthAndMana();
 
@@ -184,7 +190,11 @@ public abstract class Entity : MonoBehaviour {
 		CalculateMaximumResources();
 
 		// Does the natural Current Health & Mana regeneration per second, this can be increased via equipment.
-		DoHealthAndManaRegen();
+		if (DisableNaturalRegeneration == false) {
+		
+			DoHealthAndManaRegen ();
+
+		}
 
 		// Clamps the Health and Mana values to 0f and to their maximum.
 		ClampHealthAndMana();

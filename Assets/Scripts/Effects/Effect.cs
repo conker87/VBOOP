@@ -39,6 +39,8 @@ public class Effect : MonoBehaviour {
 
 		// To be overriden in inheritted prefabs.
 
+		Destroy (gameObject);
+
 	}
 }
 

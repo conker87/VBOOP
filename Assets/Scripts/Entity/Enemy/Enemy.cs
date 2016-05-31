@@ -26,8 +26,8 @@ public class Enemy : Entity {
 			EquipWeapon (startingWeapon);
 		}
 
-		CurrentHealth = MaximumHealth = ScaleEnemyResourceToPlayer(BaseHealth);
-		CurrentMana = MaximumMana = ScaleEnemyResourceToPlayer(BaseMana);
+		CurrentHealth = MaximumHealth;// = ScaleEnemyResourceToPlayer(BaseHealth);
+		CurrentMana = MaximumMana;// = ScaleEnemyResourceToPlayer(BaseMana);
 
 		CurrentLevel = 1;
 
