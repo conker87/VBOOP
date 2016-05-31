@@ -13,7 +13,7 @@ public class EffectSlots : MonoBehaviour {
 
 		currentEntity = GetComponentInParent<Entity> ();
 
-		Debug.Log ("");
+		Debug.Log (currentEntity);
 
 	}
 

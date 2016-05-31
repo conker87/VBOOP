@@ -5,12 +5,14 @@ public class Player : Entity {
 
 	public static Player current { get; protected set; }
 
-	public int currentLevel, currentXP;
+	protected int currentLevel, currentXP;
+	public int CurrentLevel		{ get {	return this.currentLevel; }		set {	this.currentLevel = value; } }
+	public int CurrentXP		{ get {	return this.currentXP; }		set {	this.currentXP = value; } }
 
 	/// Temporary value, this should be got via passing currentLevel to a shared method that calculates the total xp needed depending on their level.
 	int totalXPForLevel;
 
-	void Start () {
+	protected override void Start () {
 
 		current = this;
 
@@ -18,6 +20,12 @@ public class Player : Entity {
 
 		currentHealth = maximumHealth;
 		currentMana = maximumMana;
+
+	}
+
+	protected override void Update() {
+
+		base.Update();
 
 	}
 

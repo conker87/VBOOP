@@ -17,7 +17,7 @@ public class Enemy : Entity {
 	// currentLevel should be acquired from the Level singleton, as the player can choose what level they want to fight.
 	public int currentLevel = 1 ;
 
-	void Start ()
+	protected override void Start ()
 	{
 		
 		quality = sf.RandomEnumValue<EnemyQuality> ();
@@ -31,7 +31,7 @@ public class Enemy : Entity {
 
 	}
 
-	void Update () {
+	protected override void Update () {
 
 		CheckForDeath ();
 		ClampHealthAndMana ();

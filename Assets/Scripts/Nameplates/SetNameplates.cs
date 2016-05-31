@@ -28,6 +28,10 @@ public class SetNameplates : MonoBehaviour {
 	bool dontSpamLog = true;
 
 	float currentHealth, maximumHealth, currentMana, maximumMana;
+	public float CurrentHealth				{ get {	return this.currentHealth; }	set {	this.currentHealth = value; } }
+	public float MaximumHealth				{ get {	return this.maximumHealth; }	set {	this.maximumHealth = value; } }
+	public float CurrentMana				{ get {	return this.currentMana; }		set {	this.currentMana = value; } }
+	public float MaximumMana				{ get {	return this.maximumMana; }	set {	this.maximumMana = value; } }
 
 	void SetNameplateText() {
 
@@ -106,9 +110,6 @@ public class SetNameplates : MonoBehaviour {
 
 		entity = GetComponentInParent<Entity> ();
 
-		maximumHealth = entity.MaximumHealth;
-		maximumMana = entity.MaximumMana;
-
 		SetNameplateText ();
 
 	}
@@ -123,18 +124,21 @@ public class SetNameplates : MonoBehaviour {
 
 		if (enabled) {
 
-			currentHealth = entity.CurrentHealth;
-			currentMana = entity.CurrentMana;
+			// Prevents the var being constantly updated.
+			if (CurrentHealth != entity.CurrentHealth)	{ CurrentHealth = entity.CurrentHealth; }
+			if (MaximumHealth != entity.MaximumHealth)	{ MaximumHealth = entity.MaximumHealth; }
+			if (CurrentMana != entity.CurrentMana)		{ CurrentMana = entity.CurrentMana; }
+			if (MaximumMana != entity.MaximumMana)		{ MaximumMana = entity.MaximumMana; }
 
 			// Health
-			SetResourceBar (healthPanel, currentHealth, maximumHealth);
-			SetResourceBarText (healthPanelActual, currentHealth, maximumHealth);
-			SetResourceBarText (healthPanelPercetage, (currentHealth / maximumHealth) * 100, maximumHealth);
+			SetResourceBar		(healthPanel,			CurrentHealth, 							MaximumHealth);
+			SetResourceBarText	(healthPanelActual, 	CurrentHealth, 							MaximumHealth);
+			SetResourceBarText	(healthPanelPercetage, 	(CurrentHealth / MaximumHealth) * 100,	MaximumHealth);
 
 			// Mana
-			SetResourceBar (manaPanel, currentMana, maximumMana);
-			SetResourceBarText (manaPanelActual, currentMana, maximumMana);
-			SetResourceBarText (manaPanelPercetage, (currentMana / maximumMana) * 100, maximumMana);
+			SetResourceBar		(manaPanel, 			CurrentMana,							MaximumMana);
+			SetResourceBarText 	(manaPanelActual, 		CurrentMana,							MaximumMana);
+			SetResourceBarText 	(manaPanelPercetage, 	(CurrentMana / MaximumMana) * 100,		MaximumMana);
 
 		}
 

@@ -974,6 +974,10 @@ Prefab:
       propertyPath: _DEBUG_CHOOSEN_TO_CARE_ABOUT_SHOOTING_INPUT
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 11479772, guid: 3c0da115d9acd334e91942098273f0ef, type: 2}
+      propertyPath: stamina
+      value: 67
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3c0da115d9acd334e91942098273f0ef, type: 2}
   m_IsPrefabParent: 0
