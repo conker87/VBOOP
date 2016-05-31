@@ -8,12 +8,18 @@ public abstract class Entity : MonoBehaviour {
 	public int HealthPerStamina	{ get {	return this.healthPerStamina; } }
 	public int ManaPerIntellect	{ get {	return this.manaPerIntellect; } }
 
+	// ********
+	// * NAME *
+	// ********
 	// Name and Title
 	//[SerializeField]
 	public string entityName, entityTitle;
 	public string EntityName	{ get {	return this.entityName; }		set {	this.entityName = value; } }
 	public string EntityTitle	{ get {	return this.entityTitle; }		set {	this.entityTitle = value; } }
 
+	// *****************
+	// * HEALTH & MANA *
+	// *****************
 	// Base Health & Mana
 	// Used to calculate health base upon level. These values should probably be taken from a class that stores these values.
 	protected float baseHealth = 20, baseMana = 10;
@@ -25,29 +31,44 @@ public abstract class Entity : MonoBehaviour {
 	// Can be changed via Equipment and Effects.
 	[SerializeField]
 	protected float maximumHealth, maximumMana;
-	public float MaximumHealth	{ get {	return this.maximumHealth; }	set {	this.maximumHealth = value; } }
-	public float MaximumMana	{ get {	return this.maximumMana; }		set {	this.maximumMana = value; } }
+	public float MaximumHealth		{ get {	return this.maximumHealth; }	set {	this.maximumHealth = value; } }
+	public float MaximumMana		{ get {	return this.maximumMana; }		set {	this.maximumMana = value; } }
 
 	// Current Health & Mana
 	// These values are the Entity's realtime health and mana resources.
 	[SerializeField]
 	protected float currentHealth, currentMana;
-	public float CurrentHealth	{ get {	return this.currentHealth; }	set {	this.currentHealth = value; } }
-	public float CurrentMana	{ get {	return this.currentMana; }		set {	this.currentMana = value; } }
+	public float CurrentHealth		{ get {	return this.currentHealth; }	set {	this.currentHealth = value; } }
+	public float CurrentMana		{ get {	return this.currentMana; }		set {	this.currentMana = value; } }
 
+	// *********
+	// * STATS *
+	// *********
 	// Stamina, Intellect & Armor Rating (yes I'm spelling it the American way because it looks less weird)
 	// This is the amount of total health, the amount of total mana and also adds to elemental damage (possibly).
 	// This value reduces physical damage (all damage is physical, bar those caused by Burning & Freezing).
 	// TODO: Should this be a percentage or an actual value that increases? Percentages scale with levels, values do not.
 	[SerializeField]
 	protected int stamina = 1, intellect = 1, armorRating = 0;
-	public int Stamina			{ get {	return this.stamina; }			set {	this.stamina = value; } }
-	public int Intellect		{ get {	return this.intellect; }		set {	this.intellect = value; } }
-	public int ArmorRating		{ get {	return this.armorRating; }		set {	this.armorRating = value; } }
+	public int Stamina				{ get {	return this.stamina; }			set {	this.stamina = value; } }
+	public int Intellect			{ get {	return this.intellect; }		set {	this.intellect = value; } }
+	public int ArmorRating			{ get {	return this.armorRating; }		set {	this.armorRating = value; } }
 
-	// enemyXPForCurrentLevel
-	// should be calculated depending on the Player current level, if the Player is more than [3] levels above the enemy should not give XP. 1/3 of the total XP should be removed per level above enemyCurrentLevel.
-	public int XPForCurrentLevel = 10;
+	// **************
+	// * EXPERIENCE *
+	// **************
+	// Experience needed to level at this current level.
+	protected int totalExperienceNeededToLevel = 10;
+	public int TotalExperienceNeededToLevel	{ get {	return this.totalExperienceNeededToLevel; }	protected set {	this.totalExperienceNeededToLevel = value; } }
+
+	// The current level and the current experience value.
+	protected int currentLevel = 1, currentExperience;
+	public int CurrentLevel			{ get {	return this.currentLevel; }			protected set {	this.currentLevel = value; } }
+	public int CurrentExperience	{ get {	return this.currentExperience; }	protected set {	this.currentExperience = value; } }
+
+	// The experience given to the Player if this inherited entity is an Enemy.
+	protected int experienceGainedFromEntity = 10;
+	public int ExperienceGainedFromEntity	{ get {	return this.experienceGainedFromEntity; }	protected set {	this.experienceGainedFromEntity = value; } }
 
 	public void Damage(float value) {
 
@@ -65,7 +86,11 @@ public abstract class Entity : MonoBehaviour {
 
 		if (CurrentHealth <= 0) {
 
-			Player.current.AmendCurrentXP (XPForCurrentLevel);
+			if (gameObject.tag == "Enemy") {
+				
+				Player.current.AmendCurrentXP (TotalExperienceNeededToLevel);
+
+			}
 
 			Destroy(gameObject);
 
@@ -73,35 +98,46 @@ public abstract class Entity : MonoBehaviour {
 
 	}
 
-	public void ClampHealthAndMana() {
+	void ClampHealthAndMana() {
 
-		if (CurrentMana <= 0) {
-
-			CurrentMana = 0;
-
-		}
-
-		if (CurrentMana > MaximumMana) {
-
-			CurrentMana = MaximumMana;
-
-		}
-
-		if (CurrentHealth > MaximumHealth) {
-
-			CurrentHealth = MaximumHealth;
-
-		}
+		CurrentHealth 	= Mathf.Clamp(CurrentHealth,	0f,	MaximumHealth);
+		CurrentMana 	= Mathf.Clamp(CurrentMana,		0f, MaximumMana);
 
 	}
 
-	protected abstract void Start();
+	void CalculateMaximumResources() {
+
+		// TODO: This also needs to incorporate Health & Mana given through ...of Foritude.
+		// The way we calculate this is by adding all resource gained from equipment to the commented out var, making sure to reset this
+		//		value every time a piece of equipment is removed so that it does not stack.
+
+		MaximumHealth	= (HealthPerStamina * Stamina)		+ BaseHealth;	// + TotalHealthGainedFromItems
+		MaximumMana		= (ManaPerIntellect * Intellect)	+ BaseMana; 	// + TotalManaGainedFromItems
+
+	}
+
+	protected virtual void Start() {
+
+		// Clamps the Health and Mana values to 0f and to their maximum.
+		ClampHealthAndMana();
+
+		// Makes sure that the maximum Health & Mana is always the amount given through Stamina.
+		CalculateMaximumResources();
+
+		// As this Entity has just spawned, the Current Health & Mana should be set to full
+		// Note that this should not happen to the Player during normal gameplay.
+		CurrentHealth = MaximumHealth;
+		CurrentMana = MaximumMana;
+
+	}
 
 	protected virtual void Update() {
 
-		// This needs to be in Update and in a method of it's own due to equipment.
-		MaximumHealth = (HealthPerStamina * Stamina) + BaseHealth;
-		MaximumMana = (ManaPerIntellect * Intellect) + BaseMana;
+		// Clamps the Health and Mana values to 0f and to their maximum.
+		ClampHealthAndMana();
+
+		// Makes sure that the maximum Health & Mana is always the amount given through Stamina.
+		CalculateMaximumResources();
 
 	}
 

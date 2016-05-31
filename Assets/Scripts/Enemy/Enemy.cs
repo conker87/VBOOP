@@ -19,6 +19,8 @@ public class Enemy : Entity {
 
 	protected override void Start ()
 	{
+
+		base.Start();
 		
 		quality = sf.RandomEnumValue<EnemyQuality> ();
 
@@ -33,8 +35,9 @@ public class Enemy : Entity {
 
 	protected override void Update () {
 
-		CheckForDeath ();
-		ClampHealthAndMana ();
+		base.Update();
+
+		CheckForDeath();
 
 	}
 
