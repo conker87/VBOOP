@@ -49,10 +49,12 @@ public abstract class Entity : MonoBehaviour {
 	// This value reduces physical damage (all damage is physical, bar those caused by Burning & Freezing).
 	// TODO: Should this be a percentage or an actual value that increases? Percentages scale with levels, values do not.
 	[SerializeField]
-	protected int stamina = 1, intellect = 1, armorRating = 0;
-	public int Stamina				{ get {	return this.stamina; }			set {	this.stamina = value; } }
-	public int Intellect			{ get {	return this.intellect; }		set {	this.intellect = value; } }
-	public int ArmorRating			{ get {	return this.armorRating; }		set {	this.armorRating = value; } }
+	protected int stamina = 1, intellect = 1, armorRating = 0, manaRegenerationPerSecond = 5, healthRegenerationPerSecond = 5;
+	public int Stamina						{ get {	return this.stamina; }			set {	this.stamina = value; } }
+	public int Intellect					{ get {	return this.intellect; }		set {	this.intellect = value; } }
+	public int ArmorRating					{ get {	return this.armorRating; }		set {	this.armorRating = value; } }
+	public int ManaRegenerationPerSecond	{ get {	return this.manaRegenerationPerSecond; }		set {	this.manaRegenerationPerSecond = value; } }
+	public int HealthRegenerationPerSecond	{ get {	return this.healthRegenerationPerSecond; }		set {	this.healthRegenerationPerSecond = value; } }
 
 	// **************
 	// * EXPERIENCE *
@@ -69,6 +71,9 @@ public abstract class Entity : MonoBehaviour {
 	// The experience given to the Player if this inherited entity is an Enemy.
 	protected int experienceGainedFromEntity = 10;
 	public int ExperienceGainedFromEntity	{ get {	return this.experienceGainedFromEntity; }	protected set {	this.experienceGainedFromEntity = value; } }
+
+	// Misc
+	float nextRegenTime;
 
 	public void Damage(float value) {
 
@@ -116,6 +121,19 @@ public abstract class Entity : MonoBehaviour {
 
 	}
 
+	void DoHealthAndManaRegen() {
+
+		if (Time.time > nextRegenTime) {
+
+			nextRegenTime = Time.time + 1f;
+
+			CurrentHealth	+= HealthRegenerationPerSecond;
+			CurrentMana		+= ManaRegenerationPerSecond;
+
+		}
+
+	}
+
 	protected virtual void Start() {
 
 		// Clamps the Health and Mana values to 0f and to their maximum.
@@ -133,11 +151,14 @@ public abstract class Entity : MonoBehaviour {
 
 	protected virtual void Update() {
 
-		// Clamps the Health and Mana values to 0f and to their maximum.
-		ClampHealthAndMana();
-
 		// Makes sure that the maximum Health & Mana is always the amount given through Stamina.
 		CalculateMaximumResources();
+
+		// Does the natural Current Health & Mana regeneration per second, this can be increased via equipment.
+		DoHealthAndManaRegen();
+
+		// Clamps the Health and Mana values to 0f and to their maximum.
+		ClampHealthAndMana();
 
 	}
 

@@ -25,8 +25,6 @@ public class WeaponController : MonoBehaviour {
 		equippedWeapon = Instantiate (weaponToEquip, weaponLocation.position, weaponLocation.rotation) as Weapon;
 		equippedWeapon.transform.parent = weaponLocation;
 
-		//equippedWeapon.transform.localPosition += weaponToEquip.localPositionOffset;
-
 		if (shouldWeaponScaleToPlayer) {
 			equippedWeapon.transform.localScale = equippedWeapon.transform.parent.localScale;
 		}
