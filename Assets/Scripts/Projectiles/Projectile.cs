@@ -10,11 +10,11 @@ public class Projectile : MonoBehaviour {
 
 	// Speed and Damage values.
 	[SerializeField]
-	float speed = 1f, damage, currentDamage, lifetime = 8f;
-	public float Speed			{ get {	return this.speed; }			set {	this.speed = value; } }
-	public float Damage			{ get {	return this.damage; }			set {	this.damage = value; } }
-	public float CurrentDamage	{ get {	return this.currentDamage; }	set {	this.currentDamage = value; } }
-	public float Lifetime		{ get {	return this.lifetime; }			set {	this.lifetime = value; } }
+	float speed = 1f, weaponTotalDamage, projectileDamage, lifetime = 8f;
+	public float Speed				{ get {	return this.speed; }				set {	this.speed = value; } }
+	public float WeaponAverageDamage	{ get {	return this.weaponTotalDamage; }	set {	this.weaponTotalDamage = value; } }
+	public float ProjectileDamage	{ get {	return this.projectileDamage; }		set {	this.projectileDamage = value; } }
+	public float Lifetime			{ get {	return this.lifetime; }				set {	this.lifetime = value; } }
 
 	[SerializeField]
 	bool isPiercing, isBurning, isFreezing;
@@ -25,6 +25,9 @@ public class Projectile : MonoBehaviour {
 	[SerializeField]
 	float destroyingIn;
 
+	public Weapon sourceWeapon;
+	bool doBurning = false;
+
 	int timesHit = 0, enemyID;
 
 	void Start () {
@@ -34,9 +37,6 @@ public class Projectile : MonoBehaviour {
 
 		/// Sets the lifetime of the Projectile to a public var that shows in the inspector, this should be removed in retail.
 		destroyingIn = lifetime;
-
-		/// Sets the current damage to the total damage, this will be changed depending if the projectile is Piercing or not.
-		currentDamage = damage;
 
 	}
 
@@ -77,10 +77,10 @@ public class Projectile : MonoBehaviour {
 
 			if (doDmg) {
 
-				Debug.Log (gameObject.name + " hit " + other.transform.name + " (" + entity.gameObject.name + "), timesHit: " + timesHit + ", for damage: " + currentDamage + ", isPiercing: " + isPiercing);
+				//Debug.Log (gameObject.name + " hit " + other.transform.name + " (" + entity.gameObject.name + "), timesHit: " + timesHit + ", for damage: " + currentDamage + ", isPiercing: " + isPiercing);
 
 				if (entity != null) {
-					entity.CurrentHealth -= currentDamage;
+					entity.CurrentHealth -= ProjectileDamage;
 				}
 
 				/// This fires up the Static DamageIndicators class which takes in the current Projectile (to get the currentDamage) and the Enemy (to get the Transform).
@@ -89,7 +89,7 @@ public class Projectile : MonoBehaviour {
 
 					DamageIndicator dmg = Instantiate(damageIndicator, other.transform.position, other.transform.rotation) as DamageIndicator;
 
-					dmg.GetComponentInChildren<TextMesh>().text = this.CurrentDamage.ToString();
+					dmg.GetComponentInChildren<TextMesh>().text = this.ProjectileDamage.ToString();
 
 				}
 
@@ -100,13 +100,48 @@ public class Projectile : MonoBehaviour {
 
 				if (IsBurning) {
 
+					//if (sourceWeapon != 
+
 					EffectSlots effectSlots = entity.GetComponent<EffectSlots> ();
 
-					EffectDamageOverTime BurningDamageOverTime = Instantiate (DamageOverTime) as EffectDamageOverTime;
+					if (effectSlots.debuffs.Count > 0) {
 
-					BurningDamageOverTime.value = CurrentDamage * 0.1f;
+						foreach (EffectDamageOverTime debuff in effectSlots.debuffs) {
 
-					effectSlots.Add (BurningDamageOverTime, EffectType.DEBUFF);
+							if (debuff.SourceWeapon == sourceWeapon) {
+
+								debuff.OriginalTime = Time.time;
+								debuff.value += WeaponAverageDamage * 0.1f;
+								debuff.value = Mathf.Clamp (debuff.value, 0f, WeaponAverageDamage * 0.5f);
+
+							} else { 
+
+								doBurning = true;
+
+							}
+
+						}
+					} else {
+
+						doBurning = true;
+
+					}
+
+					if (doBurning == true) {
+
+						EffectDamageOverTime BurningDamageOverTime = Instantiate (DamageOverTime) as EffectDamageOverTime;
+
+						BurningDamageOverTime.value = WeaponAverageDamage * 0.1f;
+						BurningDamageOverTime.EffectDuration = 1000f;
+						BurningDamageOverTime.transform.parent = entity.transform;
+
+						BurningDamageOverTime.SourceWeapon = sourceWeapon;
+
+						effectSlots.Add (BurningDamageOverTime, EffectType.DEBUFF);
+
+					}
+
+					doBurning = false;
 
 				}
 
@@ -121,7 +156,7 @@ public class Projectile : MonoBehaviour {
 
 				}
 
-				currentDamage -= (damage / 4);
+				ProjectileDamage -= (ProjectileDamage / 4);
 				doDmg = false;
 			}
 

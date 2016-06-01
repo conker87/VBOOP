@@ -4,7 +4,7 @@ using System.Collections;
 
 public class Effect : MonoBehaviour {
 
-	public Entity entity;
+	public Entity effectEntity;
 
 	[SerializeField]
 	protected string effectName = "Test Buff", effectDescription = "It's a test. I dunno.";
@@ -26,8 +26,28 @@ public class Effect : MonoBehaviour {
 	protected float timeUntilNextTick = 1f;
 	public float TimeUntilNextTick		{ get {	return this.timeUntilNextTick; }	protected set {	this.timeUntilNextTick = value; } }
 
+	protected Weapon sourceWeapon;
+	protected Entity sourceEntity;
+	public Weapon SourceWeapon		{ get {	return this.sourceWeapon; }	set {	this.sourceWeapon = value; } }
+	public Entity SourceEntity		{ get {	return this.sourceEntity; }	set {	this.sourceEntity = value; } }
+
 	public bool disabled = false;
 	public bool firstRun = true;
+
+	[SerializeField]
+	float destroyingIn;
+
+	void Start() {
+
+		destroyingIn = EffectDuration;
+
+	}
+
+	void Update() {
+
+		destroyingIn -= Time.deltaTime;
+
+	}
 
 	public virtual void DoEffect() {
 

@@ -64,7 +64,7 @@ public class EffectSlots : MonoBehaviour {
 
 				}
 
-				buff.entity = currentEntity;
+				buff.effectEntity = currentEntity;
 				buff.DoEffect ();
 
 				if (Time.time > buff.OriginalTime + buff.EffectDuration) {
@@ -90,7 +90,7 @@ public class EffectSlots : MonoBehaviour {
 
 				}
 
-				debuff.entity = currentEntity;
+				debuff.effectEntity = currentEntity;
 				debuff.DoEffect ();
 
 				if (Time.time > debuff.OriginalTime + debuff.EffectDuration) {

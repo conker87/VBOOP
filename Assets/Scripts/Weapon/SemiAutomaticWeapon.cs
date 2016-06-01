@@ -28,7 +28,7 @@ public class SemiAutomaticWeapon : Weapon {
 			float gunDamageThisShot = Random.Range (projectileMinimumDamage, projectileMaximumDamage);
 			damagePerProjectile = gunDamageThisShot / projectilesPerShot;
 
-			newProjectile.Damage = damagePerProjectile;
+			newProjectile.ProjectileDamage = damagePerProjectile;
 
 			Debug.Log ("SpreadWeapon::OverrideShot (Override) -- gunDamageThisShot: " + gunDamageThisShot + ", damagePerProjectile: " + damagePerProjectile);
 		}

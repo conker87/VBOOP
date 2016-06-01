@@ -13,7 +13,7 @@ public class EffectHealOverTime : Effect {
 
 			if (Time.time > currentTime) {
 
-				entity.Heal (value);
+				effectEntity.Heal (value);
 
 				currentTime = Time.time + TimeUntilNextTick;
 

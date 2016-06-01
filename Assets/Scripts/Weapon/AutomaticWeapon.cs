@@ -28,12 +28,15 @@ public class AutomaticWeapon : Weapon {
 			float gunDamageThisShot = Random.Range (projectileMinimumDamage, projectileMaximumDamage);
 			damagePerProjectile = gunDamageThisShot / projectilesPerShot;
 
-			newProjectile.Damage = damagePerProjectile;
+			newProjectile.ProjectileDamage = damagePerProjectile;
+			newProjectile.WeaponAverageDamage = (projectileMinimumDamage + projectileMaximumDamage) / 2;
 			newProjectile.Lifetime = 5f;
 
 			newProjectile.IsPiercing	= (weaponProjectileType == WeaponProjectileType.PIERCING) ? true : false;
 			newProjectile.IsBurning		= (weaponProjectileType == WeaponProjectileType.BURNING) ? true : false;
 			newProjectile.IsFreezing 	= (weaponProjectileType == WeaponProjectileType.FREEZING) ? true : false;
+
+			newProjectile.sourceWeapon = this;
 
 		}
 

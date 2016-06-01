@@ -13,7 +13,7 @@ public class EffectChangeStats : Effect {
 
 			Debug.Log ("DoEffect");
 
-			entity.BuffStat (stat, value);
+			effectEntity.BuffStat (stat, value);
 
 			disabled = true;
 
@@ -23,7 +23,7 @@ public class EffectChangeStats : Effect {
 
 	public override void EndEffect () {
 
-		entity.BuffStat(stat, -value);
+		effectEntity.BuffStat(stat, -value);
 
 		base.EndEffect ();
 	}

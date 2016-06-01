@@ -28,7 +28,8 @@ public class SingleShotWeapon : Weapon {
 			float gunDamageThisShot = Random.Range (projectileMinimumDamage, projectileMaximumDamage);
 			damagePerProjectile = gunDamageThisShot / projectilesPerShot;
 
-			newProjectile.Damage = damagePerProjectile;
+			newProjectile.ProjectileDamage = damagePerProjectile;
+			newProjectile.WeaponAverageDamage = (projectileMinimumDamage + projectileMaximumDamage) / 2;
 			newProjectile.Lifetime = 5f;
 
 			newProjectile.IsPiercing	= (weaponProjectileType == WeaponProjectileType.PIERCING) ? true : false;

@@ -12,7 +12,7 @@ public class EffectDamageOverTime : Effect {
 
 			if (Time.time > TimeUntilNextTick) {
 
-				entity.Damage (value);
+				effectEntity.Damage (value);
 
 				TimeUntilNextTick = Time.time + 1f;
 
