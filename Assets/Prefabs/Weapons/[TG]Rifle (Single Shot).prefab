@@ -540,20 +540,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shootFromLocation:
   - {fileID: 441418}
-  weaponFireType: 6
+  weaponFireType: 0
   weaponHanded: 0
   weaponType: 0
   weaponQuality: 0
   weaponPrefix: 0
   weaponSuffix: 0
-  weaponProjectileType: 3
+  weaponProjectileType: 4
   weaponName: 
+  manaCost: 1
   attackSpeed: 0.5
+  projectileMinimumDamage: 500
+  projectileMaximumDamage: 500
   projectilesPerShot: 1
-  projectilesPerClip: 8
-  projectileMinimumDamage: 5
-  projectileMaximumDamage: 10
-  damagePerSecond: 0
   projectileVelocity: 25
   projectile: {fileID: 11420312, guid: c4664d539fa1f204e844622ac48ce1b6, type: 2}
 --- !u!1001 &100100000

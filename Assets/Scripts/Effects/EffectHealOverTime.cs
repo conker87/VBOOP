@@ -4,7 +4,7 @@ using System.Collections;
 
 public class EffectHealOverTime : Effect {
 
-	public int value;
+	public float value;
 	float currentTime;
 
 	public override void DoEffect() {

@@ -10,9 +10,6 @@ public class Enemy : Entity {
 	public EnemySpecies species;
 	public EnemyQuality quality;
 
-	public Weapon startingWeapon;
-	Weapon equippedWeapon;
-
 	const float levelMultiplierConstant = 10f;
 
 	protected override void Start ()
@@ -21,10 +18,6 @@ public class Enemy : Entity {
 		base.Start();
 		
 		quality = sf.RandomEnumValue<EnemyQuality> ();
-
-		if (startingWeapon != null) {
-			EquipWeapon (startingWeapon);
-		}
 
 		CurrentHealth = MaximumHealth;// = ScaleEnemyResourceToPlayer(BaseHealth);
 		CurrentMana = MaximumMana;// = ScaleEnemyResourceToPlayer(BaseMana);

@@ -471,12 +471,11 @@ MonoBehaviour:
   weaponSuffix: 0
   weaponProjectileType: 3
   weaponName: 
+  manaCost: 1
   attackSpeed: 1
-  projectilesPerShot: 1
-  projectilesPerClip: 50
   projectileMinimumDamage: 5
   projectileMaximumDamage: 10
-  damagePerSecond: 7.5
+  projectilesPerShot: 1
   projectileVelocity: 40
   projectile: {fileID: 11420312, guid: c4664d539fa1f204e844622ac48ce1b6, type: 2}
 --- !u!1001 &100100000

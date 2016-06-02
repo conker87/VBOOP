@@ -8,7 +8,7 @@ public class DamageIndicator : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 	
-		/// TODO: There needs to be an animation here, maybe choose between move up, rotate around a point [counter] clockwise.
+		// TODO: There needs to be an animation here, maybe choose between move up, rotate around a point [counter] clockwise.
 		transform.rotation = Quaternion.Euler (damageIndicatorAngle);
 
 	}

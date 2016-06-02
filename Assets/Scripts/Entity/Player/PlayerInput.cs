@@ -59,15 +59,15 @@ public class PlayerInput : MonoBehaviour {
 
 		if (_DEBUG_CHOOSEN_TO_CARE_ABOUT_SHOOTING_INPUT) {
 
-			if (new []{ WeaponFireType.AUTOMATIC, WeaponFireType.SEMI_AUTOMATIC, WeaponFireType.SPRAY }.Contains (weaponController.GetWeaponFireType ())) {//weaponController.GetWeaponFireType() == WeaponFireType.AUTOMATIC || ) {
+			/* if (new []{ WeaponFireType.AUTOMATIC, WeaponFireType.SEMI_AUTOMATIC, WeaponFireType.SPRAY }.Contains (weaponController.GetWeaponFireType ())) {//weaponController.GetWeaponFireType() == WeaponFireType.AUTOMATIC || ) {
 				if (Input.GetMouseButton (0)) {
 					weaponController.Shoot ();
 				}
 			} else if (!(new []{ WeaponFireType.AUTOMATIC, WeaponFireType.SEMI_AUTOMATIC, WeaponFireType.SPRAY }.Contains (weaponController.GetWeaponFireType ()))) {
 				if (Input.GetMouseButtonDown (0)) {
 					weaponController.Shoot ();
-				}
-			}
+				} 
+			} */
 		} else {
 
 			if (Input.GetMouseButton (0)) {

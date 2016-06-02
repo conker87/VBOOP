@@ -16,12 +16,12 @@ public class ProjectileWeapon : Weapon {
 
 	}
 
-	protected override void OverrideShoot (Transform loc)
+	protected override void OverrideShoot (Transform loc, out Projectile newProjectile)
 	{
 
 		Quaternion fireRotation = loc.rotation;
 
-		Projectile newProjectile = Instantiate (projectile, loc.position, fireRotation) as Projectile;
+		newProjectile = Instantiate (projectile, loc.position, fireRotation) as Projectile;
 		newProjectile.Speed = projectileVelocity;
 
 	}

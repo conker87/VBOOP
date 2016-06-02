@@ -3,7 +3,7 @@ using System.Collections;
 
 public class WeaponController : MonoBehaviour {
 
-	Weapon equippedWeapon;
+	//Weapon equippedWeapon;
 
 	public bool shouldWeaponScaleToPlayer = false;
 
@@ -19,14 +19,14 @@ public class WeaponController : MonoBehaviour {
 
 	public void EquipWeapon(Weapon weaponToEquip) {
 
-		if (equippedWeapon != null) {
-			Destroy (equippedWeapon.gameObject);
+		if (Player.current.equippedWeapon != null) {
+			Destroy (Player.current.equippedWeapon.gameObject);
 		}
-		equippedWeapon = Instantiate (weaponToEquip, weaponLocation.position, weaponLocation.rotation) as Weapon;
-		equippedWeapon.transform.parent = weaponLocation;
+		Player.current.equippedWeapon = Instantiate (weaponToEquip, weaponLocation.position, weaponLocation.rotation) as Weapon;
+		Player.current.equippedWeapon.transform.parent = weaponLocation;
 
 		if (shouldWeaponScaleToPlayer) {
-			equippedWeapon.transform.localScale = equippedWeapon.transform.parent.localScale;
+			Player.current.equippedWeapon.transform.localScale = Player.current.equippedWeapon.transform.parent.localScale;
 		}
 
 	}
@@ -38,21 +38,21 @@ public class WeaponController : MonoBehaviour {
 
 	public void Shoot() {
 
-		if (equippedWeapon != null) {
-			equippedWeapon.Shoot ();
+		if (Player.current.equippedWeapon != null) {
+			Player.current.equippedWeapon.Shoot ();
 		}
 
 	}
 
-	public WeaponFireType GetWeaponFireType() {
-		return equippedWeapon.weaponFireType;
-	}
+	//public WeaponFireType GetWeaponFireType() {
+	//	return Player.current.equippedWeapon.weaponFireType;
+	//}
 
 	public void SetAttackSpeed(float _time) {
 
-		if (equippedWeapon != null) {
+		if (Player.current.equippedWeapon != null) {
 			
-			equippedWeapon.SetAttackSpeed (_time);
+			Player.current.equippedWeapon.SetAttackSpeed (_time);
 
 		}
 
@@ -60,9 +60,9 @@ public class WeaponController : MonoBehaviour {
 
 	public void SetProjectileVelocity(float velocity) {
 
-		if (equippedWeapon != null) {
+		if (Player.current.equippedWeapon != null) {
 			
-			equippedWeapon.SetProjectileVelocity (velocity);
+			Player.current.equippedWeapon.SetProjectileVelocity (velocity);
 
 		}
 

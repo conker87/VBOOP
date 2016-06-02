@@ -39,14 +39,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99460546dbae0f649b07b83e90d0b284, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  entity: {fileID: 0}
-  effectName: Test Buff
+  effectEntity: {fileID: 0}
+  effectName: Heal Over Time
   effectDescription: It's a test. I dunno.
   effectType: 0
   effectDuration: 8
   timeUntilNextTick: 1
   disabled: 0
   firstRun: 1
+  destroyingIn: 0
   value: 3000
 --- !u!1001 &100100000
 Prefab:

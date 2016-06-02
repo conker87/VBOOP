@@ -19,29 +19,15 @@ public class SpreadWeapon : Weapon {
 
 	}
 
-	protected override void OverrideShoot (Transform loc)
+	protected override void OverrideShoot (Transform loc, out Projectile newProjectile)
 	{
 
 		Quaternion fireRotation = loc.rotation, randomRotaton = Random.rotation;
 
 		fireRotation = Quaternion.RotateTowards(fireRotation, randomRotaton, Random.Range(0.0f, bulletSpread));
 
-		Projectile newProjectile = Instantiate (projectile, loc.position, fireRotation) as Projectile;
-
+		newProjectile = Instantiate (projectile, loc.position, fireRotation) as Projectile;
 		newProjectile.Speed = projectileVelocity;
-
-		if (shouldDamageBeCalculated) {
-			float gunDamageThisShot = Random.Range (projectileMinimumDamage, projectileMaximumDamage);
-			damagePerProjectile = gunDamageThisShot / projectilesPerShot;
-		}
-
-		newProjectile.ProjectileDamage = damagePerProjectile;
-		newProjectile.WeaponAverageDamage = (projectileMinimumDamage + projectileMaximumDamage) / 2;
-		newProjectile.Lifetime = 5f;
-
-		newProjectile.IsPiercing	= (weaponProjectileType == WeaponProjectileType.PIERCING) ? true : false;
-		newProjectile.IsBurning		= (weaponProjectileType == WeaponProjectileType.BURNING) ? true : false;
-		newProjectile.IsFreezing 	= (weaponProjectileType == WeaponProjectileType.FREEZING) ? true : false;
 
 	}
 

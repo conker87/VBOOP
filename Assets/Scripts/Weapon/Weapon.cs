@@ -2,7 +2,6 @@
 using System.Collections;
 using System.Linq;
 
-[ExecuteInEditMode]
 public abstract class Weapon : MonoBehaviour {
 
 	SharedFunctions sf = new SharedFunctions();
@@ -24,20 +23,20 @@ public abstract class Weapon : MonoBehaviour {
 
 	// Damage & Projectiles Descriptors
 	[Header("Damage & Projectiles Descriptors")]
+
+	public float manaCost = 1f;
+	public float ManaCost				{ get {	return this.manaCost; }	set {	this.manaCost = value; } }
+
 	[Range(0.0001f, 20f)]
 	public float attackSpeed = 1f;
 	public float projectileMinimumDamage = 5f, projectileMaximumDamage = 10f;
 	[Space(5)]
-	public int projectilesPerShot = 1, projectilesPerClip = 8;
-
+	public int projectilesPerShot = 1;
 	[Space(5)]
 
-	// Do we really need this value? Should we just calculate them in code?
-	[SerializeField]
-	float damagePerSecond;
-
-	protected float damagePerProjectile;
+	protected float damagePerProjectile, gunDamageThisShot;
 	public float DamagePerProjectile	{ get {	return this.damagePerProjectile; }	set {	this.damagePerProjectile = value; } }
+	public float GunDamageThisShot		{ get {	return this.gunDamageThisShot; }	set {	this.gunDamageThisShot = value; } }
 
 	// Projectile settings
 	[Header("Projectile Settings")]
@@ -45,12 +44,13 @@ public abstract class Weapon : MonoBehaviour {
 	protected float projectileVelocity = 35f;
 	public float ProjectileVelocity		{ get {	return this.projectileVelocity; }	set {	this.projectileVelocity = value; } }
 
+	protected Projectile newProjectile;
 
 	protected bool shouldDamageBeCalculated = true;
 
 	float nextShotTime;
 
-	protected abstract void OverrideShoot (Transform loc);
+	protected abstract void OverrideShoot (Transform loc, out Projectile newProjectile);
 
 	protected virtual void Start () {
 
@@ -59,8 +59,6 @@ public abstract class Weapon : MonoBehaviour {
 	}
 
 	void Update () {
-
-		damagePerSecond = ( (1 / attackSpeed) * ( ( projectileMinimumDamage + projectileMaximumDamage ) / 2 ) ) * projectilesPerShot;
 
 	}
 
@@ -78,9 +76,23 @@ public abstract class Weapon : MonoBehaviour {
 
 	public virtual void Shoot () {
 
-		if (Time.time > nextShotTime) {
+		if (Time.time > nextShotTime && Player.current.CurrentMana >= ManaCost ) {
 
-			shouldDamageBeCalculated = true;
+			Player.current.DamageMana (manaCost);
+
+			GunDamageThisShot = Random.Range (projectileMinimumDamage, projectileMaximumDamage);
+
+			if (Random.Range (0f, 100f) < Player.current.CritRating) {
+
+				DamagePerProjectile = Random.Range(1.4f, 2f);
+
+			} else {
+
+				DamagePerProjectile = 1f;
+
+			}
+
+			DamagePerProjectile *= (GunDamageThisShot / projectilesPerShot);
 
 			nextShotTime = Time.time + attackSpeed;
 
@@ -88,9 +100,18 @@ public abstract class Weapon : MonoBehaviour {
 
 				foreach (Transform loc in shootFromLocation) {
 
-					OverrideShoot (loc);
+					OverrideShoot (loc, out newProjectile);
 
-					shouldDamageBeCalculated = false;
+					newProjectile.ProjectileDamage = DamagePerProjectile;
+					newProjectile.WeaponAverageDamage = (projectileMinimumDamage + projectileMaximumDamage) / 2;
+					newProjectile.Lifetime = 5f;
+
+					newProjectile.IsPiercing	= (weaponProjectileType == WeaponProjectileType.PIERCING) ? true : false;
+					newProjectile.IsBurning		= (weaponProjectileType == WeaponProjectileType.BURNING) ? true : false;
+					newProjectile.IsFreezing 	= (weaponProjectileType == WeaponProjectileType.FREEZING) ? true : false;
+					newProjectile.IsHealing 	= (weaponProjectileType == WeaponProjectileType.HEALING) ? true : false;
+
+					newProjectile.sourceWeapon = this;
 				}
 			}
 
@@ -118,4 +139,4 @@ public enum WeaponQuality			{ AWFUL, CRAP, NORMAL, GOOD, GREAT, BRILLIANT, MAGNI
 public enum WeaponPrefix			{ UNDEAD_SLAYING, ABERRATION_ANNIHILATING, BEAST_BLASTING, MAN_MURDERING, CRITTER_CRUSHING, HEALING, NULL };
 public enum WeaponType				{ SHOTGUN, RIFLE, PISTOL, FLAMETHROWER, FROSTTHROWER, UZI, SUBMACHINE_GUN, MUSKET };
 public enum WeaponSuffix			{ MANA_REGENERATION, HEALTH_REGENERATION, FORTITUDE, MANA_CAPACITY, NULL }; 	// TODO: There can be more than one of these added to the var with this information needs to be an array!
-public enum WeaponProjectileType	{ PIERCING, BURNING, FREEZING, NULL } 											// TODO: There can be more than one of these added to the var with this information needs to be an array!
+public enum WeaponProjectileType	{ PIERCING, BURNING, FREEZING, HEALING, NULL } 											// TODO: There can be more than one of these added to the var with this information needs to be an array!

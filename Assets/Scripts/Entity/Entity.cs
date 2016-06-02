@@ -51,11 +51,12 @@ public abstract class Entity : MonoBehaviour {
 	// This value reduces physical damage (all damage is physical, bar those caused by Burning & Freezing).
 	// TODO: Should this be a percentage or an actual value that increases? Percentages scale with levels, values do not.
 	[SerializeField]
-	protected int stamina = 1, intellect = 1, armorRating = 0, healthRegenerationPerSecond = 5, manaRegenerationPerSecond = 5;
+	protected int stamina = 1, intellect = 1, armorRating = 0, critRating = 1, healthRegenerationPerSecond = 5, manaRegenerationPerSecond = 5;
 	[SerializeField] protected bool disableNaturalRegeneration = false;
 	public int Stamina						{ get {	return this.stamina; }			set {	this.stamina = value; } }
 	public int Intellect					{ get {	return this.intellect; }		set {	this.intellect = value; } }
 	public int ArmorRating					{ get {	return this.armorRating; }		set {	this.armorRating = value; } }
+	public int CritRating					{ get {	return this.critRating; }		set {	this.critRating = value; } }
 	public int HealthRegenerationPerSecond	{ get {	return this.healthRegenerationPerSecond; }		set {	this.healthRegenerationPerSecond = value; } }
 	public int ManaRegenerationPerSecond	{ get {	return this.manaRegenerationPerSecond; }		set {	this.manaRegenerationPerSecond = value; } }
 	public bool DisableNaturalRegeneration	{ get {	return this.disableNaturalRegeneration; }		set {	this.disableNaturalRegeneration = value; } }
@@ -76,6 +77,14 @@ public abstract class Entity : MonoBehaviour {
 	protected int experienceGainedFromEntity = 10;
 	public int ExperienceGainedFromEntity	{ get {	return this.experienceGainedFromEntity; }	protected set {	this.experienceGainedFromEntity = value; } }
 
+	// ***********
+	// * WEAPONS *
+	// ***********
+	// The current equipped weapon.
+	public Weapon equippedWeapon, startingWeapon;
+	public Weapon StartingWeapon	{ get {	return this.startingWeapon; }		protected set {	this.startingWeapon = value; } }
+	public Weapon EquippedWeapon	{ get {	return this.equippedWeapon; }		protected set {	this.equippedWeapon = value; } }
+
 	// Misc
 	float nextRegenTime;
 
@@ -85,9 +94,21 @@ public abstract class Entity : MonoBehaviour {
 
 	}
 
+	public void DamageMana(float value) {
+
+		CurrentMana -= value;
+
+	}
+
 	public void Heal(float value) {
 
-		Damage (-value);
+		Damage(-value);
+
+	}
+
+	public void HealMana(float value) {
+
+		DamageMana(-value);
 
 	}
 
@@ -97,6 +118,10 @@ public abstract class Entity : MonoBehaviour {
 
 			case EntityStat.ARMORRATING:
 				ArmorRating += value;
+				break;
+
+			case EntityStat.CRITRATING:
+				CritRating += value;
 				break;
 
 			case EntityStat.HEALTHREGENERATIONPERSECOND:
@@ -114,7 +139,6 @@ public abstract class Entity : MonoBehaviour {
 			case EntityStat.STAMINA:
 				Stamina += value;
 				break;
-
 
 		}
 
@@ -171,6 +195,10 @@ public abstract class Entity : MonoBehaviour {
 
 		entityEffectSlots = GetComponent<EffectSlots> ();
 
+		if (StartingWeapon != null) {
+			EquipWeapon (StartingWeapon);
+		}
+
 		// Clamps the Health and Mana values to 0f and to their maximum.
 		ClampHealthAndMana();
 
@@ -204,4 +232,4 @@ public abstract class Entity : MonoBehaviour {
 }
 
 
-public enum EntityStat { STAMINA, INTELLECT, ARMORRATING, MANAREGENERATIONPERSECOND, HEALTHREGENERATIONPERSECOND };
+public enum EntityStat { ARMORRATING, CRITRATING, HEALTHREGENERATIONPERSECOND, INTELLECT, MANAREGENERATIONPERSECOND, STAMINA };

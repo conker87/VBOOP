@@ -8,7 +8,7 @@ TagManager:
   - Projectile
   - Weapon
   - Geometry
-  - EnemyChild
+  - Coop
   layers:
   - Default
   - TransparentFX

@@ -6,36 +6,37 @@ public class Projectile : MonoBehaviour {
 
 	public DamageIndicator damageIndicator;
 
-	public Effect DamageOverTime;
+	public Effect DamageOverTime, HealOverTime;
 
 	// Speed and Damage values.
 	[SerializeField]
 	float speed = 1f, weaponTotalDamage, projectileDamage, lifetime = 8f;
-	public float Speed				{ get {	return this.speed; }				set {	this.speed = value; } }
+	public float Speed					{ get {	return this.speed; }				set {	this.speed = value; } }
 	public float WeaponAverageDamage	{ get {	return this.weaponTotalDamage; }	set {	this.weaponTotalDamage = value; } }
-	public float ProjectileDamage	{ get {	return this.projectileDamage; }		set {	this.projectileDamage = value; } }
-	public float Lifetime			{ get {	return this.lifetime; }				set {	this.lifetime = value; } }
+	public float ProjectileDamage		{ get {	return this.projectileDamage; }		set {	this.projectileDamage = value; } }
+	public float Lifetime				{ get {	return this.lifetime; }				set {	this.lifetime = value; } }
 
 	[SerializeField]
-	bool isPiercing, isBurning, isFreezing;
+	bool isPiercing, isBurning, isFreezing, isHealing;
 	public bool IsPiercing		{ get {	return this.isPiercing; }	set {	this.isPiercing = value; } }
 	public bool IsBurning		{ get {	return this.isBurning; }	set {	this.isBurning = value; } }
 	public bool IsFreezing		{ get {	return this.isFreezing; }	set {	this.isFreezing = value; } }
+	public bool IsHealing		{ get {	return this.isHealing; }	set {	this.isHealing = value; } }
 
 	[SerializeField]
 	float destroyingIn;
 
 	public Weapon sourceWeapon;
-	bool doBurning = false;
+	bool doFreezing = false, doBurning = false, doHealing = false;
 
 	int timesHit = 0, enemyID;
 
 	void Start () {
 
-		/// Destroys the gameObject in Lifetime seconds.
+		// Destroys the gameObject in Lifetime seconds.
 		Destroy (gameObject, lifetime);
 
-		/// Sets the lifetime of the Projectile to a public var that shows in the inspector, this should be removed in retail.
+		// Sets the lifetime of the Projectile to a public var that shows in the inspector, this should be removed in retail.
 		destroyingIn = lifetime;
 
 	}
@@ -51,119 +52,161 @@ public class Projectile : MonoBehaviour {
 
 	void OnTriggerEnter(Collider other) {
 
-		bool doDmg = false;
+		Debug.Log ("OnTriggerEnter");
 
-		Entity entity = other.GetComponentInParent<Entity>();
+		timesHit++;
 
-		/// If enemyBaseParent isn't null, then GetComponentInParent found an EnemyBase comp.
-		if (entity != null) {
+		Entity entity = other.GetComponentInParent<Entity> ();
 
-			if (timesHit == 0) {
+		if (entity == null) {
 
-				enemyID = entity.GetInstanceID ();
+			entity = other.GetComponent<Entity> ();
 
-			}
+		}
 
-			timesHit++;
+		// The Weapon should not do damage to enemies if it is healing (TODO: or should it but do half damage?)
+		if (IsHealing) {
 
-			/// We want to do damage only when the times hit is equal to 1 (which means this is the first enemy it has encountered),
-			/// or if the times hit is more than 1 and that the enemy ID is no longer the same.
-			if (timesHit == 1 || (timesHit > 1 && enemyID != entity.GetInstanceID ())) {
+			Debug.Log ("IsHealing");
 
-				enemyID = entity.GetInstanceID ();
-				doDmg = true;
+			// If entity isn't null and the entity tag is "Coop".
+			if (entity != null && entity.tag == "Coop") {
 
-			}
+				Debug.Log ("entity != null && entity.tag == Coop");
 
-			if (doDmg) {
+				EffectSlots effectSlots = entity.GetComponent<EffectSlots> ();
 
-				//Debug.Log (gameObject.name + " hit " + other.transform.name + " (" + entity.gameObject.name + "), timesHit: " + timesHit + ", for damage: " + currentDamage + ", isPiercing: " + isPiercing);
+				if (effectSlots.buffs.Count > 0) {
 
-				if (entity != null) {
-					entity.CurrentHealth -= ProjectileDamage;
-				}
+					foreach (EffectHealOverTime buffs in effectSlots.buffs) {
 
-				/// This fires up the Static DamageIndicators class which takes in the current Projectile (to get the currentDamage) and the Enemy (to get the Transform).
+						if (buffs.SourceWeapon == sourceWeapon) {
 
-				if (damageIndicator != null) {
+							// TODO: BALANCING!!
+							buffs.OriginalTime = Time.time;
+							buffs.value += WeaponAverageDamage * 0.25f;
+							buffs.value = Mathf.Clamp (buffs.value, 0f, WeaponAverageDamage * 0.9f);
 
-					DamageIndicator dmg = Instantiate(damageIndicator, other.transform.position, other.transform.rotation) as DamageIndicator;
+						} else { 
 
-					dmg.GetComponentInChildren<TextMesh>().text = this.ProjectileDamage.ToString();
-
-				}
-
-				/// Temp code to instantiate a temp dmg indicator.
-				//GameObject dmg = Instantiate (dmgIndicator, other.transform.position, other.transform.rotation) as GameObject;
-				//dmg.GetComponentInChildren<TextMesh> ().text = currentDamage.ToString ();
-				//dmg.transform.LookAt (Camera.main.transform);
-
-				if (IsBurning) {
-
-					//if (sourceWeapon != 
-
-					EffectSlots effectSlots = entity.GetComponent<EffectSlots> ();
-
-					if (effectSlots.debuffs.Count > 0) {
-
-						foreach (EffectDamageOverTime debuff in effectSlots.debuffs) {
-
-							if (debuff.SourceWeapon == sourceWeapon) {
-
-								debuff.OriginalTime = Time.time;
-								debuff.value += WeaponAverageDamage * 0.1f;
-								debuff.value = Mathf.Clamp (debuff.value, 0f, WeaponAverageDamage * 0.5f);
-
-							} else { 
-
-								doBurning = true;
-
-							}
+							doHealing = true;
 
 						}
-					} else {
-
-						doBurning = true;
 
 					}
+				} else {
 
-					if (doBurning == true) {
-
-						EffectDamageOverTime BurningDamageOverTime = Instantiate (DamageOverTime) as EffectDamageOverTime;
-
-						BurningDamageOverTime.value = WeaponAverageDamage * 0.1f;
-						BurningDamageOverTime.EffectDuration = 1000f;
-						BurningDamageOverTime.transform.parent = entity.transform;
-
-						BurningDamageOverTime.SourceWeapon = sourceWeapon;
-
-						effectSlots.Add (BurningDamageOverTime, EffectType.DEBUFF);
-
-					}
-
-					doBurning = false;
+					doHealing = true;
 
 				}
 
-				/// Destroy the gameObject now as it's either not a piercing round or it is and it has hit more than 4 enemies.
-				if (IsPiercing == false || (IsPiercing == true && timesHit > 3)) {
+				// If doHealing is true and the entity's current health isn't it's maximum health then we should give them a HoT.
+				if (doHealing == true && entity.CurrentHealth != entity.MaximumHealth) {
 
-					//Debug.Log (gameObject.name + " destroyed with timesHit: " + timesHit + " and damage: " + currentDamage);
+					Debug.Log ("HealingOverTime");
 
-					Destroy (gameObject);
+					// TODO: This needs balancing.
+					EffectHealOverTime HealingOverTime = Instantiate (HealOverTime) as EffectHealOverTime;
 
-					return;
+					HealingOverTime.value = WeaponAverageDamage * 0.1f;
+					HealingOverTime.EffectDuration = 1000f;
+					HealingOverTime.transform.parent = entity.transform;
+
+					HealingOverTime.SourceWeapon = sourceWeapon;
+
+					effectSlots.Add (HealingOverTime, EffectType.BUFF);
 
 				}
 
-				ProjectileDamage -= (ProjectileDamage / 4);
-				doDmg = false;
+				entity.Heal (ProjectileDamage);
+
+				doHealing = false;
+
+			}
+
+		} else {
+
+			// If entity isn't null and the entity tag is "Enemy".
+			if (entity != null && entity.tag == "Enemy") {
+
+				// We want to do damage only when the times hit is equal to 1 (which means this is the first enemy it has encountered),
+				// or if the times hit is more than 1 and that the enemy ID is no longer the same.
+				if (timesHit == 1 || (timesHit > 1 && enemyID != entity.GetInstanceID ())) {
+
+					enemyID = entity.GetInstanceID ();
+
+					//Debug.Log (gameObject.name + " hit " + other.transform.name + " (" + entity.gameObject.name + "), timesHit: " + timesHit + ", for damage: " + currentDamage + ", isPiercing: " + isPiercing);
+
+					float damageReductionDueToArmor = (100 - (entity.ArmorRating * Random.Range(0.7f, 1f))) / 100;
+					float actualDamage = ProjectileDamage * damageReductionDueToArmor;
+
+					entity.Damage (actualDamage);
+
+					// Fire up the DamageIndicators prefab which takes in the current Projectile (to get the currentDamage) and the Enemy (to get the Transform).
+					if (damageIndicator != null) {
+
+						DamageIndicator dmg = Instantiate (damageIndicator, other.transform.position, other.transform.rotation) as DamageIndicator;
+
+						dmg.GetComponentInChildren<TextMesh> ().text = actualDamage.ToString();
+
+					}
+
+					// If the projectile (and therefore the gun) has a burning effect, them give the target Entity the burning DoT.
+					// This damaged is capped at 50% of the average damage.
+					if (IsBurning) {
+
+						EffectSlots effectSlots = entity.GetComponent<EffectSlots> ();
+
+						if (effectSlots.debuffs.Count > 0) {
+
+							foreach (EffectDamageOverTime debuff in effectSlots.debuffs) {
+
+								if (debuff.SourceWeapon == sourceWeapon) {
+
+									debuff.OriginalTime = Time.time;
+									debuff.value += WeaponAverageDamage * 0.1f;
+									debuff.value = Mathf.Clamp (debuff.value, 0f, WeaponAverageDamage * 0.5f);
+
+								} else { 
+
+									doBurning = true;
+
+								}
+
+							}
+						} else {
+
+							doBurning = true;
+
+						}
+
+						if (doBurning == true) {
+
+							EffectDamageOverTime BurningDamageOverTime = Instantiate (DamageOverTime) as EffectDamageOverTime;
+
+							BurningDamageOverTime.value = WeaponAverageDamage * 0.1f;
+							BurningDamageOverTime.EffectDuration = 1000f;
+							BurningDamageOverTime.transform.parent = entity.transform;
+
+							BurningDamageOverTime.SourceWeapon = sourceWeapon;
+
+							effectSlots.Add (BurningDamageOverTime, EffectType.DEBUFF);
+
+						}
+
+						doBurning = false;
+
+					}
+
+					ProjectileDamage -= (ProjectileDamage / 4);
+				}
 			}
 
 		}
 
-		/// The projectile hit geometry and as such needs to be destroyed.
-		if ((new []{ "Geometry", "Untagged" }.Contains (other.tag))) {
+		// Destroy the gameObject now as it's either not a piercing round, it is and it has hit more than 4 enemies or
+		// the projectile hit geometry and as such needs to be destroyed.
+		if (IsPiercing == false || (IsPiercing == true && timesHit > 3) || (new []{ "Geometry", "Untagged" }.Contains (other.tag))) {
 
 			//Debug.Log ("This Projectile (" + gameObject.name + ") hit geometry and was destroyed");
 

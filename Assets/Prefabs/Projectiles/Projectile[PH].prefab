@@ -134,14 +134,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damageIndicator: {fileID: 11446104, guid: 2f55e1ce4f1c4ef41913d8df4085d6dc, type: 2}
   DamageOverTime: {fileID: 11423588, guid: 3c569f0641ff3fc49a5d33f90061382b, type: 2}
+  HealOverTime: {fileID: 11434788, guid: 66b7f432fadba854d86c4bfdaaa3a370, type: 2}
   speed: 1
-  damage: 0
-  currentDamage: 0
+  weaponTotalDamage: 0
+  projectileDamage: 0
   lifetime: 8
   isPiercing: 0
   isBurning: 0
   isFreezing: 0
   destroyingIn: 0
+  sourceWeapon: {fileID: 0}
 --- !u!114 &11421094
 MonoBehaviour:
   m_ObjectHideFlags: 1

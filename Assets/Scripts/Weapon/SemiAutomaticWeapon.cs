@@ -16,23 +16,13 @@ public class SemiAutomaticWeapon : Weapon {
 
 	}
 
-	protected override void OverrideShoot (Transform loc)
+	protected override void OverrideShoot (Transform loc, out Projectile newProjectile)
 	{
 
 		Quaternion fireRotation = loc.rotation;
 
-		Projectile newProjectile = Instantiate (projectile, loc.position, fireRotation) as Projectile;
+		newProjectile = Instantiate (projectile, loc.position, fireRotation) as Projectile;
 		newProjectile.Speed = projectileVelocity;
-
-		if (shouldDamageBeCalculated) {
-			float gunDamageThisShot = Random.Range (projectileMinimumDamage, projectileMaximumDamage);
-			damagePerProjectile = gunDamageThisShot / projectilesPerShot;
-
-			newProjectile.ProjectileDamage = damagePerProjectile;
-
-			Debug.Log ("SpreadWeapon::OverrideShot (Override) -- gunDamageThisShot: " + gunDamageThisShot + ", damagePerProjectile: " + damagePerProjectile);
-		}
-
 
 	}
 
