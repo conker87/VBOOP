@@ -27,7 +27,7 @@ public class Projectile : MonoBehaviour {
 	float destroyingIn;
 
 	public Weapon sourceWeapon;
-	bool doFreezing = false, doBurning = false, doHealing = false;
+	bool doFreezing = false, doBurning = false, doHealingOverTime = false;
 
 	int timesHit = 0, enemyID;
 
@@ -52,7 +52,7 @@ public class Projectile : MonoBehaviour {
 
 	void OnTriggerEnter(Collider other) {
 
-		Debug.Log ("OnTriggerEnter");
+		// Debug.Log ("OnTriggerEnter");
 
 		timesHit++;
 
@@ -64,15 +64,20 @@ public class Projectile : MonoBehaviour {
 
 		}
 
+		if (IsHealing == false && entity != null && entity.tag == "Coop") {
+
+			return;
+
+		}
+
 		// The Weapon should not do damage to enemies if it is healing (TODO: or should it but do half damage?)
 		if (IsHealing) {
-
-			Debug.Log ("IsHealing");
 
 			// If entity isn't null and the entity tag is "Coop".
 			if (entity != null && entity.tag == "Coop") {
 
-				Debug.Log ("entity != null && entity.tag == Coop");
+				// Heal the entity.
+				entity.Heal (ProjectileDamage);
 
 				EffectSlots effectSlots = entity.GetComponent<EffectSlots> ();
 
@@ -89,19 +94,19 @@ public class Projectile : MonoBehaviour {
 
 						} else { 
 
-							doHealing = true;
+							doHealingOverTime = true;
 
 						}
 
 					}
 				} else {
 
-					doHealing = true;
+					doHealingOverTime = true;
 
 				}
 
 				// If doHealing is true and the entity's current health isn't it's maximum health then we should give them a HoT.
-				if (doHealing == true && entity.CurrentHealth != entity.MaximumHealth) {
+				if (doHealingOverTime == true && entity.CurrentHealth != entity.MaximumHealth) {
 
 					Debug.Log ("HealingOverTime");
 
@@ -118,9 +123,7 @@ public class Projectile : MonoBehaviour {
 
 				}
 
-				entity.Heal (ProjectileDamage);
-
-				doHealing = false;
+				doHealingOverTime = false;
 
 			}
 

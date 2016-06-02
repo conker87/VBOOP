@@ -660,10 +660,12 @@ MonoBehaviour:
   healthRegenerationPerSecond: 5
   manaRegenerationPerSecond: 5
   disableNaturalRegeneration: 1
+  equippedWeapon: {fileID: 0}
+  startingWeapon: {fileID: 11433006, guid: 1c57d7cebd153a44880bb4291616a7c4, type: 2}
+  weaponLoction: {fileID: 499268}
   weaponLocation: {fileID: 499268}
   species: 0
   quality: 0
-  startingWeapon: {fileID: 11433006, guid: 1c57d7cebd153a44880bb4291616a7c4, type: 2}
 --- !u!114 &11407690
 MonoBehaviour:
   m_ObjectHideFlags: 1

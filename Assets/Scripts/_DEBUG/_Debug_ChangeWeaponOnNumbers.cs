@@ -31,7 +31,7 @@ public class _Debug_ChangeWeaponOnNumbers : MonoBehaviour {
 					currentGun = allGuns.Length - 1;
 				}
 
-				weaponController.EquipWeapon (allGuns [currentGun]);
+				weaponController.EquipWeaponOnPlayer (allGuns [currentGun]);
 
 			} else if (Input.GetAxis ("Mouse ScrollWheel") > 0) {
 
@@ -40,22 +40,22 @@ public class _Debug_ChangeWeaponOnNumbers : MonoBehaviour {
 					currentGun = 0;
 				}
 
-				weaponController.EquipWeapon (allGuns [currentGun]);
+				weaponController.EquipWeaponOnPlayer (allGuns [currentGun]);
 
 			} else {
 
 				if (Input.GetKeyDown (KeyCode.Alpha1)) {
-					weaponController.EquipWeapon (allGuns [0]);
+					weaponController.EquipWeaponOnPlayer (allGuns [0]);
 				} else if (Input.GetKeyDown (KeyCode.Alpha2)) {
-					weaponController.EquipWeapon (allGuns [1]);
+					weaponController.EquipWeaponOnPlayer (allGuns [1]);
 				} else if (Input.GetKeyDown (KeyCode.Alpha3)) {
-					weaponController.EquipWeapon (allGuns [2]);
+					weaponController.EquipWeaponOnPlayer (allGuns [2]);
 				} else if (Input.GetKeyDown (KeyCode.Alpha4)) {
-					weaponController.EquipWeapon (allGuns [3]);
+					weaponController.EquipWeaponOnPlayer (allGuns [3]);
 				} else if (Input.GetKeyDown (KeyCode.Alpha5)) {
-					weaponController.EquipWeapon (allGuns [4]);
+					weaponController.EquipWeaponOnPlayer (allGuns [4]);
 				} else if (Input.GetKeyDown (KeyCode.Alpha6)) {
-					weaponController.EquipWeapon (allGuns [5]);
+					weaponController.EquipWeaponOnPlayer (allGuns [5]);
 				}
 
 			}

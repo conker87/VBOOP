@@ -5,8 +5,6 @@ public class Enemy : Entity {
 
 	SharedFunctions sf = new SharedFunctions();
 
-	public Transform weaponLocation;
-
 	public EnemySpecies species;
 	public EnemyQuality quality;
 
@@ -16,7 +14,7 @@ public class Enemy : Entity {
 	{
 
 		base.Start();
-		
+
 		quality = sf.RandomEnumValue<EnemyQuality> ();
 
 		CurrentHealth = MaximumHealth;// = ScaleEnemyResourceToPlayer(BaseHealth);

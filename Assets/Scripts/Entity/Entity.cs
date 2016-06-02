@@ -85,6 +85,8 @@ public abstract class Entity : MonoBehaviour {
 	public Weapon StartingWeapon	{ get {	return this.startingWeapon; }		protected set {	this.startingWeapon = value; } }
 	public Weapon EquippedWeapon	{ get {	return this.equippedWeapon; }		protected set {	this.equippedWeapon = value; } }
 
+	public Transform weaponLocation;
+
 	// Misc
 	float nextRegenTime;
 
@@ -196,7 +198,7 @@ public abstract class Entity : MonoBehaviour {
 		entityEffectSlots = GetComponent<EffectSlots> ();
 
 		if (StartingWeapon != null) {
-			EquipWeapon (StartingWeapon);
+			WeaponController.EquipWeapon (this, weaponLocation, StartingWeapon);
 		}
 
 		// Clamps the Health and Mana values to 0f and to their maximum.
@@ -230,6 +232,5 @@ public abstract class Entity : MonoBehaviour {
 	}
 
 }
-
 
 public enum EntityStat { ARMORRATING, CRITRATING, HEALTHREGENERATIONPERSECOND, INTELLECT, MANAREGENERATIONPERSECOND, STAMINA };

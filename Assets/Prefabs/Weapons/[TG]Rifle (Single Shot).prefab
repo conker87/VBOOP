@@ -548,7 +548,7 @@ MonoBehaviour:
   weaponSuffix: 0
   weaponProjectileType: 4
   weaponName: 
-  manaCost: 1
+  manaCost: 2.6
   attackSpeed: 0.5
   projectileMinimumDamage: 500
   projectileMaximumDamage: 500

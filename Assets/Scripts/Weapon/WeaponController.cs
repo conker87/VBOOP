@@ -3,21 +3,34 @@ using System.Collections;
 
 public class WeaponController : MonoBehaviour {
 
-	//Weapon equippedWeapon;
+	Weapon equippedWeapon;
 
-	public bool shouldWeaponScaleToPlayer = false;
-
+	public bool shouldWeaponScaleToEntity = false;
 	public Transform weaponLocation;
 	public Weapon startingWeapon;
 
 	void Start ()
 	{
-		if (startingWeapon != null) {
-			EquipWeapon (startingWeapon);
-		}
+		//if (startingWeapon != null) {
+		//	EquipWeapon (startingWeapon);
+		//}
 	}
 
-	public void EquipWeapon(Weapon weaponToEquip) {
+	public static void EquipWeapon(Entity entity, Transform weaponLocation, Weapon weaponToEquip, bool shouldWeaponScaleToEntity = false) {
+
+		if (entity.equippedWeapon != null) {
+			Destroy (entity.equippedWeapon.gameObject);
+		}
+		entity.equippedWeapon = Instantiate (weaponToEquip, weaponLocation.position, weaponLocation.rotation) as Weapon;
+		entity.equippedWeapon.transform.parent = weaponLocation;
+
+		if (shouldWeaponScaleToEntity == true) {
+			entity.equippedWeapon.transform.localScale = Player.current.equippedWeapon.transform.parent.localScale;
+		}
+
+	}
+
+	public void EquipWeaponOnPlayer(Weapon weaponToEquip) {
 
 		if (Player.current.equippedWeapon != null) {
 			Destroy (Player.current.equippedWeapon.gameObject);
@@ -25,7 +38,7 @@ public class WeaponController : MonoBehaviour {
 		Player.current.equippedWeapon = Instantiate (weaponToEquip, weaponLocation.position, weaponLocation.rotation) as Weapon;
 		Player.current.equippedWeapon.transform.parent = weaponLocation;
 
-		if (shouldWeaponScaleToPlayer) {
+		if (shouldWeaponScaleToEntity == true) {
 			Player.current.equippedWeapon.transform.localScale = Player.current.equippedWeapon.transform.parent.localScale;
 		}
 
