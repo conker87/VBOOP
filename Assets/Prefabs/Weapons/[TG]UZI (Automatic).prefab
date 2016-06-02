@@ -394,12 +394,12 @@ MonoBehaviour:
   weaponQuality: 1
   weaponPrefix: 1
   weaponSuffix: 1
-  weaponProjectileType: 3
+  weaponProjectileType: 0
   weaponName: CRAP ABERRATION_ANNIHILATING UZI HEALTH_REGENERATION, with NULL rounds.
   manaCost: 1
-  attackSpeed: 0.05
-  projectileMinimumDamage: 5
-  projectileMaximumDamage: 10
+  attackSpeed: 0.1
+  projectileMinimumDamage: 20
+  projectileMaximumDamage: 30
   projectilesPerShot: 1
   projectileVelocity: 35
   projectile: {fileID: 11420312, guid: c4664d539fa1f204e844622ac48ce1b6, type: 2}

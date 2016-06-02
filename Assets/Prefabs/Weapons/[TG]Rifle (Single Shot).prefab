@@ -542,16 +542,16 @@ MonoBehaviour:
   - {fileID: 441418}
   weaponFireType: 0
   weaponHanded: 0
-  weaponType: 0
+  weaponType: 1
   weaponQuality: 0
   weaponPrefix: 0
   weaponSuffix: 0
   weaponProjectileType: 4
   weaponName: 
-  manaCost: 2.6
+  manaCost: 1
   attackSpeed: 0.5
-  projectileMinimumDamage: 500
-  projectileMaximumDamage: 500
+  projectileMinimumDamage: 20
+  projectileMaximumDamage: 30
   projectilesPerShot: 1
   projectileVelocity: 25
   projectile: {fileID: 11420312, guid: c4664d539fa1f204e844622ac48ce1b6, type: 2}

@@ -25,8 +25,6 @@ public class SetNameplates : MonoBehaviour {
 
 	Entity entity;
 
-	bool dontSpamLog = true;
-
 	float currentHealth, maximumHealth, currentMana, maximumMana;
 	public float CurrentHealth				{ get {	return this.currentHealth; }	set {	this.currentHealth = value; } }
 	public float MaximumHealth				{ get {	return this.maximumHealth; }	set {	this.maximumHealth = value; } }
@@ -75,9 +73,8 @@ public class SetNameplates : MonoBehaviour {
 
 				float zero = 0f;
 				Vector3 newLocalScale = new Vector3 (zero, 1f, 1f);
-				panel.transform.localScale = newLocalScale;
 
-				return;
+				panel.transform.localScale = newLocalScale;
 
 			}
 
@@ -85,6 +82,7 @@ public class SetNameplates : MonoBehaviour {
 
 				float percentage = currentResource / maximumResource;
 				Vector3 newLocalScale = new Vector3 (percentage, 1f, 1f);
+
 				panel.transform.localScale = newLocalScale;
 
 			}

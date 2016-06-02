@@ -30,6 +30,7 @@ public abstract class Weapon : MonoBehaviour {
 
 	// Mana & Weapon Descriptors Values
 	[Header("Mana & Weapon Descriptors Values")]
+	[SerializeField]
 	protected float manaCost = 1f;
 	public float ManaCost			{ get {	return this.manaCost; }	set {	this.manaCost = value; } }
 	[Space(5)]
@@ -40,12 +41,15 @@ public abstract class Weapon : MonoBehaviour {
 	// Damage & Projectiles Descriptors
 	[Header("Damage & Projectiles Descriptors")]
 	[Range(0.0001f, 20f)]
+	[SerializeField]
 	protected float attackSpeed = 1f;
+	[SerializeField]
 	protected float projectileMinimumDamage = 5f, projectileMaximumDamage = 10f;
 	public float AttackSpeed				{ get {	return this.attackSpeed; }	set {	this.attackSpeed = value; } }
 	public float ProjectileMinimumDamage	{ get {	return this.projectileMinimumDamage; }	set {	this.projectileMinimumDamage = value; } }
 	public float ProjectileMaximumDamage	{ get {	return this.projectileMaximumDamage; }	set {	this.projectileMaximumDamage = value; } }
 	[Space(5)]
+	[SerializeField]
 	public int projectilesPerShot = 1;
 	public int ProjectilesPerShot		{ get {	return this.projectilesPerShot; }	set {	this.projectilesPerShot = value; } }
 	[Space(5)]
@@ -92,19 +96,13 @@ public abstract class Weapon : MonoBehaviour {
 
 			Player.current.DamageMana (manaCost);
 
-			GunDamageThisShot = Random.Range (projectileMinimumDamage, projectileMaximumDamage);
+			GunDamageThisShot = Random.Range (ProjectileMinimumDamage, ProjectileMaximumDamage);
 
-			if (Random.Range (0f, 100f) < Player.current.CritRating) {
+			DamagePerProjectile = (Random.Range (0f, 100f) < Player.current.CritRating) ? (1.6f * Player.current.IncreasedCritDamage) : 1.0f;
 
-				DamagePerProjectile = 1.6f * Player.current.IncreasedCritDamage;
+			//Debug.Log ("GunDamageThisShot: " + GunDamageThisShot + ", DamagePerProjectile: " + DamagePerProjectile + ", ProjectilesPerShot: " + ProjectilesPerShot);
 
-			} else {
-
-				DamagePerProjectile = 1f;
-
-			}
-
-			DamagePerProjectile *= (GunDamageThisShot / projectilesPerShot);
+			DamagePerProjectile *= (GunDamageThisShot / ProjectilesPerShot);
 
 			for (int i = 0; i < projectilesPerShot; i++) {
 
@@ -116,19 +114,19 @@ public abstract class Weapon : MonoBehaviour {
 					newProjectile.WeaponAverageDamage = (projectileMinimumDamage + projectileMaximumDamage) / 2;
 					newProjectile.Lifetime = 5f;
 
-					newProjectile.IsPiercing	= (weaponProjectileType == WeaponProjectileType.PIERCING) ? true : false;
-					newProjectile.IsBurning		= (weaponProjectileType == WeaponProjectileType.BURNING) ? true : false;
-					newProjectile.IsFreezing 	= (weaponProjectileType == WeaponProjectileType.FREEZING) ? true : false;
-					newProjectile.IsHealing 	= (weaponProjectileType == WeaponProjectileType.HEALING) ? true : false;
+					newProjectile.IsPiercing	= (WeaponProjectileType == WeaponProjectileType.PIERCING)	? true : false;
+					newProjectile.IsBurning		= (WeaponProjectileType == WeaponProjectileType.BURNING)	? true : false;
+					newProjectile.IsFreezing 	= (WeaponProjectileType == WeaponProjectileType.FREEZING)	? true : false;
+					newProjectile.IsHealing 	= (WeaponProjectileType == WeaponProjectileType.HEALING)	? true : false;
 
 					newProjectile.sourceWeapon = this;
 				}
 
 			}
 
-		}
+			nextShotTime = Time.time + AttackSpeed;
 
-		nextShotTime = Time.time + attackSpeed;
+		}
 
 	}
 

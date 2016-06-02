@@ -465,7 +465,7 @@ MonoBehaviour:
   shootFromLocation: []
   weaponFireType: 4
   weaponHanded: 0
-  weaponType: 4
+  weaponType: 3
   weaponQuality: 0
   weaponPrefix: 0
   weaponSuffix: 0
@@ -473,8 +473,8 @@ MonoBehaviour:
   weaponName: 
   manaCost: 1
   attackSpeed: 1
-  projectileMinimumDamage: 5
-  projectileMaximumDamage: 10
+  projectileMinimumDamage: 20
+  projectileMaximumDamage: 30
   projectilesPerShot: 1
   projectileVelocity: 40
   projectile: {fileID: 11420312, guid: c4664d539fa1f204e844622ac48ce1b6, type: 2}

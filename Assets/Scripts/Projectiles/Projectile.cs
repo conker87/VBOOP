@@ -41,12 +41,12 @@ public class Projectile : MonoBehaviour {
 
 	}
 
-	void Update () {
+	void FixedUpdate () {
 
-		transform.Translate (Vector3.forward * Time.deltaTime * speed);
+		transform.Translate (Vector3.forward * Time.fixedDeltaTime * speed);
 
 		// More of a DEBUG option really.
-		destroyingIn -= Time.deltaTime;
+		destroyingIn -= Time.fixedDeltaTime;
 
 	}
 
@@ -113,7 +113,7 @@ public class Projectile : MonoBehaviour {
 					// TODO: This needs balancing.
 					EffectHealOverTime HealingOverTime = Instantiate (HealOverTime) as EffectHealOverTime;
 
-					HealingOverTime.value = WeaponAverageDamage * 0.1f;
+					HealingOverTime.value = ProjectileDamage * 0.1f;
 					HealingOverTime.EffectDuration = 1000f;
 					HealingOverTime.transform.parent = entity.transform;
 
@@ -140,8 +140,8 @@ public class Projectile : MonoBehaviour {
 
 					//Debug.Log (gameObject.name + " hit " + other.transform.name + " (" + entity.gameObject.name + "), timesHit: " + timesHit + ", for damage: " + currentDamage + ", isPiercing: " + isPiercing);
 
-					float damageReductionDueToArmor = (100 - (entity.ArmorRating * Random.Range(0.7f, 1f))) / 100;
-					float actualDamage = ProjectileDamage * damageReductionDueToArmor;
+					float damageReductionDueToArmor = (100 - (entity.ArmorRating * Random.Range(0.9f, 1.1f))) / 100;
+					float actualDamage = Mathf.Clamp(ProjectileDamage * damageReductionDueToArmor, 0f, WeaponAverageDamage * 3f);
 
 					entity.Damage (actualDamage);
 
@@ -167,7 +167,7 @@ public class Projectile : MonoBehaviour {
 								if (debuff.SourceWeapon == sourceWeapon) {
 
 									debuff.OriginalTime = Time.time;
-									debuff.value += WeaponAverageDamage * 0.1f;
+									debuff.value += WeaponAverageDamage * 0.5f;
 									debuff.value = Mathf.Clamp (debuff.value, 0f, WeaponAverageDamage * 0.5f);
 
 								} else { 
@@ -187,7 +187,7 @@ public class Projectile : MonoBehaviour {
 
 							EffectDamageOverTime BurningDamageOverTime = Instantiate (DamageOverTime) as EffectDamageOverTime;
 
-							BurningDamageOverTime.value = WeaponAverageDamage * 0.1f;
+							BurningDamageOverTime.value = ProjectileDamage * 0.5f;
 							BurningDamageOverTime.EffectDuration = 1000f;
 							BurningDamageOverTime.transform.parent = entity.transform;
 
