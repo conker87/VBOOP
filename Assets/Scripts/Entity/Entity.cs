@@ -51,15 +51,33 @@ public abstract class Entity : MonoBehaviour {
 	// This value reduces physical damage (all damage is physical, bar those caused by Burning & Freezing).
 	// TODO: Should this be a percentage or an actual value that increases? Percentages scale with levels, values do not.
 	[SerializeField]
-	protected int stamina = 1, intellect = 1, armorRating = 0, critRating = 1, healthRegenerationPerSecond = 5, manaRegenerationPerSecond = 5;
-	[SerializeField] protected bool disableNaturalRegeneration = false;
-	public int Stamina						{ get {	return this.stamina; }			set {	this.stamina = value; } }
-	public int Intellect					{ get {	return this.intellect; }		set {	this.intellect = value; } }
-	public int ArmorRating					{ get {	return this.armorRating; }		set {	this.armorRating = value; } }
-	public int CritRating					{ get {	return this.critRating; }		set {	this.critRating = value; } }
-	public int HealthRegenerationPerSecond	{ get {	return this.healthRegenerationPerSecond; }		set {	this.healthRegenerationPerSecond = value; } }
-	public int ManaRegenerationPerSecond	{ get {	return this.manaRegenerationPerSecond; }		set {	this.manaRegenerationPerSecond = value; } }
-	public bool DisableNaturalRegeneration	{ get {	return this.disableNaturalRegeneration; }		set {	this.disableNaturalRegeneration = value; } }
+	protected int stamina = 1, intellect = 1, armorRating = 0, critRating = 1;
+	public int Stamina						{ get { return this.stamina; }		set { this.stamina = value; } }
+	public int Intellect					{ get { return this.intellect; }	set { this.intellect = value; } }
+	public int ArmorRating					{ get { return this.armorRating; }	set { this.armorRating = value; } }
+	public int CritRating					{ get { return this.critRating; }	set { this.critRating = value; } }
+
+	[SerializeField]
+	protected float healthRegenerationPerSecond = 5f, manaRegenerationPerSecond = 5f;
+	public float HealthRegenerationPerSecond	{ get {	return this.healthRegenerationPerSecond; }	set { this.healthRegenerationPerSecond = value; } }
+	public float ManaRegenerationPerSecond		{ get {	return this.manaRegenerationPerSecond; }	set { this.manaRegenerationPerSecond = value; } }
+
+	[SerializeField]
+	protected float increasedCritDamage = 1f, increasedAberrationDamage = 1f, increasedBeastDamage = 1f, increasedCritterDamage = 1f, increasedDemonDamage = 1f,
+						increasedDeityDamage = 1f, increasedElementalDamage = 1f, increasedHumanoidDamage = 1, increasedUndeadDamage = 1f;
+	public float IncreasedCritDamage		{ get {	return this.increasedCritDamage; }			set { this.increasedCritDamage = value; } }
+	public float IncreasedAberrationDamage	{ get {	return this.increasedAberrationDamage; }	set { this.increasedAberrationDamage = value; } }
+	public float IncreasedBeastDamage		{ get {	return this.increasedBeastDamage; }			set { this.increasedBeastDamage = value; } }
+	public float IncreasedCritterDamage		{ get {	return this.increasedCritterDamage; }		set { this.increasedCritterDamage = value; } }
+	public float IncreasedDemonDamage		{ get {	return this.increasedDemonDamage; }			set { this.increasedDemonDamage = value; } }
+	public float IncreasedDeityDamage		{ get {	return this.increasedDeityDamage; }			set { this.increasedDeityDamage = value; } }
+	public float IncreasedElementalDamage	{ get {	return this.increasedElementalDamage; }		set { this.increasedElementalDamage = value; } }
+	public float IncreasedHumanoidDamage	{ get {	return this.increasedHumanoidDamage; }		set { this.increasedHumanoidDamage = value; } }
+	public float IncreasedUndeadDamage		{ get {	return this.increasedUndeadDamage; }		set { this.increasedUndeadDamage = value; } }
+
+	[SerializeField]
+	protected bool disableNaturalRegeneration = false;
+	public bool DisableNaturalRegeneration	{ get {	return this.disableNaturalRegeneration; }	set { this.disableNaturalRegeneration = value; } }
 
 	// **************
 	// * EXPERIENCE *
@@ -70,17 +88,17 @@ public abstract class Entity : MonoBehaviour {
 
 	// The current level and the current experience value.
 	protected int currentLevel = 1, currentExperience;
-	public int CurrentLevel			{ get {	return this.currentLevel; }			protected set {	this.currentLevel = value; } }
-	public int CurrentExperience	{ get {	return this.currentExperience; }	protected set {	this.currentExperience = value; } }
+	public int CurrentLevel			{ get {	return this.currentLevel; }			protected set { this.currentLevel = value; } }
+	public int CurrentExperience	{ get {	return this.currentExperience; }	protected set { this.currentExperience = value; } }
 
 	// The experience given to the Player if this inherited entity is an Enemy.
-	protected int experienceGainedFromEntity = 10;
-	public int ExperienceGainedFromEntity	{ get {	return this.experienceGainedFromEntity; }	protected set {	this.experienceGainedFromEntity = value; } }
+	protected int	experienceGainedFromEntity = 10;
+	public int		ExperienceGainedFromEntity	{ get {	return this.experienceGainedFromEntity; }	protected set {	this.experienceGainedFromEntity = value; } }
 
 	// ***********
 	// * WEAPONS *
 	// ***********
-	// The current equipped weapon.
+	// The current equipped weapon and the weapon they start with (this is temp as the first weapon given will be generated randomly.
 	public Weapon equippedWeapon, startingWeapon;
 	public Weapon StartingWeapon	{ get {	return this.startingWeapon; }		protected set {	this.startingWeapon = value; } }
 	public Weapon EquippedWeapon	{ get {	return this.equippedWeapon; }		protected set {	this.equippedWeapon = value; } }
@@ -90,51 +108,67 @@ public abstract class Entity : MonoBehaviour {
 	// Misc
 	float nextRegenTime;
 
-	public void Damage(float value) {
+	// Health methods.
+	public void Damage(float value)		{ CurrentHealth -= value; }
+	public void Heal(float value)		{ Damage(-value); }
 
-		CurrentHealth -= value;
-
-	}
-
-	public void DamageMana(float value) {
-
-		CurrentMana -= value;
-
-	}
-
-	public void Heal(float value) {
-
-		Damage(-value);
-
-	}
-
-	public void HealMana(float value) {
-
-		DamageMana(-value);
-
-	}
+	// Mana methods.
+	public void DamageMana(float value)	{ CurrentMana -= value; }
+	public void HealMana(float value)	{ DamageMana(-value); }
 
 	public void BuffStat(EntityStat stat, int value) {
 		
 		switch (stat) {
 
-			case EntityStat.ARMORRATING:
+			case EntityStat.ARMOR_RATING:
 				ArmorRating += value;
 				break;
 
-			case EntityStat.CRITRATING:
+			case EntityStat.CRIT_RATING:
 				CritRating += value;
 				break;
 
-			case EntityStat.HEALTHREGENERATIONPERSECOND:
+			case EntityStat.HEALTH_REGENERATION:
 				HealthRegenerationPerSecond += value;
+				break;
+
+			case EntityStat.INCREASED_ABERRATION:
+				IncreasedAberrationDamage += value;
+				break;
+			
+			case EntityStat.INCREASE_BEAST:
+				IncreasedBeastDamage += value;
+				break;
+
+			case EntityStat.INCREASE_CRITTER:
+				IncreasedCritterDamage += value;
+				break;
+
+			case EntityStat.INCREASE_DEITY:
+				HealthRegenerationPerSecond += value;
+				break;
+
+			case EntityStat.INCREASE_DEMON:
+				IncreasedDemonDamage += value;
+				break;
+
+			case EntityStat.INCREASE_ELEMENTAL:
+				IncreasedElementalDamage += value;
+				break;
+
+			case EntityStat.INCREASE_HUMANOID:
+				IncreasedHumanoidDamage += value;
+				break;
+
+			case EntityStat.INCREASE_UNDEAD:
+				IncreasedUndeadDamage += value;
 				break;
 
 			case EntityStat.INTELLECT:
 				Intellect += value;
 				break;
 
-			case EntityStat.MANAREGENERATIONPERSECOND:
+			case EntityStat.MANA_REGENERATION:
 				ManaRegenerationPerSecond += value;
 				break;
 
@@ -233,4 +267,7 @@ public abstract class Entity : MonoBehaviour {
 
 }
 
-public enum EntityStat { ARMORRATING, CRITRATING, HEALTHREGENERATIONPERSECOND, INTELLECT, MANAREGENERATIONPERSECOND, STAMINA };
+public enum EntityStat { ARMOR_RATING, CRIT_RATING, HEALTH_REGENERATION,
+							INCREASED_ABERRATION, INCREASE_BEAST, INCREASE_CRITTER, INCREASE_DEITY, INCREASE_DEMON, INCREASE_ELEMENTAL, INCREASE_HUMANOID, INCREASE_UNDEAD,
+							INTELLECT, MANA_REGENERATION, STAMINA };
+// ABERRATION, BEAST, CRITTER, DEITY, DEMON, ELEMENTAL, HUMANOID, UNDEAD

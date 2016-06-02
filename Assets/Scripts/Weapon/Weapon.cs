@@ -11,29 +11,44 @@ public abstract class Weapon : MonoBehaviour {
 
 	// Weapon Descriptors
 	[Header("Weapon Descriptors")]
-	public WeaponFireType weaponFireType;
-	public WeaponHanded weaponHanded;						// TODO: Decide what to do with this.
-	public WeaponType weaponType; 
-	public WeaponQuality weaponQuality;
-	public WeaponPrefix weaponPrefix;
-	public WeaponSuffix weaponSuffix;
-	public WeaponProjectileType weaponProjectileType;
+	[SerializeField] protected WeaponFireType weaponFireType;
+	public WeaponFireType 	WeaponFireType				{ get {	return this.weaponFireType; }	set {	this.weaponFireType = value; } }
+	[SerializeField] protected WeaponHanded weaponHanded;
+	public WeaponHanded 	WeaponHanded				{ get {	return this.weaponHanded; }		set {	this.weaponHanded = value; } }
+	[SerializeField] protected WeaponType weaponType; 
+	public WeaponType 		WeaponType					{ get {	return this.weaponType; }		set {	this.weaponType = value; } }
+	[SerializeField] protected WeaponQuality weaponQuality;
+	public WeaponQuality 	WeaponQuality				{ get {	return this.weaponQuality; }	set {	this.weaponQuality = value; } }
+	[SerializeField] protected WeaponPrefix weaponPrefix;
+	public WeaponPrefix 	WeaponPrefix				{ get {	return this.weaponPrefix; }		set {	this.weaponPrefix = value; } }
+	[SerializeField] protected WeaponSuffix weaponSuffix;
+	public WeaponSuffix 	WeaponSuffix				{ get {	return this.weaponSuffix; }		set {	this.weaponSuffix = value; } }
+	[SerializeField] protected WeaponProjectileType weaponProjectileType;
+	public WeaponProjectileType WeaponProjectileType	{ get {	return this.weaponProjectileType; }	set {	this.weaponProjectileType = value; } }
 	[SerializeField]
 	string weaponName;
 
+	// Mana & Weapon Descriptors Values
+	[Header("Mana & Weapon Descriptors Values")]
+	protected float manaCost = 1f;
+	public float ManaCost			{ get {	return this.manaCost; }	set {	this.manaCost = value; } }
+	[Space(5)]
+	protected float prefixValueAmount, suffixValueAmount;
+	public float PrefixValueAmount	{ get {	return this.prefixValueAmount; }	set {	this.prefixValueAmount = value; } }
+	public float SuffixValueAmount	{ get {	return this.suffixValueAmount; }	set {	this.suffixValueAmount = value; } }
+
 	// Damage & Projectiles Descriptors
 	[Header("Damage & Projectiles Descriptors")]
-
-	public float manaCost = 1f;
-	public float ManaCost				{ get {	return this.manaCost; }	set {	this.manaCost = value; } }
-
 	[Range(0.0001f, 20f)]
-	public float attackSpeed = 1f;
-	public float projectileMinimumDamage = 5f, projectileMaximumDamage = 10f;
+	protected float attackSpeed = 1f;
+	protected float projectileMinimumDamage = 5f, projectileMaximumDamage = 10f;
+	public float AttackSpeed				{ get {	return this.attackSpeed; }	set {	this.attackSpeed = value; } }
+	public float ProjectileMinimumDamage	{ get {	return this.projectileMinimumDamage; }	set {	this.projectileMinimumDamage = value; } }
+	public float ProjectileMaximumDamage	{ get {	return this.projectileMaximumDamage; }	set {	this.projectileMaximumDamage = value; } }
 	[Space(5)]
 	public int projectilesPerShot = 1;
+	public int ProjectilesPerShot		{ get {	return this.projectilesPerShot; }	set {	this.projectilesPerShot = value; } }
 	[Space(5)]
-
 	protected float damagePerProjectile, gunDamageThisShot;
 	public float DamagePerProjectile	{ get {	return this.damagePerProjectile; }	set {	this.damagePerProjectile = value; } }
 	public float GunDamageThisShot		{ get {	return this.gunDamageThisShot; }	set {	this.gunDamageThisShot = value; } }
@@ -46,11 +61,7 @@ public abstract class Weapon : MonoBehaviour {
 
 	protected Projectile newProjectile;
 
-	protected bool shouldDamageBeCalculated = true;
-
 	float nextShotTime;
-
-	protected abstract void OverrideShoot (Transform loc, out Projectile newProjectile);
 
 	protected virtual void Start () {
 
@@ -64,11 +75,11 @@ public abstract class Weapon : MonoBehaviour {
 
 	public void GenerateWeaponQuality() {
 
-		weaponQuality = sf.RandomEnumValue<WeaponQuality>();
+		WeaponQuality = sf.RandomEnumValue<WeaponQuality>();
 		if (weaponQuality == WeaponQuality.UNIQUE) { weaponQuality = WeaponQuality.MAGNIFICENT; }
-		weaponPrefix = sf.RandomEnumValue<WeaponPrefix>();
-		weaponSuffix = sf.RandomEnumValue<WeaponSuffix>();
-		weaponProjectileType = sf.RandomEnumValue<WeaponProjectileType>();
+		WeaponPrefix = sf.RandomEnumValue<WeaponPrefix>();
+		WeaponSuffix = sf.RandomEnumValue<WeaponSuffix>();
+		WeaponProjectileType = sf.RandomEnumValue<WeaponProjectileType>();
 
 		weaponName = weaponQuality + " " + weaponPrefix + " " + weaponType + " " + weaponSuffix + ", with " + weaponProjectileType + " rounds.";
 
@@ -76,6 +87,7 @@ public abstract class Weapon : MonoBehaviour {
 
 	public virtual void Shoot () {
 
+		// Checks to see if the cooldown of the shot is over and the Player has more Mana than it costs to fire.
 		if (Time.time > nextShotTime && Player.current.CurrentMana >= ManaCost ) {
 
 			Player.current.DamageMana (manaCost);
@@ -84,7 +96,7 @@ public abstract class Weapon : MonoBehaviour {
 
 			if (Random.Range (0f, 100f) < Player.current.CritRating) {
 
-				DamagePerProjectile = Random.Range(1.4f, 2f);
+				DamagePerProjectile = 1.6f * Player.current.IncreasedCritDamage;
 
 			} else {
 
@@ -93,8 +105,6 @@ public abstract class Weapon : MonoBehaviour {
 			}
 
 			DamagePerProjectile *= (GunDamageThisShot / projectilesPerShot);
-
-			nextShotTime = Time.time + attackSpeed;
 
 			for (int i = 0; i < projectilesPerShot; i++) {
 
@@ -113,21 +123,26 @@ public abstract class Weapon : MonoBehaviour {
 
 					newProjectile.sourceWeapon = this;
 				}
+
 			}
 
 		}
 
+		nextShotTime = Time.time + attackSpeed;
+
 	}
+
+	protected abstract void OverrideShoot (Transform loc, out Projectile newProjectile);
 
 	public void SetAttackSpeed(float _attackSpeed) {
 
-		attackSpeed = _attackSpeed;
+		AttackSpeed = _attackSpeed;
 
 	}
 
 	public void SetProjectileVelocity(float _projectileVelocity) {
 
-		projectileVelocity = _projectileVelocity;
+		ProjectileVelocity = _projectileVelocity;
 
 	}
 
@@ -136,7 +151,7 @@ public abstract class Weapon : MonoBehaviour {
 public enum WeaponFireType			{ SINGLE_SHOT, SEMI_AUTOMATIC, AUTOMATIC, SPREAD, SPRAY, PROJECTILE };
 public enum WeaponHanded			{ ONE_HANDED, TWO_HANDED }													 	// TODO: On the fence on whether to use this or not, can pistols be dual wielded?
 public enum WeaponQuality			{ AWFUL, CRAP, NORMAL, GOOD, GREAT, BRILLIANT, MAGNIFICENT, UNIQUE }
-public enum WeaponPrefix			{ UNDEAD_SLAYING, ABERRATION_ANNIHILATING, BEAST_BLASTING, MAN_MURDERING, CRITTER_CRUSHING, HEALING, NULL };
+public enum WeaponPrefix			{ NULL, UNDEAD_SLAYING, ABERRATION_ANNIHILATING, BEAST_BLASTING, MAN_MURDERING, CRITTER_CRUSHING };
+public enum WeaponSuffix			{ NULL, MANA_REGENERATION, HEALTH_REGENERATION, FORTITUDE, MANA_CAPACITY }; 	// TODO: There can be more than one of these added to the var with this information needs to be an array!
 public enum WeaponType				{ SHOTGUN, RIFLE, PISTOL, FLAMETHROWER, FROSTTHROWER, UZI, SUBMACHINE_GUN, MUSKET };
-public enum WeaponSuffix			{ MANA_REGENERATION, HEALTH_REGENERATION, FORTITUDE, MANA_CAPACITY, NULL }; 	// TODO: There can be more than one of these added to the var with this information needs to be an array!
-public enum WeaponProjectileType	{ PIERCING, BURNING, FREEZING, HEALING, NULL } 											// TODO: There can be more than one of these added to the var with this information needs to be an array!
+public enum WeaponProjectileType	{ NULL, PIERCING, BURNING, FREEZING, HEALING } 											// TODO: There can be more than one of these added to the var with this information needs to be an array!

@@ -91,5 +91,5 @@ public class Enemy : Entity {
 
 }
 
-public enum EnemySpecies { UNDEAD, ABERRATION, BEAST, HUMAN, CRITTER, MISC };
+public enum EnemySpecies { ABERRATION, BEAST, CRITTER, DEITY, DEMON, ELEMENTAL, HUMANOID, UNDEAD };
 public enum EnemyQuality { WEAK, STANDARD, ELITE, BOSS };

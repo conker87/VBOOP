@@ -4,7 +4,7 @@ using System.Collections;
 
 public class SetNameplates : MonoBehaviour {
 
-	public bool enabled = true;
+	public bool isEnabled = true;
 
 	[Header("Canvas Parent")]
 	public GameObject canvasParent;
@@ -118,11 +118,11 @@ public class SetNameplates : MonoBehaviour {
 
 		if (canvasParent != null) {
 
-			canvasParent.SetActive (enabled);
+			canvasParent.SetActive (isEnabled);
 
 		}
 
-		if (enabled) {
+		if (isEnabled) {
 
 			// Prevents the var being constantly updated.
 			if (CurrentHealth != entity.CurrentHealth)	{ CurrentHealth = entity.CurrentHealth; }
