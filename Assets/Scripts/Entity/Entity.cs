@@ -59,22 +59,35 @@ public abstract class Entity : MonoBehaviour {
 	public int HasteRating 					{ get { return this.hasteRating; }	set { this.hasteRating = value; } }
 
 	[SerializeField]
-	protected float healthRegenerationPerSecond = 5f, manaRegenerationPerSecond = 5f;
+	protected float healthRegenerationPerSecond = 5f, manaRegenerationPerSecond = 5f, goldFind = 1f, experienceGain = 1f;
 	public float HealthRegenerationPerSecond	{ get {	return this.healthRegenerationPerSecond; }	set { this.healthRegenerationPerSecond = value; } }
 	public float ManaRegenerationPerSecond		{ get {	return this.manaRegenerationPerSecond; }	set { this.manaRegenerationPerSecond = value; } }
+	public float GoldFind						{ get {	return this.goldFind; }						set { this.goldFind = value; } }
+	public float ExperienceGain					{ get {	return this.experienceGain; }				set { this.experienceGain = value; } }
 
 	[SerializeField]
 	protected float increasedCritDamage = 1f, increasedAberrationDamage = 1f, increasedBeastDamage = 1f, increasedCritterDamage = 1f, increasedDemonDamage = 1f,
 						increasedDeityDamage = 1f, increasedElementalDamage = 1f, increasedHumanoidDamage = 1, increasedUndeadDamage = 1f;
 	public float IncreasedCritDamage		{ get {	return this.increasedCritDamage; }			set { this.increasedCritDamage = value; } }
-	public float IncreasedAberrationDamage	{ get {	return this.increasedAberrationDamage; }	set { this.increasedAberrationDamage = value; } }
-	public float IncreasedBeastDamage		{ get {	return this.increasedBeastDamage; }			set { this.increasedBeastDamage = value; } }
-	public float IncreasedCritterDamage		{ get {	return this.increasedCritterDamage; }		set { this.increasedCritterDamage = value; } }
-	public float IncreasedDemonDamage		{ get {	return this.increasedDemonDamage; }			set { this.increasedDemonDamage = value; } }
-	public float IncreasedDeityDamage		{ get {	return this.increasedDeityDamage; }			set { this.increasedDeityDamage = value; } }
-	public float IncreasedElementalDamage	{ get {	return this.increasedElementalDamage; }		set { this.increasedElementalDamage = value; } }
-	public float IncreasedHumanoidDamage	{ get {	return this.increasedHumanoidDamage; }		set { this.increasedHumanoidDamage = value; } }
-	public float IncreasedUndeadDamage		{ get {	return this.increasedUndeadDamage; }		set { this.increasedUndeadDamage = value; } }
+	public float IncreasedAberrationDamage	{ get {	return this.increasedAberrationDamage; }	set { this.increasedAberrationDamage = value; } }	// Otherworldy
+	public float IncreasedBeastDamage		{ get {	return this.increasedBeastDamage; }			set { this.increasedBeastDamage = value; } }		// Animal
+	public float IncreasedCritterDamage		{ get {	return this.increasedCritterDamage; }		set { this.increasedCritterDamage = value; } }		// Animal
+	public float IncreasedDemonDamage		{ get {	return this.increasedDemonDamage; }			set { this.increasedDemonDamage = value; } }		// Otherworldy
+	public float IncreasedDeityDamage		{ get {	return this.increasedDeityDamage; }			set { this.increasedDeityDamage = value; } }		// Otherworldy
+	public float IncreasedElementalDamage	{ get {	return this.increasedElementalDamage; }		set { this.increasedElementalDamage = value; } }	// Otherworldy
+	public float IncreasedHumanoidDamage	{ get {	return this.increasedHumanoidDamage; }		set { this.increasedHumanoidDamage = value; } }		// Humanlike
+	public float IncreasedUndeadDamage		{ get {	return this.increasedUndeadDamage; }		set { this.increasedUndeadDamage = value; } }		// Humanlike
+
+	// ******************
+	// * PARAGON POINTS *
+	// ******************
+	// These are added to once the player hits max level, they will not be called Paragon Points.
+	protected int paragonPoints;
+	protected float paragonPointsCritChance = 1f, paragonPointsCritDamage = 1f, paragonPointsAnimalDamage = 1f, paragonPointsOtherWorldlyDamage = 1f, paragonPointsHumanlikeDamage = 1f,
+					paragonPointsArmorRating = 1f, paragonPointsGoldAmount = 1f, paragonPointsExperience = 1f;
+
+
+
 
 	[SerializeField]
 	protected bool disableNaturalRegeneration = false;
@@ -84,7 +97,7 @@ public abstract class Entity : MonoBehaviour {
 	// * EXPERIENCE *
 	// **************
 	// Experience needed to level at this current level.
-	protected int totalExperienceNeededToLevel = 10;
+	protected int totalExperienceNeededToLevel = 100;
 	public int TotalExperienceNeededToLevel	{ get {	return this.totalExperienceNeededToLevel; }	protected set {	this.totalExperienceNeededToLevel = value; } }
 
 	// The current level and the current experience value.
@@ -187,7 +200,7 @@ public abstract class Entity : MonoBehaviour {
 
 			if (gameObject.tag == "Enemy") {
 				
-				Player.current.AmendCurrentXP (TotalExperienceNeededToLevel);
+				Player.current.AmendCurrentXP (Mathf.RoundToInt(ExperienceGainedFromEntity * Player.current.ExperienceGain));
 
 			}
 
