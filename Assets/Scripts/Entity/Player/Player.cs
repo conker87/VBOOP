@@ -11,15 +11,13 @@ public class Player : Entity {
 
 		current = this;
 
-		TotalExperienceNeededToLevel = XPNeededToLevel (CurrentLevel);
+		TotalExperienceNeededToLevel = XPNeededToLevel ();
 
 	}
 
 	protected override void Update() {
 
 		base.Update();
-
-		//CheckForDeath();
 
 	}
 
@@ -44,7 +42,7 @@ public class Player : Entity {
 		CurrentExperience = overflow;
 
 		// Set the XP needed to level to the calculated value.
-		TotalExperienceNeededToLevel = XPNeededToLevel (CurrentLevel);
+		TotalExperienceNeededToLevel = XPNeededToLevel ();
 
 	}
 
@@ -61,9 +59,19 @@ public class Player : Entity {
 	}
 
 	// TODO: This method.
-	public int XPNeededToLevel (int _currentLevel) {
+	public int XPNeededToLevel () {
+		
+		int levels = Player.current.maximumLevel;
+		int xp_for_first_level = 1000;
+		int xp_for_last_level = 1000000;
 
-		return 100;
+		float B = Mathf.Log(1f * xp_for_last_level / xp_for_first_level) / (levels - 1f);
+		float A = 1f * xp_for_first_level / (Mathf.Exp(B) - 1f);
+
+		int x = (int) (A * Mathf.Exp(B * Player.current.CurrentLevel));
+		int y = (int) (10 * (Mathf.Log(x) / Mathf.Log(10) - 2.2f));
+
+		return (int)(x / y) * y;
 
 	}
 

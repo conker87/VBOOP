@@ -52,6 +52,7 @@ public abstract class Entity : MonoBehaviour {
 	// TODO: Should this be a percentage or an actual value that increases? Percentages scale with levels, values do not.
 	[SerializeField]
 	protected int stamina = 1, intellect = 1, armorRating = 0, critRating = 1, hasteRating = 1;
+
 	public int Stamina						{ get { return this.stamina; }		set { this.stamina = value; } }
 	public int Intellect					{ get { return this.intellect; }	set { this.intellect = value; } }
 	public int ArmorRating					{ get { return this.armorRating; }	set { this.armorRating = value; } }
@@ -82,12 +83,20 @@ public abstract class Entity : MonoBehaviour {
 	// * PARAGON POINTS *
 	// ******************
 	// These are added to once the player hits max level, they will not be called Paragon Points.
-	protected int paragonPoints;
-	protected float paragonPointsCritChance = 1f, paragonPointsCritDamage = 1f, paragonPointsAnimalDamage = 1f, paragonPointsOtherWorldlyDamage = 1f, paragonPointsHumanlikeDamage = 1f,
-					paragonPointsArmorRating = 1f, paragonPointsGoldAmount = 1f, paragonPointsExperience = 1f;
-
-
-
+	// They will be used to purchase mats and better weapons.
+	protected int paragonPoints, totalParagonPoints;
+	protected float paragonPointsCritChance = 1f, paragonPointsCritDamage = 1f, paragonPointsAnimalDamage = 1f, paragonPointsOtherworldlyDamage = 1f, paragonPointsHumanlikeDamage = 1f,
+						paragonPointsArmorRating = 1f, paragonPointsGoldAmount = 1f, paragonPointsExperience = 1f;
+	public int ParagonPoints						{ get {	return this.paragonPoints; }					protected set { this.paragonPoints = value; } }
+	public int TotalParagonPoints					{ get {	return this.totalParagonPoints; }				protected set { this.totalParagonPoints = value; } }
+	public float ParagonPointsCritChance			{ get {	return this.paragonPointsCritChance; }			set { this.paragonPointsCritChance = value; } }
+	public float ParagonPointsCritDamage			{ get {	return this.paragonPointsCritDamage; }			set { this.paragonPointsCritDamage = value; } }
+	public float ParagonPointsAnimalDamage			{ get {	return this.paragonPointsAnimalDamage; }		set { this.paragonPointsAnimalDamage = value; } }
+	public float ParagonPointsOtherworldlyDamage	{ get {	return this.paragonPointsOtherworldlyDamage; }	set { this.paragonPointsOtherworldlyDamage = value; } }
+	public float ParagonPointsHumanlikeDamage		{ get {	return this.paragonPointsHumanlikeDamage; }		set { this.paragonPointsHumanlikeDamage = value; } }
+	public float ParagonPointsArmorRating			{ get {	return this.paragonPointsArmorRating; }			set { this.paragonPointsArmorRating = value; } }
+	public float ParagonPointsGoldAmount			{ get {	return this.paragonPointsGoldAmount; }			set { this.paragonPointsGoldAmount = value; } }
+	public float ParagonPointsExperience			{ get {	return this.paragonPointsExperience; }			set { this.paragonPointsExperience = value; } }
 
 	[SerializeField]
 	protected bool disableNaturalRegeneration = false;
@@ -97,11 +106,11 @@ public abstract class Entity : MonoBehaviour {
 	// * EXPERIENCE *
 	// **************
 	// Experience needed to level at this current level.
-	protected int totalExperienceNeededToLevel = 100;
+	protected int totalExperienceNeededToLevel = 0;
 	public int TotalExperienceNeededToLevel	{ get {	return this.totalExperienceNeededToLevel; }	protected set {	this.totalExperienceNeededToLevel = value; } }
 
 	// The current level and the current experience value.
-	protected int currentLevel = 1, currentExperience;
+	protected int currentLevel = 1, currentExperience, maximumLevel = 100;
 	public int CurrentLevel			{ get {	return this.currentLevel; }			protected set { this.currentLevel = value; } }
 	public int CurrentExperience	{ get {	return this.currentExperience; }	protected set { this.currentExperience = value; } }
 
@@ -130,6 +139,9 @@ public abstract class Entity : MonoBehaviour {
 	public void DamageMana(float value)	{ CurrentMana -= value; }
 	public void HealMana(float value)	{ DamageMana(-value); }
 
+	// (De)Buff stat methods.
+	public void DebuffStat(EntityStat stat, int value)		{ BuffStat (stat, -value); }
+	public void DebuffStat(EntityStat stat, float value)	{ BuffStat (stat, -value); }
 	public void BuffStat(EntityStat stat, int value) {
 		
 		switch (stat) {
@@ -142,6 +154,21 @@ public abstract class Entity : MonoBehaviour {
 				CritRating += value;
 				break;
 
+			case EntityStat.INTELLECT:
+				Intellect += value;
+				break;
+
+			case EntityStat.STAMINA:
+				Stamina += value;
+				break;
+
+		}
+
+	}
+	public void BuffStat(EntityStat stat, float value) {
+
+		switch (stat) {
+
 			case EntityStat.HEALTH_REGENERATION:
 				HealthRegenerationPerSecond += value;
 				break;
@@ -149,7 +176,7 @@ public abstract class Entity : MonoBehaviour {
 			case EntityStat.INCREASED_ABERRATION:
 				IncreasedAberrationDamage += value;
 				break;
-			
+
 			case EntityStat.INCREASE_BEAST:
 				IncreasedBeastDamage += value;
 				break;
@@ -178,16 +205,8 @@ public abstract class Entity : MonoBehaviour {
 				IncreasedUndeadDamage += value;
 				break;
 
-			case EntityStat.INTELLECT:
-				Intellect += value;
-				break;
-
 			case EntityStat.MANA_REGENERATION:
 				ManaRegenerationPerSecond += value;
-				break;
-
-			case EntityStat.STAMINA:
-				Stamina += value;
 				break;
 
 		}
@@ -284,4 +303,5 @@ public abstract class Entity : MonoBehaviour {
 public enum EntityStat { ARMOR_RATING, CRIT_RATING, HEALTH_REGENERATION,
 							INCREASED_ABERRATION, INCREASE_BEAST, INCREASE_CRITTER, INCREASE_DEITY, INCREASE_DEMON, INCREASE_ELEMENTAL, INCREASE_HUMANOID, INCREASE_UNDEAD,
 							INTELLECT, MANA_REGENERATION, STAMINA };
+
 // ABERRATION, BEAST, CRITTER, DEITY, DEMON, ELEMENTAL, HUMANOID, UNDEAD
