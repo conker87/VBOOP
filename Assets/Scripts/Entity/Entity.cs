@@ -63,8 +63,8 @@ public abstract class Entity : MonoBehaviour {
 	protected float healthRegenerationPerSecond = 5f, manaRegenerationPerSecond = 5f, goldFind = 1f, experienceGain = 1f;
 	public float HealthRegenerationPerSecond	{ get {	return this.healthRegenerationPerSecond; }	set { this.healthRegenerationPerSecond = value; } }
 	public float ManaRegenerationPerSecond		{ get {	return this.manaRegenerationPerSecond; }	set { this.manaRegenerationPerSecond = value; } }
-	public float GoldFind						{ get {	return this.goldFind; }						set { this.goldFind = value; } }
-	public float ExperienceGain					{ get {	return this.experienceGain; }				set { this.experienceGain = value; } }
+	public float IncreasedGoldFind				{ get {	return this.goldFind; }						set { this.goldFind = value; } }
+	public float IncreasedExperienceGain		{ get {	return this.experienceGain; }				set { this.experienceGain = value; } }
 
 	[SerializeField]
 	protected float increasedCritDamage = 1f, increasedAberrationDamage = 1f, increasedBeastDamage = 1f, increasedCritterDamage = 1f, increasedDemonDamage = 1f,
@@ -219,7 +219,7 @@ public abstract class Entity : MonoBehaviour {
 
 			if (gameObject.tag == "Enemy") {
 				
-				Player.current.AmendCurrentXP (Mathf.RoundToInt(ExperienceGainedFromEntity * Player.current.ExperienceGain));
+				Player.current.DoExperienceAndLevelGain(Mathf.RoundToInt(ExperienceGainedFromEntity * Player.current.IncreasedExperienceGain));
 
 			}
 

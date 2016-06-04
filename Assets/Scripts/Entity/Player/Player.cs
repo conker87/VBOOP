@@ -21,34 +21,21 @@ public class Player : Entity {
 
 	}
 
-	public void AmendCurrentXP(int _currentExperience) {
+	public void DoExperienceAndLevelGain(int experienceFromEntity) {
 
-		CurrentExperience += _currentExperience;
+		CurrentExperience += experienceFromEntity;
 
-		if (CurrentExperience >= TotalExperienceNeededToLevel) {
+		while (CurrentExperience >= TotalExperienceNeededToLevel) {
 
-			DoLevelUp (CurrentExperience, TotalExperienceNeededToLevel);
+			CurrentLevel++;
+
+			int overflow = Player.current.CurrentExperience - Player.current.TotalExperienceNeededToLevel;
+			CurrentExperience = overflow;
+
+			// Set the XP needed to level to the calculated value.
+			TotalExperienceNeededToLevel = XPNeededToLevel ();
 
 		}
-
-	}
-
-	public void DoLevelUp(int _currentXP, int totalXP) {
-
-		GainLevel ();
-
-		// Sort out new XP gained.
-		int overflow = _currentXP - totalXP;
-		CurrentExperience = overflow;
-
-		// Set the XP needed to level to the calculated value.
-		TotalExperienceNeededToLevel = XPNeededToLevel ();
-
-	}
-
-	protected void GainLevel() {
-
-		currentLevel++;
 
 	}
 
