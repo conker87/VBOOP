@@ -15,13 +15,13 @@ public class SetNameplates : MonoBehaviour {
 
 	[Header("Health Descriptors")]
 	public GameObject healthPanel;
-	public GameObject healthPanelActual;
-	public GameObject healthPanelPercetage;
+	public Text healthPanelActual;
+	public Text healthPanelPercetage;
 
 	[Header("Mana Descriptors")]
 	public GameObject manaPanel;
-	public GameObject manaPanelActual;
-	public GameObject manaPanelPercetage;
+	public Text manaPanelActual;
+	public Text manaPanelPercetage;
 
 	Entity entity;
 
@@ -90,13 +90,13 @@ public class SetNameplates : MonoBehaviour {
 		}
 	}
 
-	void SetResourceBarText(GameObject panel, float value, float maximumResource) {
+	void SetResourceBarText(Text panel, string value, float maximumResource) {
 
 		if (panel != null) {
 
 			if (maximumResource > 0) {
 
-				panel.GetComponent<Text> ().text = value.ToString ();
+				panel.text = value;
 
 			}
 
@@ -130,13 +130,13 @@ public class SetNameplates : MonoBehaviour {
 
 			// Health
 			SetResourceBar		(healthPanel,			CurrentHealth, 							MaximumHealth);
-			SetResourceBarText	(healthPanelActual, 	CurrentHealth, 							MaximumHealth);
-			SetResourceBarText	(healthPanelPercetage, 	(CurrentHealth / MaximumHealth) * 100,	MaximumHealth);
+			SetResourceBarText	(healthPanelActual, 	CurrentHealth.ToString(), 							MaximumHealth);
+			SetResourceBarText	(healthPanelPercetage, 	(CurrentHealth / MaximumHealth) * 100 + "%",	MaximumHealth);
 
 			// Mana
 			SetResourceBar		(manaPanel, 			CurrentMana,							MaximumMana);
-			SetResourceBarText 	(manaPanelActual, 		CurrentMana,							MaximumMana);
-			SetResourceBarText 	(manaPanelPercetage, 	(CurrentMana / MaximumMana) * 100,		MaximumMana);
+			SetResourceBarText 	(manaPanelActual, 		CurrentMana.ToString(),							MaximumMana);
+			SetResourceBarText 	(manaPanelPercetage, 	(CurrentMana / MaximumMana) * 100 + "%",		MaximumMana);
 
 		}
 

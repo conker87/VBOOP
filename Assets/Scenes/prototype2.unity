@@ -745,7 +745,7 @@ GameObject:
   - 114: {fileID: 255000765}
   - 114: {fileID: 255000764}
   m_Layer: 5
-  m_Name: PlayerManaPanelPercentage
+  m_Name: PlayerManaPercentage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1062,7 +1062,7 @@ GameObject:
   - 114: {fileID: 311949994}
   - 114: {fileID: 311949993}
   m_Layer: 5
-  m_Name: PlayerManaPanelActual
+  m_Name: PlayerManaActual
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1330,7 +1330,7 @@ RectTransform:
   m_Father: {fileID: 1769511461}
   m_RootOrder: 0
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 0.07331933}
+  m_AnchorMax: {x: 1, y: 0.0735}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -1484,14 +1484,6 @@ Prefab:
     - target: {fileID: 440030, guid: 72ba103edec510842adfb37a3e8c6a71, type: 2}
       propertyPath: m_RootOrder
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 11402482, guid: 72ba103edec510842adfb37a3e8c6a71, type: 2}
-      propertyPath: entityName
-      value: 100% Armor
-      objectReference: {fileID: 0}
-    - target: {fileID: 11402482, guid: 72ba103edec510842adfb37a3e8c6a71, type: 2}
-      propertyPath: armorRating
-      value: 100
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 72ba103edec510842adfb37a3e8c6a71, type: 2}
@@ -1803,7 +1795,7 @@ GameObject:
   - 114: {fileID: 549086089}
   - 114: {fileID: 549086088}
   m_Layer: 5
-  m_Name: PlayerHealthPanelActual
+  m_Name: PlayerHealthActual
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2572,6 +2564,10 @@ Prefab:
       propertyPath: experienceGain
       value: 100
       objectReference: {fileID: 0}
+    - target: {fileID: 112522, guid: 3c0da115d9acd334e91942098273f0ef, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3c0da115d9acd334e91942098273f0ef, type: 2}
   m_IsPrefabParent: 0
@@ -3085,7 +3081,7 @@ GameObject:
   - 114: {fileID: 1154342397}
   - 114: {fileID: 1154342396}
   m_Layer: 5
-  m_Name: PlayerExperiencePanelActual
+  m_Name: PlayerExperienceActual
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3208,7 +3204,7 @@ RectTransform:
   m_RootOrder: 1
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -142.75, y: -15.199999}
+  m_AnchoredPosition: {x: -145.25, y: -17.7}
   m_SizeDelta: {x: 285.5, y: 30.400002}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1223211972
@@ -4346,7 +4342,7 @@ GameObject:
   - 114: {fileID: 1737132811}
   - 114: {fileID: 1737132810}
   m_Layer: 5
-  m_Name: PlayerHealthPanelPercentage
+  m_Name: PlayerHealthPercentage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4465,7 +4461,7 @@ RectTransform:
   m_RootOrder: 0
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 142.74998, y: -15.199999}
+  m_AnchoredPosition: {x: 145.2, y: -17.7}
   m_SizeDelta: {x: 285.5, y: 30.400002}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1750062700
@@ -4512,8 +4508,9 @@ GameObject:
   - 223: {fileID: 1769511460}
   - 114: {fileID: 1769511459}
   - 114: {fileID: 1769511458}
+  - 114: {fileID: 1769511462}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: GUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4593,6 +4590,25 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &1769511462
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1769511457}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5857f0905a4442d49b7ab88927133b7b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerExperiencePanel: {fileID: 829010315}
+  playerHealthPanel: {fileID: 785436837}
+  playerManaPanel: {fileID: 1621422656}
+  playerExperienceActual: {fileID: 1154342397}
+  playerHealthActual: {fileID: 549086089}
+  playerHealthPercentage: {fileID: 1737132811}
+  playerManaActual: {fileID: 311949994}
+  playerManaPercentage: {fileID: 255000765}
 --- !u!4 &1774641797 stripped
 Transform:
   m_PrefabParentObject: {fileID: 440030, guid: 72ba103edec510842adfb37a3e8c6a71, type: 2}
@@ -4672,28 +4688,10 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 72ba103edec510842adfb37a3e8c6a71, type: 2}
   m_IsPrefabParent: 0
---- !u!1 &1792368180 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 149196, guid: 72ba103edec510842adfb37a3e8c6a71, type: 2}
-  m_PrefabInternal: {fileID: 375380746}
 --- !u!4 &1792368181 stripped
 Transform:
   m_PrefabParentObject: {fileID: 440030, guid: 72ba103edec510842adfb37a3e8c6a71, type: 2}
   m_PrefabInternal: {fileID: 375380746}
---- !u!114 &1792368185
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1792368180}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bf36af3b265d0f94fb924777dc6e6b0b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  shouldWeaponScaleToEntity: 0
-  weaponLocation: {fileID: 0}
-  startingWeapon: {fileID: 0}
 --- !u!1 &1826917627
 GameObject:
   m_ObjectHideFlags: 0

@@ -185,7 +185,7 @@ GameObject:
   - 114: {fileID: 11407690}
   - 114: {fileID: 11493460}
   m_Layer: 5
-  m_Name: EnemyManaPanelPercentage
+  m_Name: EntityManaPanelPercentage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -347,7 +347,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 149196}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.4, y: 3, z: 8.52}
+  m_LocalPosition: {x: 2.4529734, y: 0.60555935, z: -7.997573}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 456968}
@@ -657,12 +657,23 @@ MonoBehaviour:
   intellect: 3800
   armorRating: 0
   critRating: 1
+  hasteRating: 1
   healthRegenerationPerSecond: 5
   manaRegenerationPerSecond: 5
+  goldFind: 1
+  experienceGain: 1
+  increasedCritDamage: 1
+  increasedAberrationDamage: 1
+  increasedBeastDamage: 1
+  increasedCritterDamage: 1
+  increasedDemonDamage: 1
+  increasedDeityDamage: 1
+  increasedElementalDamage: 1
+  increasedHumanoidDamage: 1
+  increasedUndeadDamage: 1
   disableNaturalRegeneration: 1
   equippedWeapon: {fileID: 0}
   startingWeapon: {fileID: 11433006, guid: 1c57d7cebd153a44880bb4291616a7c4, type: 2}
-  weaponLoction: {fileID: 499268}
   weaponLocation: {fileID: 499268}
   species: 0
   quality: 0
@@ -896,16 +907,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42ab2e3b1fa7d05498cc45cd50db4899, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enabled: 1
+  isEnabled: 1
   canvasParent: {fileID: 151324}
   nameNameplate: {fileID: 124826}
   titleNameplate: {fileID: 157376}
   healthPanel: {fileID: 168604}
-  healthPanelActual: {fileID: 176302}
-  healthPanelPercetage: {fileID: 106656}
+  healthPanelActual: {fileID: 11483508}
+  healthPanelPercetage: {fileID: 11489892}
   manaPanel: {fileID: 120054}
-  manaPanelActual: {fileID: 131172}
-  manaPanelPercetage: {fileID: 153608}
+  manaPanelActual: {fileID: 11423636}
+  manaPanelPercetage: {fileID: 11407690}
 --- !u!114 &11483508
 MonoBehaviour:
   m_ObjectHideFlags: 1

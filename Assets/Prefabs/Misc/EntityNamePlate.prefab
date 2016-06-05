@@ -12,7 +12,7 @@ GameObject:
   - 114: {fileID: 11469760}
   - 114: {fileID: 11403912}
   m_Layer: 5
-  m_Name: EnemyManaPanelPercentage
+  m_Name: EntityManaPanelPercentage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -372,16 +372,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42ab2e3b1fa7d05498cc45cd50db4899, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enabled: 1
+  isEnabled: 1
   canvasParent: {fileID: 189428}
   nameNameplate: {fileID: 159534}
   titleNameplate: {fileID: 163812}
   healthPanel: {fileID: 158994}
-  healthPanelActual: {fileID: 191512}
-  healthPanelPercetage: {fileID: 156222}
+  healthPanelActual: {fileID: 11444438}
+  healthPanelPercetage: {fileID: 11462418}
   manaPanel: {fileID: 150952}
-  manaPanelActual: {fileID: 159080}
-  manaPanelPercetage: {fileID: 111032}
+  manaPanelActual: {fileID: 11431918}
+  manaPanelPercetage: {fileID: 11469760}
 --- !u!114 &11440120
 MonoBehaviour:
   m_ObjectHideFlags: 1

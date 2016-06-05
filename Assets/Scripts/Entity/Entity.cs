@@ -298,6 +298,12 @@ public abstract class Entity : MonoBehaviour {
 
 	}
 
+	public int GetStatValueOnEnum(EntityStat stat) {
+
+
+
+	}
+
 }
 
 public enum EntityStat { ARMOR_RATING, CRIT_RATING, HEALTH_REGENERATION,
