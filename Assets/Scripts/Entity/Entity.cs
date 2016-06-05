@@ -300,7 +300,7 @@ public abstract class Entity : MonoBehaviour {
 
 	public int GetStatValueOnEnum(EntityStat stat) {
 
-
+		return 0;
 
 	}
 
