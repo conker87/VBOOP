@@ -33,13 +33,13 @@ public class SetPlayerUI : MonoBehaviour {
 		}
 	}
 
-	void SetResourceBarText(Text panel, string value, float maximumResource) {
+	void SetResourceBarText(Text panel, string value, float maximumResource, string format = "") {
 
 		if (panel != null) {
 
 			if (maximumResource > 0) {
 
-				panel.text = value;
+				panel.text = (format == "") ? value : string.Format(format, value);
 
 			}
 
@@ -51,16 +51,16 @@ public class SetPlayerUI : MonoBehaviour {
 	void Update () {
 	
 		SetResourceBar		(playerExperiencePanel,		Player.current.CurrentExperience,		Player.current.TotalExperienceNeededToLevel);
-		SetResourceBarText	(playerExperienceActual, 	Player.current.CurrentExperience + "",	Player.current.TotalExperienceNeededToLevel);
+		SetResourceBarText	(playerExperienceActual, 	Player.current.CurrentExperience.ToString("N0"),	Player.current.TotalExperienceNeededToLevel);
 
 		SetResourceBar		(playerHealthPanel,			Player.current.CurrentHealth, 			Player.current.MaximumHealth);
-		SetResourceBarText	(playerHealthActual, 		Player.current.CurrentHealth + "",		Player.current.MaximumHealth);
-		SetResourceBarText	(playerHealthPercentage, 	(Player.current.CurrentHealth / Player.current.MaximumHealth) * 100 + "%",
+		SetResourceBarText	(playerHealthActual, 		Player.current.CurrentHealth.ToString("N0"),		Player.current.MaximumHealth);
+		SetResourceBarText	(playerHealthPercentage, 	(Player.current.CurrentHealth / Player.current.MaximumHealth).ToString("P"),
 																								Player.current.MaximumHealth);
 
 		SetResourceBar		(playerManaPanel,			Player.current.CurrentMana,				Player.current.MaximumMana);
-		SetResourceBarText	(playerManaActual, 			Player.current.CurrentMana + "",		Player.current.MaximumMana);
-		SetResourceBarText	(playerManaPercentage, 		(Player.current.CurrentMana / Player.current.MaximumMana) * 100 + "%",
+		SetResourceBarText	(playerManaActual, 			Player.current.CurrentMana.ToString("N0"),			Player.current.MaximumMana);
+		SetResourceBarText	(playerManaPercentage, 		(Player.current.CurrentMana / Player.current.MaximumMana).ToString("P"),
 																								Player.current.MaximumMana);
 
 

@@ -3,7 +3,9 @@ using System.Collections;
 
 public abstract class Entity : MonoBehaviour {
 
+	// Entity requirements
 	EffectSlots entityEffectSlots;
+	Item[] equipmentSlots = new Item[10];	// Helm, Chest, Hands, Legs, Feet, Weapon1, Weapon2, Relic1, Relic2, [AMMO?]
 
 	// CONST
 	int healthPerStamina = 10, manaPerIntellect = 10;

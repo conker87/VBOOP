@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Linq;
 
-public abstract class Weapon : MonoBehaviour {
+public abstract class Weapon : Item {
 
 	SharedFunctions sf = new SharedFunctions();
 
@@ -25,8 +25,6 @@ public abstract class Weapon : MonoBehaviour {
 	public WeaponSuffix 	WeaponSuffix				{ get {	return this.weaponSuffix; }		set {	this.weaponSuffix = value; } }
 	[SerializeField] protected WeaponProjectileType weaponProjectileType;
 	public WeaponProjectileType WeaponProjectileType	{ get {	return this.weaponProjectileType; }	set {	this.weaponProjectileType = value; } }
-	[SerializeField]
-	string weaponName;
 
 	// Mana & Weapon Descriptors Values
 	[Header("Mana & Weapon Descriptors Values")]
@@ -69,6 +67,9 @@ public abstract class Weapon : MonoBehaviour {
 
 	protected virtual void Start () {
 
+		// Set default Item inheritance for Weapon
+		StackSize = 1;
+
 		GenerateWeaponQuality ();
 
 	}
@@ -85,7 +86,7 @@ public abstract class Weapon : MonoBehaviour {
 		WeaponSuffix = sf.RandomEnumValue<WeaponSuffix>();
 		WeaponProjectileType = sf.RandomEnumValue<WeaponProjectileType>();
 
-		weaponName = weaponQuality + " " + weaponPrefix + " " + weaponType + " " + weaponSuffix + ", with " + weaponProjectileType + " rounds.";
+		ItemName = weaponQuality + " " + weaponPrefix + " " + weaponType + " " + weaponSuffix + ", with " + weaponProjectileType + " rounds.";
 
 	}
 
@@ -114,10 +115,10 @@ public abstract class Weapon : MonoBehaviour {
 					newProjectile.WeaponAverageDamage = (projectileMinimumDamage + projectileMaximumDamage) / 2;
 					newProjectile.Lifetime = 5f;
 
-					newProjectile.IsPiercing	= (WeaponProjectileType == WeaponProjectileType.PIERCING)	? true : false;
-					newProjectile.IsBurning		= (WeaponProjectileType == WeaponProjectileType.BURNING)	? true : false;
-					newProjectile.IsFreezing 	= (WeaponProjectileType == WeaponProjectileType.FREEZING)	? true : false;
-					newProjectile.IsHealing 	= (WeaponProjectileType == WeaponProjectileType.HEALING)	? true : false;
+					//newProjectile.IsPiercing	= (WeaponProjectileType == WeaponProjectileType.PIERCING)	? true : false;
+					//newProjectile.IsBurning	= (WeaponProjectileType == WeaponProjectileType.BURNING)	? true : false;
+					//newProjectile.IsFreezing 	= (WeaponProjectileType == WeaponProjectileType.FREEZING)	? true : false;
+					//newProjectile.IsHealing 	= (WeaponProjectileType == WeaponProjectileType.HEALING)	? true : false;
 
 					newProjectile.sourceWeapon = this;
 				}
