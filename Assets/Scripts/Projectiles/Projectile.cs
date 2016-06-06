@@ -187,26 +187,14 @@ public class Projectile : MonoBehaviour {
 
 						if (doBurning == true) {
 
-//							EffectDamageOverTime BurningDamageOverTime = Instantiate (DamageOverTime) as EffectDamageOverTime;
-
 							effectSlots.Add(new Effect("Burning", "Burning for whatever over whatever", 
-								16f, Time.time, new float[] { 1, 1, 16 },
+								16f, Time.time, new float[] { 1, 1, 1 },
 								sourceWeapon, targetEntity, new Action[] {
 									() => targetEntity.Damage(ProjectileDamage * 0.5f),
-									() => targetEntity.DamageMana(ProjectileDamage * 0.5f),
-									() => targetEntity.BuffStat(EntityStat.STAMINA, 34000)
+									() => targetEntity.DamageMana(ProjectileDamage * 0.5f)
 								}, new Action[] {
-									() => targetEntity.BuffStat(EntityStat.STAMINA, -34000),
 									() => targetEntity.Damage(15000)
 								}), EffectType.DEBUFF);
-
-//							BurningDamageOverTime.value = ProjectileDamage * 0.5f;
-//							BurningDamageOverTime.EffectDuration = 1000f;
-//							BurningDamageOverTime.transform.parent = entity.transform;
-//
-//							BurningDamageOverTime.SourceWeapon = sourceWeapon;
-//
-//							effectSlots.Add (BurningDamageOverTime, EffectType.DEBUFF);
 
 						}
 

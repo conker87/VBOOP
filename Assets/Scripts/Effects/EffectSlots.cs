@@ -26,8 +26,6 @@ public class EffectSlots : MonoBehaviour {
 
 		if (effectType == EffectType.BUFF) {
 
-			Debug.Log ("Adding shit, I fucking hope so.");
-
 			buffs.Add (effect);
 
 		} else if (effectType == EffectType.DEBUFF) {
@@ -40,23 +38,56 @@ public class EffectSlots : MonoBehaviour {
 
 	void Update () {
 
+//		foreach (Effect buff in buffs) {
+//
+//			if (buff != null) {
+//
+//				if (buff.firstRun) {
+//
+//					buff.disabled = false;
+//					buff.OriginalTime = Time.time;
+//					buff.firstRun = false;
+//
+//				}
+//
+//				buff.effectEntity = currentEntity;
+//
+//				foreach (Action doEffect in buff.DoEffect) {
+//				
+//					doEffect.Invoke();
+//
+//				}
+//
+//				if (Time.time > buff.OriginalTime + buff.EffectDuration) {
+//
+//					buffsToRemove.Add (buff);
+//
+//					foreach (Action doEffect in buff.EndEffect) {
+//
+//						doEffect.Invoke ();
+//
+//					}
+//
+//					buff.OriginalTime = 0f;
+//
+//				}
+//			}
+//
+//		}
+
 		foreach (Effect buff in buffs) {
 
 			if (buff != null) {
 
-				if (buff.firstRun) {
+				for (int i = 0; i < buff.TempTicker.Length; i++) {
 
-					buff.disabled = false;
-					buff.OriginalTime = Time.time;
-					buff.firstRun = false;
+					if (Time.time > buff.TempTicker[i]) {
 
-				}
+						buff.DoEffect[i].Invoke ();
 
-				buff.effectEntity = currentEntity;
+						buff.TempTicker[i] = Time.time + buff.TimeUntilNextTick[i];
 
-				foreach (Action doEffect in buff.DoEffect) {
-				
-					doEffect.Invoke();
+					}
 
 				}
 
@@ -64,15 +95,18 @@ public class EffectSlots : MonoBehaviour {
 
 					buffsToRemove.Add (buff);
 
-					foreach (Action doEffect in buff.EndEffect) {
+					if (buff.EndEffect != null) {
 
-						doEffect.Invoke ();
+						foreach (Action endEffect in buff.EndEffect) {
+
+							endEffect.Invoke ();
+
+						}
 
 					}
 
-					buff.OriginalTime = 0f;
-
 				}
+
 			}
 
 		}
@@ -106,10 +140,6 @@ public class EffectSlots : MonoBehaviour {
 						}
 
 					}
-
-
-					//debuff.EndEffect();
-					//debuff.OriginalTime = 0f;
 
 				}
 

@@ -13,6 +13,12 @@ public class Effect {
 					Weapon _sourceWeapon, Entity _sourceEntity,
 					Action[] _doEffect, Action[] _endEffect) {
 
+		if (_tickDuration.Length != _doEffect.Length) {
+
+			Debug.LogError ("'" + _effectName + "' has mismatched TickDuration length and DoEffect length!");
+
+		}
+
 		EffectName = _effectName;
 		EffectDescription = _effectDescription;
 		EffectDuration = _effectDuration;
@@ -67,37 +73,6 @@ public class Effect {
 	public Action[] DoEffect		{ get {	return this.doEffect; }		set {	this.doEffect = value; } }
 	public Action[] EndEffect		{ get {	return this.endEffect; }	set {	this.endEffect = value; } }
 
-	public bool disabled = false;
-	public bool firstRun = true;
-
-	[SerializeField]
-	float destroyingIn;
-
-	//void Start() {
-
-	//	destroyingIn = EffectDuration;
-
-	//}
-
-	//void Update() {
-
-	//	destroyingIn -= Time.deltaTime;
-
-	//}
-
-//	public virtual void DoEffect() {
-
-		// To be overriden in inheritted prefabs.
-
-//	}
-
-//	public virtual void EndEffect () {
-
-		// To be overriden in inheritted prefabs.
-
-		//Destroy (gameObject);
-
-//	}
 }
 
 public enum EffectType { BUFF, DEBUFF };
