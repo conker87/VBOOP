@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System;
 using System.Collections;
 using System.Linq;
 
@@ -56,15 +57,15 @@ public class Projectile : MonoBehaviour {
 
 		timesHit++;
 
-		Entity entity = other.GetComponentInParent<Entity> ();
+		Entity targetEntity = other.GetComponentInParent<Entity> ();
 
-		if (entity == null) {
+		if (targetEntity == null) {
 
-			entity = other.GetComponent<Entity> ();
+			targetEntity = other.GetComponent<Entity> ();
 
 		}
 
-		if (IsHealing == false && entity != null && entity.tag == "Coop") {
+		if (IsHealing == false && targetEntity != null && targetEntity.tag == "Coop") {
 
 			return;
 
@@ -74,12 +75,12 @@ public class Projectile : MonoBehaviour {
 		if (IsHealing) {
 
 			// If entity isn't null and the entity tag is "Coop".
-			if (entity != null && entity.tag == "Coop") {
+			if (targetEntity != null && targetEntity.tag == "Coop") {
 
 				// Heal the entity.
-				entity.Heal (ProjectileDamage);
+				targetEntity.Heal (ProjectileDamage);
 
-				EffectSlots effectSlots = entity.GetComponent<EffectSlots> ();
+				EffectSlots effectSlots = targetEntity.GetComponent<EffectSlots> ();
 
 				if (effectSlots.buffs.Count > 0) {
 
@@ -106,7 +107,7 @@ public class Projectile : MonoBehaviour {
 				}
 
 				// If doHealing is true and the entity's current health isn't it's maximum health then we should give them a HoT.
-				if (doHealingOverTime == true && entity.CurrentHealth != entity.MaximumHealth) {
+				if (doHealingOverTime == true && targetEntity.CurrentHealth != targetEntity.MaximumHealth) {
 
 					Debug.Log ("HealingOverTime");
 
@@ -130,20 +131,20 @@ public class Projectile : MonoBehaviour {
 		} else {
 
 			// If entity isn't null and the entity tag is "Enemy".
-			if (entity != null && entity.tag == "Enemy") {
+			if (targetEntity != null && targetEntity.tag == "Enemy") {
 
 				// We want to do damage only when the times hit is equal to 1 (which means this is the first enemy it has encountered),
 				// or if the times hit is more than 1 and that the enemy ID is no longer the same.
-				if (timesHit == 1 || (timesHit > 1 && enemyID != entity.GetInstanceID ())) {
+				if (timesHit == 1 || (timesHit > 1 && enemyID != targetEntity.GetInstanceID ())) {
 
-					enemyID = entity.GetInstanceID ();
+					enemyID = targetEntity.GetInstanceID ();
 
 					//Debug.Log (gameObject.name + " hit " + other.transform.name + " (" + entity.gameObject.name + "), timesHit: " + timesHit + ", for damage: " + currentDamage + ", isPiercing: " + isPiercing);
 
-					float damageReductionDueToArmor = (100 - (entity.ArmorRating * Random.Range(0.9f, 1.1f))) / 100;
+					float damageReductionDueToArmor = (100 - (targetEntity.ArmorRating * UnityEngine.Random.Range(0.9f, 1.1f))) / 100;
 					float actualDamage = Mathf.Clamp(ProjectileDamage * damageReductionDueToArmor, 0f, WeaponAverageDamage * 3f);
 
-					entity.Damage (actualDamage);
+					targetEntity.Damage (actualDamage);
 
 					// Fire up the DamageIndicators prefab which takes in the current Projectile (to get the currentDamage) and the Enemy (to get the Transform).
 					if (damageIndicator != null) {
@@ -158,25 +159,26 @@ public class Projectile : MonoBehaviour {
 					// This damaged is capped at 50% of the average damage.
 					if (IsBurning) {
 
-						EffectSlots effectSlots = entity.GetComponent<EffectSlots> ();
+						EffectSlots effectSlots = targetEntity.GetComponent<EffectSlots> ();
 
 						if (effectSlots.debuffs.Count > 0) {
 
-							foreach (EffectDamageOverTime debuff in effectSlots.debuffs) {
-
-								if (debuff.SourceWeapon == sourceWeapon) {
-
+//							foreach (EffectDamageOverTime debuff in effectSlots.debuffs) {
+//
+//								if (debuff.SourceWeapon == sourceWeapon) {
+//
 //									debuff.OriginalTime = Time.time;
 //									debuff.value += WeaponAverageDamage * 0.5f;
 //									debuff.value = Mathf.Clamp (debuff.value, 0f, WeaponAverageDamage * 0.5f);
+//
+//								} else { 
+//
+//									doBurning = true;
+//
+//								}
+//
+//							}
 
-								} else { 
-
-									doBurning = true;
-
-								}
-
-							}
 						} else {
 
 							doBurning = true;
@@ -187,7 +189,16 @@ public class Projectile : MonoBehaviour {
 
 //							EffectDamageOverTime BurningDamageOverTime = Instantiate (DamageOverTime) as EffectDamageOverTime;
 
-							effectSlots.Add(new Effect("Burning
+							effectSlots.Add(new Effect("Burning", "Burning for whatever over whatever", 
+								16f, Time.time, new float[] { 1, 1, 16 },
+								sourceWeapon, targetEntity, new Action[] {
+									() => targetEntity.Damage(ProjectileDamage * 0.5f),
+									() => targetEntity.DamageMana(ProjectileDamage * 0.5f),
+									() => targetEntity.BuffStat(EntityStat.STAMINA, 34000)
+								}, new Action[] {
+									() => targetEntity.BuffStat(EntityStat.STAMINA, -34000),
+									() => targetEntity.Damage(15000)
+								}), EffectType.DEBUFF);
 
 //							BurningDamageOverTime.value = ProjectileDamage * 0.5f;
 //							BurningDamageOverTime.EffectDuration = 1000f;

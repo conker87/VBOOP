@@ -115,10 +115,10 @@ public abstract class Weapon : Item {
 					newProjectile.WeaponAverageDamage = (projectileMinimumDamage + projectileMaximumDamage) / 2;
 					newProjectile.Lifetime = 5f;
 
-					//newProjectile.IsPiercing	= (WeaponProjectileType == WeaponProjectileType.PIERCING)	? true : false;
-					//newProjectile.IsBurning	= (WeaponProjectileType == WeaponProjectileType.BURNING)	? true : false;
-					//newProjectile.IsFreezing 	= (WeaponProjectileType == WeaponProjectileType.FREEZING)	? true : false;
-					//newProjectile.IsHealing 	= (WeaponProjectileType == WeaponProjectileType.HEALING)	? true : false;
+					newProjectile.IsPiercing	= (WeaponProjectileType == WeaponProjectileType.PIERCING)	? true : false;
+					newProjectile.IsBurning	= (WeaponProjectileType == WeaponProjectileType.BURNING)	? true : false;
+					newProjectile.IsFreezing 	= (WeaponProjectileType == WeaponProjectileType.FREEZING)	? true : false;
+					newProjectile.IsHealing 	= (WeaponProjectileType == WeaponProjectileType.HEALING)	? true : false;
 
 					newProjectile.sourceWeapon = this;
 				}

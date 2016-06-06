@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -19,20 +20,13 @@ public class EffectSlots : MonoBehaviour {
 
 		currentEntity = GetComponent<Entity> ();
 
-		if (testingBuffs != null && currentEntity.tag == "Player") {
-
-			foreach (Effect testingBuff in testingBuffs) {
-//				buffs.Add(Instantiate (testingBuff) as Effect);
-
-			}
-
-		}
-
 	}
 
 	public void Add(Effect effect, EffectType effectType) {
 
 		if (effectType == EffectType.BUFF) {
+
+			Debug.Log ("Adding shit, I fucking hope so.");
 
 			buffs.Add (effect);
 
@@ -40,13 +34,7 @@ public class EffectSlots : MonoBehaviour {
 
 			debuffs.Add (effect);
 
-		} else {
-
-			//ERROR
-
-		}
-
-
+		} 
 
 	}
 
@@ -65,39 +53,63 @@ public class EffectSlots : MonoBehaviour {
 				}
 
 				buff.effectEntity = currentEntity;
-				buff.DoEffect ();
+
+				foreach (Action doEffect in buff.DoEffect) {
+				
+					doEffect.Invoke();
+
+				}
 
 				if (Time.time > buff.OriginalTime + buff.EffectDuration) {
 
 					buffsToRemove.Add (buff);
-					buff.EndEffect();
+
+					foreach (Action doEffect in buff.EndEffect) {
+
+						doEffect.Invoke ();
+
+					}
+
 					buff.OriginalTime = 0f;
 
 				}
 			}
 
 		}
-	
 
 		foreach (Effect debuff in debuffs) {
 
 			if (debuff != null) {
 
-				if (debuff.firstRun) {
+				for (int i = 0; i < debuff.TempTicker.Length; i++) {
 
-					debuff.OriginalTime = Time.time;
-					debuff.firstRun = false;
+					if (Time.time > debuff.TempTicker[i]) {
+
+						debuff.DoEffect[i].Invoke ();
+
+						debuff.TempTicker[i] = Time.time + debuff.TimeUntilNextTick[i];
+
+					}
 
 				}
-
-				debuff.effectEntity = currentEntity;
-				debuff.DoEffect ();
 
 				if (Time.time > debuff.OriginalTime + debuff.EffectDuration) {
 
 					debuffsToRemove.Add (debuff);
-					debuff.EndEffect();
-					debuff.OriginalTime = 0f;
+
+					if (debuff.EndEffect != null) {
+						
+						foreach (Action endEffect in debuff.EndEffect) {
+
+							endEffect.Invoke ();
+
+						}
+
+					}
+
+
+					//debuff.EndEffect();
+					//debuff.OriginalTime = 0f;
 
 				}
 
