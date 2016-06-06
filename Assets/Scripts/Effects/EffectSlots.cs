@@ -22,7 +22,7 @@ public class EffectSlots : MonoBehaviour {
 		if (testingBuffs != null && currentEntity.tag == "Player") {
 
 			foreach (Effect testingBuff in testingBuffs) {
-				buffs.Add(Instantiate (testingBuff) as Effect);
+//				buffs.Add(Instantiate (testingBuff) as Effect);
 
 			}
 

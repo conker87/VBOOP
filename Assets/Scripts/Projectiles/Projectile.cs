@@ -110,16 +110,16 @@ public class Projectile : MonoBehaviour {
 
 					Debug.Log ("HealingOverTime");
 
-					// TODO: This needs balancing.
-					EffectHealOverTime HealingOverTime = Instantiate (HealOverTime) as EffectHealOverTime;
-
-					HealingOverTime.value = ProjectileDamage * 0.1f;
-					HealingOverTime.EffectDuration = 1000f;
-					HealingOverTime.transform.parent = entity.transform;
-
-					HealingOverTime.SourceWeapon = sourceWeapon;
-
-					effectSlots.Add (HealingOverTime, EffectType.BUFF);
+//					// TODO: This needs balancing.
+//					EffectHealOverTime HealingOverTime = Instantiate (HealOverTime) as EffectHealOverTime;
+//
+//					HealingOverTime.value = ProjectileDamage * 0.1f;
+//					HealingOverTime.EffectDuration = 1000f;
+//					HealingOverTime.transform.parent = entity.transform;
+//
+//					HealingOverTime.SourceWeapon = sourceWeapon;
+//
+//					effectSlots.Add (HealingOverTime, EffectType.BUFF);
 
 				}
 
@@ -166,9 +166,9 @@ public class Projectile : MonoBehaviour {
 
 								if (debuff.SourceWeapon == sourceWeapon) {
 
-									debuff.OriginalTime = Time.time;
-									debuff.value += WeaponAverageDamage * 0.5f;
-									debuff.value = Mathf.Clamp (debuff.value, 0f, WeaponAverageDamage * 0.5f);
+//									debuff.OriginalTime = Time.time;
+//									debuff.value += WeaponAverageDamage * 0.5f;
+//									debuff.value = Mathf.Clamp (debuff.value, 0f, WeaponAverageDamage * 0.5f);
 
 								} else { 
 
@@ -185,15 +185,17 @@ public class Projectile : MonoBehaviour {
 
 						if (doBurning == true) {
 
-							EffectDamageOverTime BurningDamageOverTime = Instantiate (DamageOverTime) as EffectDamageOverTime;
+//							EffectDamageOverTime BurningDamageOverTime = Instantiate (DamageOverTime) as EffectDamageOverTime;
 
-							BurningDamageOverTime.value = ProjectileDamage * 0.5f;
-							BurningDamageOverTime.EffectDuration = 1000f;
-							BurningDamageOverTime.transform.parent = entity.transform;
+							effectSlots.Add(new Effect("Burning
 
-							BurningDamageOverTime.SourceWeapon = sourceWeapon;
-
-							effectSlots.Add (BurningDamageOverTime, EffectType.DEBUFF);
+//							BurningDamageOverTime.value = ProjectileDamage * 0.5f;
+//							BurningDamageOverTime.EffectDuration = 1000f;
+//							BurningDamageOverTime.transform.parent = entity.transform;
+//
+//							BurningDamageOverTime.SourceWeapon = sourceWeapon;
+//
+//							effectSlots.Add (BurningDamageOverTime, EffectType.DEBUFF);
 
 						}
 
