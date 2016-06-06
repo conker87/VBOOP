@@ -128,6 +128,8 @@ public abstract class Entity : MonoBehaviour {
 	public Weapon StartingWeapon	{ get {	return this.startingWeapon; }		protected set {	this.startingWeapon = value; } }
 	public Weapon EquippedWeapon	{ get {	return this.equippedWeapon; }		protected set {	this.equippedWeapon = value; } }
 
+	public Projectile equippedProjectile;
+
 	public Transform weaponLocation;
 
 	// Misc
