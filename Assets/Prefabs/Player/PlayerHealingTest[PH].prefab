@@ -10,7 +10,7 @@ GameObject:
   - 4: {fileID: 442122}
   - 33: {fileID: 3347794}
   - 23: {fileID: 2393990}
-  m_Layer: 11
+  m_Layer: 10
   m_Name: Cube
   m_TagString: EnemyChild
   m_Icon: {fileID: 0}
@@ -27,9 +27,9 @@ GameObject:
   - 4: {fileID: 454006}
   - 33: {fileID: 3311148}
   - 23: {fileID: 2369776}
-  m_Layer: 11
+  m_Layer: 10
   m_Name: Hand
-  m_TagString: EnemyChild
+  m_TagString: Coop
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -45,8 +45,8 @@ GameObject:
   - 222: {fileID: 22299410}
   - 114: {fileID: 11421926}
   - 114: {fileID: 11417292}
-  m_Layer: 11
-  m_Name: EnemyManaPanelPercentage
+  m_Layer: 10
+  m_Name: EntityManaPanelPercentage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -62,9 +62,9 @@ GameObject:
   - 4: {fileID: 432056}
   - 114: {fileID: 11431140}
   - 114: {fileID: 11436990}
-  m_Layer: 11
+  m_Layer: 10
   m_Name: EntityNamePlate
-  m_TagString: Untagged
+  m_TagString: Coop
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -80,7 +80,7 @@ GameObject:
   - 222: {fileID: 22221318}
   - 114: {fileID: 11419836}
   - 114: {fileID: 11424594}
-  m_Layer: 11
+  m_Layer: 10
   m_Name: EntityManaPanelActual
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -98,9 +98,9 @@ GameObject:
   - 33: {fileID: 3307956}
   - 65: {fileID: 6542238}
   - 23: {fileID: 2311744}
-  m_Layer: 11
+  m_Layer: 10
   m_Name: Head
-  m_TagString: EnemyChild
+  m_TagString: Coop
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -116,9 +116,9 @@ GameObject:
   - 114: {fileID: 11493728}
   - 114: {fileID: 11453768}
   - 114: {fileID: 11438530}
-  m_Layer: 11
+  m_Layer: 10
   m_Name: PlayerHealingTest[PH]
-  m_TagString: Player
+  m_TagString: Coop
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -134,7 +134,7 @@ GameObject:
   - 222: {fileID: 22269028}
   - 114: {fileID: 11470834}
   - 114: {fileID: 11430838}
-  m_Layer: 11
+  m_Layer: 10
   m_Name: EntityHealthPanelActual
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -152,7 +152,7 @@ GameObject:
   - 223: {fileID: 22318496}
   - 114: {fileID: 11477126}
   - 114: {fileID: 11493590}
-  m_Layer: 11
+  m_Layer: 10
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -170,7 +170,7 @@ GameObject:
   - 222: {fileID: 22271300}
   - 114: {fileID: 11413222}
   - 114: {fileID: 11476436}
-  m_Layer: 11
+  m_Layer: 10
   m_Name: EntityName
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -185,7 +185,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 224: {fileID: 22481796}
-  m_Layer: 11
+  m_Layer: 10
   m_Name: EntityHealthPanelParent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -200,7 +200,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 224: {fileID: 22426704}
-  m_Layer: 11
+  m_Layer: 10
   m_Name: EntityManaPanelParent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -218,7 +218,7 @@ GameObject:
   - 222: {fileID: 22223424}
   - 114: {fileID: 11434526}
   - 114: {fileID: 11443610}
-  m_Layer: 11
+  m_Layer: 10
   m_Name: EntityHealthPanelPercentage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -236,9 +236,9 @@ GameObject:
   - 33: {fileID: 3354372}
   - 65: {fileID: 6546930}
   - 23: {fileID: 2324412}
-  m_Layer: 11
+  m_Layer: 10
   m_Name: Body
-  m_TagString: EnemyChild
+  m_TagString: Coop
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -251,7 +251,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 433716}
-  m_Layer: 11
+  m_Layer: 10
   m_Name: WeaponPlacement
   m_TagString: EnemyChild
   m_Icon: {fileID: 0}
@@ -269,7 +269,7 @@ GameObject:
   - 222: {fileID: 22208784}
   - 114: {fileID: 11476988}
   - 114: {fileID: 11469158}
-  m_Layer: 11
+  m_Layer: 10
   m_Name: EntityManaPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -287,7 +287,7 @@ GameObject:
   - 222: {fileID: 22229590}
   - 114: {fileID: 11452806}
   - 114: {fileID: 11450574}
-  m_Layer: 11
+  m_Layer: 10
   m_Name: EntityTitle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -303,9 +303,9 @@ GameObject:
   m_Component:
   - 4: {fileID: 448772}
   - 54: {fileID: 5400454}
-  m_Layer: 11
+  m_Layer: 10
   m_Name: Model
-  m_TagString: EnemyChild
+  m_TagString: Coop
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -321,7 +321,7 @@ GameObject:
   - 222: {fileID: 22251184}
   - 114: {fileID: 11459738}
   - 114: {fileID: 11407084}
-  m_Layer: 11
+  m_Layer: 10
   m_Name: EntityHealthPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -815,16 +815,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42ab2e3b1fa7d05498cc45cd50db4899, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enabled: 1
+  isEnabled: 1
   canvasParent: {fileID: 152366}
   nameNameplate: {fileID: 153478}
   titleNameplate: {fileID: 189218}
   healthPanel: {fileID: 198598}
-  healthPanelActual: {fileID: 147574}
-  healthPanelPercetage: {fileID: 160774}
+  healthPanelActual: {fileID: 11470834}
+  healthPanelPercetage: {fileID: 11434526}
   manaPanel: {fileID: 177612}
-  manaPanelActual: {fileID: 136154}
-  manaPanelPercetage: {fileID: 118000}
+  manaPanelActual: {fileID: 11419836}
+  manaPanelPercetage: {fileID: 11421926}
 --- !u!114 &11438530
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -836,9 +836,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2c1b84e02cb3bc44ab2a451f813b76b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buffs: []
-  debuffs: []
-  testingBuffs: []
 --- !u!114 &11443610
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -917,16 +914,32 @@ MonoBehaviour:
   maximumMana: 0
   currentHealth: 0
   currentMana: 0
-  stamina: 3400
-  intellect: 3800
+  stamina: 99999
+  intellect: 99999
   armorRating: 0
+  critRating: 1
+  hasteRating: 1
   healthRegenerationPerSecond: 5
   manaRegenerationPerSecond: 5
+  goldFind: 1
+  experienceGain: 1
+  increasedCritDamage: 1
+  increasedAberrationDamage: 1
+  increasedBeastDamage: 1
+  increasedCritterDamage: 1
+  increasedDemonDamage: 1
+  increasedDeityDamage: 1
+  increasedElementalDamage: 1
+  increasedHumanoidDamage: 1
+  increasedUndeadDamage: 1
   disableNaturalRegeneration: 1
+  equippedWeapon: {fileID: 0}
+  startingWeapon: {fileID: 11433006, guid: 1c57d7cebd153a44880bb4291616a7c4, type: 2}
+  startingAmmo: {fileID: 0}
+  equippedAmmo: {fileID: 0}
   weaponLocation: {fileID: 433716}
   species: 0
   quality: 0
-  startingWeapon: {fileID: 11433006, guid: 1c57d7cebd153a44880bb4291616a7c4, type: 2}
 --- !u!114 &11459738
 MonoBehaviour:
   m_ObjectHideFlags: 1

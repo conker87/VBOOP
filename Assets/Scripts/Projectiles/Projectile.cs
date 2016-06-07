@@ -5,8 +5,6 @@ using System.Linq;
 
 public class Projectile : MonoBehaviour {
 
-	public DamageIndicator damageIndicator;
-
 	public Effect DamageOverTime, HealOverTime;
 
 	// Speed and Damage values.
@@ -18,11 +16,17 @@ public class Projectile : MonoBehaviour {
 	public float Lifetime				{ get {	return this.lifetime; }				set {	this.lifetime = value; } }
 
 	[SerializeField]
-	bool isPiercing, isBurning, isFreezing, isHealing;
-	public bool IsPiercing		{ get {	return this.isPiercing; }	set {	this.isPiercing = value; } }
+	bool isBleeding, isBurning, isFreezing, isHealing, isLeeching, isPiercing, isPoison;
+	public bool IsBleeding		{ get {	return this.isBleeding; }	set {	this.isBleeding = value; } }
 	public bool IsBurning		{ get {	return this.isBurning; }	set {	this.isBurning = value; } }
 	public bool IsFreezing		{ get {	return this.isFreezing; }	set {	this.isFreezing = value; } }
 	public bool IsHealing		{ get {	return this.isHealing; }	set {	this.isHealing = value; } }
+	public bool IsLeeching		{ get {	return this.isLeeching; }	set {	this.isLeeching = value; } }
+	public bool IsPiercing		{ get {	return this.isPiercing; }	set {	this.isPiercing = value; } }
+	public bool IsPoison		{ get {	return this.isPoison; }		set {	this.isPoison = value; } }
+
+	bool isCrit;
+	public bool IsCrit			{ get {	return this.isCrit; }		set {	this.isCrit = value; } }
 
 	[SerializeField]
 	float destroyingIn;
@@ -53,8 +57,6 @@ public class Projectile : MonoBehaviour {
 
 	void OnTriggerEnter(Collider other) {
 
-		// Debug.Log ("OnTriggerEnter");
-
 		timesHit++;
 
 		Entity targetEntity = other.GetComponentInParent<Entity> ();
@@ -78,53 +80,20 @@ public class Projectile : MonoBehaviour {
 			if (targetEntity != null && targetEntity.tag == "Coop") {
 
 				// Heal the entity.
-				targetEntity.Heal (ProjectileDamage);
+				targetEntity.Heal (ProjectileDamage, IsCrit);
 
 				EffectSlots effectSlots = targetEntity.GetComponent<EffectSlots> ();
 
-				if (effectSlots.buffs.Count > 0) {
-
-					foreach (EffectHealOverTime buffs in effectSlots.buffs) {
-
-						if (buffs.SourceWeapon == sourceWeapon) {
-
-							// TODO: BALANCING!!
-							buffs.OriginalTime = Time.time;
-							buffs.value += WeaponAverageDamage * 0.25f;
-							buffs.value = Mathf.Clamp (buffs.value, 0f, WeaponAverageDamage * 0.9f);
-
-						} else { 
-
-							doHealingOverTime = true;
-
-						}
-
-					}
-				} else {
-
-					doHealingOverTime = true;
-
-				}
-
 				// If doHealing is true and the entity's current health isn't it's maximum health then we should give them a HoT.
-				if (doHealingOverTime == true && targetEntity.CurrentHealth != targetEntity.MaximumHealth) {
+				if (targetEntity.CurrentHealth != targetEntity.MaximumHealth) {
 
-					Debug.Log ("HealingOverTime");
-
-//					// TODO: This needs balancing.
-//					EffectHealOverTime HealingOverTime = Instantiate (HealOverTime) as EffectHealOverTime;
-//
-//					HealingOverTime.value = ProjectileDamage * 0.1f;
-//					HealingOverTime.EffectDuration = 1000f;
-//					HealingOverTime.transform.parent = entity.transform;
-//
-//					HealingOverTime.SourceWeapon = sourceWeapon;
-//
-//					effectSlots.Add (HealingOverTime, EffectType.BUFF);
+					effectSlots.Add(new Effect("Healing", "Healing for whatever over whatever", 
+						5f, Time.time, new float[] { 1 },
+						sourceWeapon, targetEntity, new Action[] {
+							() => targetEntity.Heal(ProjectileDamage * 0.5f),
+						}, null), EffectType.BUFF);
 
 				}
-
-				doHealingOverTime = false;
 
 			}
 
@@ -142,18 +111,9 @@ public class Projectile : MonoBehaviour {
 					//Debug.Log (gameObject.name + " hit " + other.transform.name + " (" + entity.gameObject.name + "), timesHit: " + timesHit + ", for damage: " + currentDamage + ", isPiercing: " + isPiercing);
 
 					float damageReductionDueToArmor = (100 - (targetEntity.ArmorRating * UnityEngine.Random.Range(0.9f, 1.1f))) / 100;
-					float actualDamage = Mathf.Clamp(ProjectileDamage * damageReductionDueToArmor, 0f, WeaponAverageDamage * 3f);
+					float actualDamage = (float) Math.Round(Mathf.Clamp(ProjectileDamage * damageReductionDueToArmor, 0f, WeaponAverageDamage * 3f), 2);
 
-					targetEntity.Damage (actualDamage);
-
-					// Fire up the DamageIndicators prefab which takes in the current Projectile (to get the currentDamage) and the Enemy (to get the Transform).
-					if (damageIndicator != null) {
-
-						DamageIndicator dmg = Instantiate (damageIndicator, other.transform.position, other.transform.rotation) as DamageIndicator;
-
-						dmg.GetComponentInChildren<TextMesh> ().text = actualDamage.ToString();
-
-					}
+					targetEntity.Damage (actualDamage, IsCrit);
 
 					// If the projectile (and therefore the gun) has a burning effect, them give the target Entity the burning DoT.
 					// This damaged is capped at 50% of the average damage.
@@ -163,21 +123,15 @@ public class Projectile : MonoBehaviour {
 
 						if (effectSlots.debuffs.Count > 0) {
 
-//							foreach (EffectDamageOverTime debuff in effectSlots.debuffs) {
-//
-//								if (debuff.SourceWeapon == sourceWeapon) {
-//
-//									debuff.OriginalTime = Time.time;
-//									debuff.value += WeaponAverageDamage * 0.5f;
-//									debuff.value = Mathf.Clamp (debuff.value, 0f, WeaponAverageDamage * 0.5f);
-//
-//								} else { 
-//
-//									doBurning = true;
-//
-//								}
-//
-//							}
+							foreach (Effect debuff in effectSlots.debuffs) {
+
+								if (debuff.SourceWeapon != sourceWeapon) {
+
+									doBurning = true;
+
+								}
+
+							}
 
 						} else {
 
@@ -188,13 +142,10 @@ public class Projectile : MonoBehaviour {
 						if (doBurning == true) {
 
 							effectSlots.Add(new Effect("Burning", "Burning for whatever over whatever", 
-								16f, Time.time, new float[] { 1, 1, 1 },
+								16f, Time.time, new float[] { 1 },
 								sourceWeapon, targetEntity, new Action[] {
-									() => targetEntity.Damage(ProjectileDamage * 0.5f),
-									() => targetEntity.DamageMana(ProjectileDamage * 0.5f)
-								}, new Action[] {
-									() => targetEntity.Damage(15000)
-								}), EffectType.DEBUFF);
+									() => targetEntity.Damage(ProjectileDamage * 0.5f)
+								}, null), EffectType.DEBUFF);
 
 						}
 

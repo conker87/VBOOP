@@ -26,9 +26,29 @@ public class EffectSlots : MonoBehaviour {
 
 		if (effectType == EffectType.BUFF) {
 
+			foreach (Effect buff in buffs) {
+
+				if (buff.SourceWeapon == effect.SourceWeapon) {
+
+					return;
+
+				} 
+		
+			}
+
 			buffs.Add (effect);
 
 		} else if (effectType == EffectType.DEBUFF) {
+
+			foreach (Effect debuff in debuffs) {
+
+				if (debuff.SourceWeapon == effect.SourceWeapon) {
+
+					return;
+
+				} 
+
+			}
 
 			debuffs.Add (effect);
 
@@ -37,43 +57,6 @@ public class EffectSlots : MonoBehaviour {
 	}
 
 	void Update () {
-
-//		foreach (Effect buff in buffs) {
-//
-//			if (buff != null) {
-//
-//				if (buff.firstRun) {
-//
-//					buff.disabled = false;
-//					buff.OriginalTime = Time.time;
-//					buff.firstRun = false;
-//
-//				}
-//
-//				buff.effectEntity = currentEntity;
-//
-//				foreach (Action doEffect in buff.DoEffect) {
-//				
-//					doEffect.Invoke();
-//
-//				}
-//
-//				if (Time.time > buff.OriginalTime + buff.EffectDuration) {
-//
-//					buffsToRemove.Add (buff);
-//
-//					foreach (Action doEffect in buff.EndEffect) {
-//
-//						doEffect.Invoke ();
-//
-//					}
-//
-//					buff.OriginalTime = 0f;
-//
-//				}
-//			}
-//
-//		}
 
 		foreach (Effect buff in buffs) {
 

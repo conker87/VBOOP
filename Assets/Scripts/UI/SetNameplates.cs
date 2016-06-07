@@ -90,13 +90,13 @@ public class SetNameplates : MonoBehaviour {
 		}
 	}
 
-	void SetResourceBarText(Text panel, string value, float maximumResource) {
+	void SetResourceBarText(Text panel, string value, float maximumResource, string format = "") {
 
 		if (panel != null) {
 
 			if (maximumResource > 0) {
 
-				panel.text = value;
+				panel.text = (format == "") ? value : string.Format(format, value);
 
 			}
 
@@ -129,14 +129,14 @@ public class SetNameplates : MonoBehaviour {
 			if (MaximumMana != entity.MaximumMana)		{ MaximumMana = entity.MaximumMana; }
 
 			// Health
-			SetResourceBar		(healthPanel,			CurrentHealth, 							MaximumHealth);
-			SetResourceBarText	(healthPanelActual, 	CurrentHealth.ToString(), 							MaximumHealth);
-			SetResourceBarText	(healthPanelPercetage, 	(CurrentHealth / MaximumHealth) * 100 + "%",	MaximumHealth);
+			SetResourceBar		(healthPanel,			CurrentHealth, 									MaximumHealth);
+			SetResourceBarText	(healthPanelActual, 	CurrentHealth.ToString("N0"), 					MaximumHealth);
+			SetResourceBarText	(healthPanelPercetage, 	(CurrentHealth / MaximumHealth).ToString("P"),	MaximumHealth);
 
 			// Mana
-			SetResourceBar		(manaPanel, 			CurrentMana,							MaximumMana);
-			SetResourceBarText 	(manaPanelActual, 		CurrentMana.ToString(),							MaximumMana);
-			SetResourceBarText 	(manaPanelPercetage, 	(CurrentMana / MaximumMana) * 100 + "%",		MaximumMana);
+			SetResourceBar		(manaPanel, 			CurrentMana,								MaximumMana);
+			SetResourceBarText 	(manaPanelActual, 		CurrentMana.ToString("N0"),					MaximumMana);
+			SetResourceBarText 	(manaPanelPercetage, 	(CurrentMana / MaximumMana).ToString("P"),	MaximumMana);
 
 		}
 

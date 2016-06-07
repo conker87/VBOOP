@@ -33,7 +33,7 @@ public class Effect {
 
 		for (int i = 0; i < TimeUntilNextTick.Length; i++) {
 			
-			TempTicker[i] = OriginalTime;
+			TempTicker[i] = OriginalTime + TimeUntilNextTick[i];
 
 		}
 

@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System;
 using System.Collections;
 using System.Linq;
 
@@ -21,8 +22,6 @@ public abstract class Weapon : Item {
 	public WeaponQuality 	WeaponQuality				{ get {	return this.weaponQuality; }	set {	this.weaponQuality = value; } }
 	[SerializeField] protected WeaponPrefix weaponPrefix;
 	public WeaponPrefix 	WeaponPrefix				{ get {	return this.weaponPrefix; }		set {	this.weaponPrefix = value; } }
-	[SerializeField] protected WeaponSuffix weaponSuffix;
-	public WeaponSuffix 	WeaponSuffix				{ get {	return this.weaponSuffix; }		set {	this.weaponSuffix = value; } }
 	[SerializeField] protected WeaponProjectileType weaponProjectileType;
 	public WeaponProjectileType WeaponProjectileType	{ get {	return this.weaponProjectileType; }	set {	this.weaponProjectileType = value; } }
 
@@ -63,6 +62,7 @@ public abstract class Weapon : Item {
 
 	protected Projectile newProjectile;
 
+	bool crit = false;
 	float nextShotTime;
 
 	protected virtual void Start () {
@@ -83,10 +83,9 @@ public abstract class Weapon : Item {
 		WeaponQuality = sf.RandomEnumValue<WeaponQuality>();
 		if (weaponQuality == WeaponQuality.UNIQUE) { weaponQuality = WeaponQuality.MAGNIFICENT; }
 		WeaponPrefix = sf.RandomEnumValue<WeaponPrefix>();
-		WeaponSuffix = sf.RandomEnumValue<WeaponSuffix>();
 		WeaponProjectileType = sf.RandomEnumValue<WeaponProjectileType>();
 
-		ItemName = weaponQuality + " " + weaponPrefix + " " + weaponType + " " + weaponSuffix + ", with " + weaponProjectileType + " rounds.";
+		ItemName = weaponQuality + " " + weaponPrefix + " " + weaponType + " " + ", with " + weaponProjectileType + " rounds.";
 
 	}
 
@@ -97,13 +96,20 @@ public abstract class Weapon : Item {
 
 			Player.current.DamageMana (manaCost);
 
-			GunDamageThisShot = Random.Range (ProjectileMinimumDamage, ProjectileMaximumDamage);
+			GunDamageThisShot = (float) Math.Round(UnityEngine.Random.Range (ProjectileMinimumDamage, ProjectileMaximumDamage), 2);
 
-			DamagePerProjectile = (Random.Range (0f, 100f) < Player.current.CritRating) ? (1.6f * Player.current.IncreasedCritDamage) : 1.0f;
+			if (UnityEngine.Random.Range (0f, 100f) < Player.current.CritRating) {
 
-			//Debug.Log ("GunDamageThisShot: " + GunDamageThisShot + ", DamagePerProjectile: " + DamagePerProjectile + ", ProjectilesPerShot: " + ProjectilesPerShot);
+				DamagePerProjectile = 1.6f * Player.current.IncreasedCritDamage;
+				crit = true;
 
-			DamagePerProjectile *= (GunDamageThisShot / ProjectilesPerShot);
+			} else {
+
+				DamagePerProjectile = 1.0f;
+
+			}
+
+			DamagePerProjectile *= (float) Math.Round((GunDamageThisShot / ProjectilesPerShot) * 100f) / 100f;
 
 			for (int i = 0; i < projectilesPerShot; i++) {
 
@@ -112,13 +118,18 @@ public abstract class Weapon : Item {
 					OverrideShoot (loc, out newProjectile);
 
 					newProjectile.ProjectileDamage = DamagePerProjectile;
-					newProjectile.WeaponAverageDamage = (projectileMinimumDamage + projectileMaximumDamage) / 2;
+					newProjectile.WeaponAverageDamage = (float) Math.Round((projectileMinimumDamage + projectileMaximumDamage) / 2f, 2);
 					newProjectile.Lifetime = 5f;
 
-					newProjectile.IsPiercing	= (WeaponProjectileType == WeaponProjectileType.PIERCING)	? true : false;
-					newProjectile.IsBurning	= (WeaponProjectileType == WeaponProjectileType.BURNING)	? true : false;
-					newProjectile.IsFreezing 	= (WeaponProjectileType == WeaponProjectileType.FREEZING)	? true : false;
-					newProjectile.IsHealing 	= (WeaponProjectileType == WeaponProjectileType.HEALING)	? true : false;
+					newProjectile.IsBleeding	= (Player.current.EquippedAmmo.AmmoType == AmmoType.BLEEDING)	? true : false;
+					newProjectile.IsBurning 	= (Player.current.EquippedAmmo.AmmoType == AmmoType.BURNING)	? true : false;
+					newProjectile.IsFreezing 	= (Player.current.EquippedAmmo.AmmoType == AmmoType.FREEZING)	? true : false;
+					newProjectile.IsHealing 	= (Player.current.EquippedAmmo.AmmoType == AmmoType.HEALING)	? true : false;
+					newProjectile.IsLeeching 	= (Player.current.EquippedAmmo.AmmoType == AmmoType.LEECHING)	? true : false;
+					newProjectile.IsPiercing 	= (Player.current.EquippedAmmo.AmmoType == AmmoType.PIERCING)	? true : false;
+					newProjectile.IsPoison 		= (Player.current.EquippedAmmo.AmmoType == AmmoType.POISON)		? true : false;
+	
+					newProjectile.IsCrit = crit;
 
 					newProjectile.sourceWeapon = this;
 				}
@@ -127,6 +138,7 @@ public abstract class Weapon : Item {
 
 			nextShotTime = Time.time + AttackSpeed;
 
+			crit = false;
 		}
 
 	}

@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using EckTechGames.FloatingCombatText;
 
 public abstract class Entity : MonoBehaviour {
 
@@ -125,12 +126,12 @@ public abstract class Entity : MonoBehaviour {
 	// ***********
 	// The current equipped weapon and the weapon they start with (this is temp as the first weapon given will be generated randomly.
 	public Weapon equippedWeapon, startingWeapon;
-	public Weapon StartingWeapon	{ get {	return this.startingWeapon; }		protected set {	this.startingWeapon = value; } }
-	public Weapon EquippedWeapon	{ get {	return this.equippedWeapon; }		protected set {	this.equippedWeapon = value; } }
+	public Weapon StartingWeapon	{ get {	return this.startingWeapon; }		set {	this.startingWeapon = value; } }
+	public Weapon EquippedWeapon	{ get {	return this.equippedWeapon; }		set {	this.equippedWeapon = value; } }
 
 	public Ammo startingAmmo, equippedAmmo;
-	public Ammo StartingAmmo	{ get {	return this.startingAmmo; }		protected set {	this.startingAmmo = value; } }
-	public Ammo EquippedAmmo	{ get {	return this.equippedAmmo; }		protected set {	this.equippedAmmo = value; } }
+	public Ammo StartingAmmo	{ get {	return this.startingAmmo; }		set {	this.startingAmmo = value; } }
+	public Ammo EquippedAmmo	{ get {	return this.equippedAmmo; }		set {	this.equippedAmmo = value; } }
 
 	public Transform weaponLocation;
 
@@ -138,12 +139,34 @@ public abstract class Entity : MonoBehaviour {
 	float nextRegenTime;
 
 	// Health methods.
-	public void Damage(float value)		{ CurrentHealth -= value; }
-	public void Heal(float value)		{ Damage(-value); }
+	public void Damage(float value, bool wasCrit = false) {
+		
+		CurrentHealth -= value;
+
+		OverlayCanvasController.instance.ShowCombatText (gameObject,
+															(wasCrit) ? CombatTextType.CriticalHit : CombatTextType.Hit,
+															value.ToString ());
+	
+	}
+	public void Heal(float value, bool wasCrit = false) {
+
+		CurrentHealth += value;
+
+		OverlayCanvasController.instance.ShowCombatText (gameObject,
+			(wasCrit) ? CombatTextType.CriticalHeal : CombatTextType.Heal,
+															value.ToString ());}
 
 	// Mana methods.
-	public void DamageMana(float value)	{ CurrentMana -= value; }
-	public void HealMana(float value)	{ DamageMana(-value); }
+	public void DamageMana(float value, bool wasCrit = false)	{
+		
+		CurrentMana -= value;
+
+	}
+	public void HealMana(float value, bool wasCrit = false)	{
+
+		CurrentMana += value;
+	
+	}
 
 	// (De)Buff stat methods.
 	public void DebuffStat(EntityStat stat, int value)		{ BuffStat (stat, -value); }
@@ -237,8 +260,8 @@ public abstract class Entity : MonoBehaviour {
 
 	void ClampHealthAndMana() {
 
-		CurrentHealth 	= Mathf.Clamp(CurrentHealth,	0f,	MaximumHealth);
-		CurrentMana 	= Mathf.Clamp(CurrentMana,		0f, MaximumMana);
+		CurrentHealth 	= (float) System.Math.Round(Mathf.Clamp(CurrentHealth,	0f,	MaximumHealth), 2);
+		CurrentMana 	= (float) System.Math.Round(Mathf.Clamp(CurrentMana,	0f, MaximumMana), 2);
 
 	}
 

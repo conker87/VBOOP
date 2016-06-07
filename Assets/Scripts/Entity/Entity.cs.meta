@@ -1,10 +1,16 @@
 fileFormatVersion: 2
 guid: fd10d79c67bac4346b6e4b89d14c37b3
-timeCreated: 1464626637
+timeCreated: 1465318042
 licenseType: Free
 MonoImporter:
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - damageIndicator: {fileID: 11446104, guid: 2f55e1ce4f1c4ef41913d8df4085d6dc, type: 2}
+  - equippedWeapon: {instanceID: 0}
+  - startingWeapon: {instanceID: 0}
+  - startingAmmo: {instanceID: 0}
+  - equippedAmmo: {instanceID: 0}
+  - weaponLocation: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
