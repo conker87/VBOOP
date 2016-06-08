@@ -8,6 +8,10 @@ public abstract class Entity : MonoBehaviour {
 	EffectSlots entityEffectSlots;
 	Item[] equipmentSlots = new Item[10];	// Helm, Chest, Hands, Legs, Feet, Weapon1, Weapon2, Relic1, Relic2, [AMMO?]
 
+	// Temp Stats
+	float[] tempFloat = new float[] { -1f, -1f, -1f };
+	int[] tempInt = new int[] { -1, -1, -1 };
+
 	// CONST
 	int healthPerStamina = 10, manaPerIntellect = 10;
 	public int HealthPerStamina	{ get {	return this.healthPerStamina; } }
@@ -139,6 +143,31 @@ public abstract class Entity : MonoBehaviour {
 
 	// Misc
 	float nextRegenTime;
+
+	// Temp Set Methods
+	public void SetTempValue(int index, float value) {
+
+		tempFloat [index] = value;
+
+	}
+
+	public void SetTempValue(int index, int value) {
+
+		tempInt [index] = value;
+
+	}
+
+	public float GetTempFloatValue(int index) {
+
+		return tempFloat [index];
+
+	}
+
+	public int GetTempValue(int index) {
+
+		return tempInt [index];
+
+	}
 
 	// Health methods.
 	public void Damage(float value, bool wasCrit = false) {

@@ -110,11 +110,19 @@ public class Projectile : MonoBehaviour {
 				// This damaged is capped at 50% of the average damage.
 				if (IsBurning) {
 
-						effectSlots.Add(new Effect("Burning", "Burning for whatever over whatever", 
-							16f, Time.time, new float[] { 1 },
+					int armourRatingTemp = (int) (targetEntity.ArmorRating - (targetEntity.ArmorRating * 0.9f));
+
+					Debug.Log (armourRatingTemp);
+
+						effectSlots.Add(new Effect("Burning", "Burning for 25% of projectile damage over 8 seconds and reduces the target's armor by 10%", 
+							8f, Time.time, new float[] { 1f, 4.9f, 4.9f },
 							sourceWeapon, targetEntity, new Action[] {
-								() => targetEntity.Damage(ProjectileDamage * 0.5f)
-							}, null), EffectType.DEBUFF);
+								() => targetEntity.Damage(Mathf.Abs(damageReductionDueToArmor * 0.25f)),
+								() => targetEntity.SetTempValue(0, targetEntity.ArmorRating),
+								() => targetEntity.DebuffStat(EntityStat.ARMOR_RATING, armourRatingTemp)
+						}, new Action[] {
+							() => targetEntity.BuffStat(EntityStat.ARMOR_RATING, armourRatingTemp)
+						}), EffectType.DEBUFF);
 								
 				}
 
@@ -125,7 +133,7 @@ public class Projectile : MonoBehaviour {
 			}
 		}
 
-		// Destroy the gameObject now as it's either not a piercing round, it is and it has hit more than 4 enemies or
+		// Destroy the gameObject now as it's either not a piercing round or it is and it has hit more than 4 enemies or
 		// the projectile hit geometry and as such needs to be destroyed.
 		if (IsPiercing == false || (IsPiercing == true && timesHit > 3) || (new []{ "Geometry", "Untagged" }.Contains (other.tag))) {
 
