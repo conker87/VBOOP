@@ -121,13 +121,13 @@ public abstract class Weapon : Item {
 					newProjectile.WeaponAverageDamage = (float) Math.Round((projectileMinimumDamage + projectileMaximumDamage) / 2f, 2);
 					newProjectile.Lifetime = 5f;
 
-					newProjectile.IsBleeding	= (Player.current.EquippedAmmo.AmmoType == AmmoType.BLEEDING)	? true : false;
-					newProjectile.IsBurning 	= (Player.current.EquippedAmmo.AmmoType == AmmoType.BURNING)	? true : false;
-					newProjectile.IsFreezing 	= (Player.current.EquippedAmmo.AmmoType == AmmoType.FREEZING)	? true : false;
-					newProjectile.IsHealing 	= (Player.current.EquippedAmmo.AmmoType == AmmoType.HEALING)	? true : false;
-					newProjectile.IsLeeching 	= (Player.current.EquippedAmmo.AmmoType == AmmoType.LEECHING)	? true : false;
-					newProjectile.IsPiercing 	= (Player.current.EquippedAmmo.AmmoType == AmmoType.PIERCING)	? true : false;
-					newProjectile.IsPoison 		= (Player.current.EquippedAmmo.AmmoType == AmmoType.POISON)		? true : false;
+					newProjectile.IsBleeding	= (Array.IndexOf (Player.current.EquippedAmmo.AmmoType, AmmoType.BLEEDING) > -1) ? true : false;
+					newProjectile.IsBurning 	= (Array.IndexOf (Player.current.EquippedAmmo.AmmoType, AmmoType.BURNING) > -1)	 ? true : false;
+					newProjectile.IsFreezing 	= (Array.IndexOf (Player.current.EquippedAmmo.AmmoType, AmmoType.FREEZING) > -1) ? true : false;
+					newProjectile.IsHealing 	= (Array.IndexOf (Player.current.EquippedAmmo.AmmoType, AmmoType.HEALING) > -1)	 ? true : false;
+					newProjectile.IsLeeching 	= (Array.IndexOf (Player.current.EquippedAmmo.AmmoType, AmmoType.LEECHING) > -1) ? true : false;
+					newProjectile.IsPiercing 	= (Array.IndexOf (Player.current.EquippedAmmo.AmmoType, AmmoType.PIERCING) > -1) ? true : false;
+					newProjectile.IsPoison 		= (Array.IndexOf (Player.current.EquippedAmmo.AmmoType, AmmoType.POISON) > -1)	 ? true : false;
 	
 					newProjectile.IsCrit = crit;
 

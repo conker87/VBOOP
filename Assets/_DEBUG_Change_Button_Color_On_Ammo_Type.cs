@@ -25,15 +25,15 @@ public class _DEBUG_Change_Button_Color_On_Ammo_Type : MonoBehaviour {
 
 		if (button != null && Player.current.EquippedAmmo.AmmoType != null) {
 
-			if (Player.current.EquippedAmmo.AmmoType == _ammoType) {
-
-				button.color = Color.green;
-
-			} else { 
-
-				button.color = Color.white;
-
-			}
+//			if (Player.current.EquippedAmmo.AmmoType == _ammoType) {
+//
+//				button.color = Color.green;
+//
+//			} else { 
+//
+//				button.color = Color.white;
+//
+//			}
 		}
 	}
 }

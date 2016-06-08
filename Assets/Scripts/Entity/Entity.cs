@@ -28,76 +28,78 @@ public abstract class Entity : MonoBehaviour {
 	// Base Health & Mana
 	// Used to calculate health base upon level. These values should probably be taken from a class that stores these values.
 	protected float baseHealth = 20, baseMana = 10;
-	public float BaseHealth		{ get {	return this.baseHealth; }		set {	this.baseHealth = value; } }
-	public float BaseMana		{ get {	return this.baseMana; }			set {	this.baseMana = value; } }
+	public float	BaseHealth		{ get {	return this.baseHealth; }		set {	this.baseHealth = value; } }
+	public float 	BaseMana		{ get {	return this.baseMana; }			set {	this.baseMana = value; } }
 
 	// Maximum Health & Mana
 	// The maximum resources.
 	// Can be changed via Equipment and Effects.
 	[SerializeField]
 	protected float maximumHealth, maximumMana;
-	public float MaximumHealth		{ get {	return this.maximumHealth; }	set {	this.maximumHealth = value; } }
-	public float MaximumMana		{ get {	return this.maximumMana; }		set {	this.maximumMana = value; } }
+	public float 	MaximumHealth		{ get {	return this.maximumHealth; }	set {	this.maximumHealth = value; } }
+	public float 	MaximumMana		{ get {	return this.maximumMana; }		set {	this.maximumMana = value; } }
 
 	// Current Health & Mana
 	// These values are the Entity's realtime health and mana resources.
 	[SerializeField]
 	protected float currentHealth, currentMana;
-	public float CurrentHealth		{ get {	return this.currentHealth; }	set {	this.currentHealth = value; } }
-	public float CurrentMana		{ get {	return this.currentMana; }		set {	this.currentMana = value; } }
+	public float 	CurrentHealth		{ get {	return this.currentHealth; }	set {	this.currentHealth = value; } }
+	public float 	CurrentMana		{ get {	return this.currentMana; }		set {	this.currentMana = value; } }
 
 	// *********
 	// * STATS *
 	// *********
 	// Stamina, Intellect & Armor Rating (yes I'm spelling it the American way because it looks less weird)
-	// This is the amount of total health, the amount of total mana and also adds to elemental damage (possibly).
-	// This value reduces physical damage (all damage is physical, bar those caused by Burning & Freezing).
-	// TODO: Should this be a percentage or an actual value that increases? Percentages scale with levels, values do not.
+	// This is the amount of total health and the amount of total mana.
+	// This value reduces physical damage (all damage is physical, bar those caused by BURNING, FREEZING, LEECHING and POISON).
+	//		These *Ratings are going to be percentages, while they scale with level the values on the rest of the equipment does not.
+	//		Except the ArmorRating, which requires it to be a value that increase with level, 
 	[SerializeField]
-	protected int stamina = 1, intellect = 1, armorRating = 0, critRating = 1, hasteRating = 1;
-
-	public int Stamina						{ get { return this.stamina; }		set { this.stamina = value; } }
-	public int Intellect					{ get { return this.intellect; }	set { this.intellect = value; } }
-	public int ArmorRating					{ get { return this.armorRating; }	set { this.armorRating = value; } }
-	public int CritRating					{ get { return this.critRating; }	set { this.critRating = value; } }
-	public int HasteRating 					{ get { return this.hasteRating; }	set { this.hasteRating = value; } }
+	protected int stamina = 1, intellect = 1, armorRating = 0;
+	protected float critRating = 5f, hasteRating = 0f;
+	public int 		Stamina			{ get { return this.stamina;		} set { this.stamina = value;		} }
+	public int 		Intellect		{ get { return this.intellect;		} set { this.intellect = value;		} }
+	public int		ArmorRating		{ get { return this.armorRating;	} set { this.armorRating = value;	} }
+	public float 	CritRating		{ get { return this.critRating; 	} set { this.critRating = value;	} }
+	public float 	HasteRating		{ get { return this.hasteRating;	} set { this.hasteRating = value;	} }
 
 	[SerializeField]
 	protected float healthRegenerationPerSecond = 5f, manaRegenerationPerSecond = 5f, goldFind = 1f, experienceGain = 1f;
-	public float HealthRegenerationPerSecond	{ get {	return this.healthRegenerationPerSecond; }	set { this.healthRegenerationPerSecond = value; } }
-	public float ManaRegenerationPerSecond		{ get {	return this.manaRegenerationPerSecond; }	set { this.manaRegenerationPerSecond = value; } }
-	public float IncreasedGoldFind				{ get {	return this.goldFind; }						set { this.goldFind = value; } }
-	public float IncreasedExperienceGain		{ get {	return this.experienceGain; }				set { this.experienceGain = value; } }
+	public float 	HealthRegenerationPerSecond	{ get {	return this.healthRegenerationPerSecond; }	set { this.healthRegenerationPerSecond = value; } }
+	public float 	ManaRegenerationPerSecond	{ get {	return this.manaRegenerationPerSecond; }	set { this.manaRegenerationPerSecond = value; } }
+	public float 	IncreasedGoldFind			{ get {	return this.goldFind; }						set { this.goldFind = value; } }
+	public float	IncreasedExperienceGain		{ get {	return this.experienceGain; }				set { this.experienceGain = value; } }
 
 	[SerializeField]
 	protected float increasedCritDamage = 1f, increasedAberrationDamage = 1f, increasedBeastDamage = 1f, increasedCritterDamage = 1f, increasedDemonDamage = 1f,
 						increasedDeityDamage = 1f, increasedElementalDamage = 1f, increasedHumanoidDamage = 1, increasedUndeadDamage = 1f;
-	public float IncreasedCritDamage		{ get {	return this.increasedCritDamage; }			set { this.increasedCritDamage = value; } }
-	public float IncreasedAberrationDamage	{ get {	return this.increasedAberrationDamage; }	set { this.increasedAberrationDamage = value; } }	// Otherworldy
-	public float IncreasedBeastDamage		{ get {	return this.increasedBeastDamage; }			set { this.increasedBeastDamage = value; } }		// Animal
-	public float IncreasedCritterDamage		{ get {	return this.increasedCritterDamage; }		set { this.increasedCritterDamage = value; } }		// Animal
-	public float IncreasedDemonDamage		{ get {	return this.increasedDemonDamage; }			set { this.increasedDemonDamage = value; } }		// Otherworldy
-	public float IncreasedDeityDamage		{ get {	return this.increasedDeityDamage; }			set { this.increasedDeityDamage = value; } }		// Otherworldy
-	public float IncreasedElementalDamage	{ get {	return this.increasedElementalDamage; }		set { this.increasedElementalDamage = value; } }	// Otherworldy
-	public float IncreasedHumanoidDamage	{ get {	return this.increasedHumanoidDamage; }		set { this.increasedHumanoidDamage = value; } }		// Humanlike
-	public float IncreasedUndeadDamage		{ get {	return this.increasedUndeadDamage; }		set { this.increasedUndeadDamage = value; } }		// Humanlike
+	public float 	IncreasedCritDamage			{ get {	return this.increasedCritDamage; }			set { this.increasedCritDamage = value; } }
+	public float 	IncreasedAberrationDamage	{ get {	return this.increasedAberrationDamage; }	set { this.increasedAberrationDamage = value; } }	// Otherworldy
+	public float	IncreasedBeastDamage		{ get {	return this.increasedBeastDamage; }			set { this.increasedBeastDamage = value; } }		// Animal
+	public float	IncreasedCritterDamage		{ get {	return this.increasedCritterDamage; }		set { this.increasedCritterDamage = value; } }		// Animal
+	public float 	IncreasedDemonDamage		{ get {	return this.increasedDemonDamage; }			set { this.increasedDemonDamage = value; } }		// Otherworldy
+	public float 	IncreasedDeityDamage		{ get {	return this.increasedDeityDamage; }			set { this.increasedDeityDamage = value; } }		// Otherworldy
+	public float 	IncreasedElementalDamage	{ get {	return this.increasedElementalDamage; }		set { this.increasedElementalDamage = value; } }	// Otherworldy
+	public float 	IncreasedHumanoidDamage		{ get {	return this.increasedHumanoidDamage; }		set { this.increasedHumanoidDamage = value; } }		// Humanlike
+	public float 	IncreasedUndeadDamage		{ get {	return this.increasedUndeadDamage; }		set { this.increasedUndeadDamage = value; } }		// Humanlike
 
 	// ******************
 	// * PARAGON POINTS *
 	// ******************
 	// These are added to once the player hits max level, they will not be called Paragon Points.
 	// They will be used to purchase mats and better weapons.
-	protected int paragonPoints, totalParagonPoints;
-	protected float paragonPointsCritChance = 1f, paragonPointsCritDamage = 1f, paragonPointsAnimalDamage = 1f, paragonPointsOtherworldlyDamage = 1f, paragonPointsHumanlikeDamage = 1f,
-						paragonPointsArmorRating = 1f, paragonPointsGoldAmount = 1f, paragonPointsExperience = 1f;
-	public int ParagonPoints						{ get {	return this.paragonPoints; }					protected set { this.paragonPoints = value; } }
-	public int TotalParagonPoints					{ get {	return this.totalParagonPoints; }				protected set { this.totalParagonPoints = value; } }
+	protected int 	paragonPoints, totalParagonPoints;
+	protected float paragonPointsCritChance = 0f, paragonPointsCritDamage = 0f, paragonPointsArmorPercentage = 0f, paragonPointsHasteRating = 0f,
+						paragonPointsAnimalDamage = 0f, paragonPointsOtherworldlyDamage = 0f, paragonPointsHumanlikeDamage = 0f,
+						paragonPointsGoldAmount = 0f, paragonPointsExperience = 0f;
+	public int 	 ParagonPoints						{ get {	return this.paragonPoints; }					protected set { this.paragonPoints = value; } }
+	public int	 TotalParagonPoints					{ get {	return this.totalParagonPoints; }				protected set { this.totalParagonPoints = value; } }
+	public float ParagonPointsArmorPercentage		{ get {	return this.paragonPointsArmorPercentage; }		set { this.paragonPointsArmorPercentage = value; } }
 	public float ParagonPointsCritChance			{ get {	return this.paragonPointsCritChance; }			set { this.paragonPointsCritChance = value; } }
 	public float ParagonPointsCritDamage			{ get {	return this.paragonPointsCritDamage; }			set { this.paragonPointsCritDamage = value; } }
 	public float ParagonPointsAnimalDamage			{ get {	return this.paragonPointsAnimalDamage; }		set { this.paragonPointsAnimalDamage = value; } }
 	public float ParagonPointsOtherworldlyDamage	{ get {	return this.paragonPointsOtherworldlyDamage; }	set { this.paragonPointsOtherworldlyDamage = value; } }
 	public float ParagonPointsHumanlikeDamage		{ get {	return this.paragonPointsHumanlikeDamage; }		set { this.paragonPointsHumanlikeDamage = value; } }
-	public float ParagonPointsArmorRating			{ get {	return this.paragonPointsArmorRating; }			set { this.paragonPointsArmorRating = value; } }
 	public float ParagonPointsGoldAmount			{ get {	return this.paragonPointsGoldAmount; }			set { this.paragonPointsGoldAmount = value; } }
 	public float ParagonPointsExperience			{ get {	return this.paragonPointsExperience; }			set { this.paragonPointsExperience = value; } }
 
@@ -143,28 +145,34 @@ public abstract class Entity : MonoBehaviour {
 		
 		CurrentHealth -= value;
 
-		OverlayCanvasController.instance.ShowCombatText (gameObject,
-															(wasCrit) ? CombatTextType.CriticalHit : CombatTextType.Hit,
-															value.ToString ());
+		OverlayCanvasController.instance.ShowCombatText
+							(gameObject, (wasCrit) ? CombatTextType.CriticalHit : CombatTextType.Hit, value.ToString ());
 	
 	}
 	public void Heal(float value, bool wasCrit = false) {
 
 		CurrentHealth += value;
 
-		OverlayCanvasController.instance.ShowCombatText (gameObject,
-			(wasCrit) ? CombatTextType.CriticalHeal : CombatTextType.Heal,
-															value.ToString ());}
+		OverlayCanvasController.instance.ShowCombatText
+							(gameObject, (wasCrit) ? CombatTextType.CriticalHeal : CombatTextType.Heal,	value.ToString ());
+
+	}
 
 	// Mana methods.
 	public void DamageMana(float value, bool wasCrit = false)	{
 		
 		CurrentMana -= value;
+		
+		//OverlayCanvasController.instance.ShowCombatText
+							//(gameObject, (wasCrit) ? CombatTextType.CriticalHitMana : CombatTextType.HitMana,	value.ToString ());
 
 	}
 	public void HealMana(float value, bool wasCrit = false)	{
 
 		CurrentMana += value;
+
+		//OverlayCanvasController.instance.ShowCombatText
+							//(gameObject, (wasCrit) ? CombatTextType.CriticalHealMana : CombatTextType.HealMana, value.ToString ());
 	
 	}
 
@@ -177,10 +185,6 @@ public abstract class Entity : MonoBehaviour {
 
 			case EntityStat.ARMOR_RATING:
 				ArmorRating += value;
-				break;
-
-			case EntityStat.CRIT_RATING:
-				CritRating += value;
 				break;
 
 			case EntityStat.INTELLECT:
@@ -197,6 +201,14 @@ public abstract class Entity : MonoBehaviour {
 	public void BuffStat(EntityStat stat, float value) {
 
 		switch (stat) {
+
+			case EntityStat.CRIT_RATING:
+				CritRating += value;
+				break;
+
+			case EntityStat.HASTE_RATING:
+				HasteRating += value;
+				break;
 
 			case EntityStat.HEALTH_REGENERATION:
 				HealthRegenerationPerSecond += value;
@@ -335,7 +347,7 @@ public abstract class Entity : MonoBehaviour {
 
 }
 
-public enum EntityStat { ARMOR_RATING, CRIT_RATING, HEALTH_REGENERATION,
+public enum EntityStat { ARMOR_RATING, CRIT_RATING, HASTE_RATING, HEALTH_REGENERATION,
 							INCREASED_ABERRATION, INCREASE_BEAST, INCREASE_CRITTER, INCREASE_DEITY, INCREASE_DEMON, INCREASE_ELEMENTAL, INCREASE_HUMANOID, INCREASE_UNDEAD,
 							INTELLECT, MANA_REGENERATION, STAMINA };
 

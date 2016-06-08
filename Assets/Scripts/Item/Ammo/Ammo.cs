@@ -7,17 +7,27 @@ public class Ammo : Item {
 
 	}
 
+	// TODO: Ammo requires an array that contains EffectDuration and EffectAmount
 	public Ammo(string _itemName, string _itemDescription, int _stackSize, AmmoType _ammoType) {
 
 		ItemName = _itemName;
 		ItemDescription = _itemDescription;
 		StackSize = _stackSize;
-		AmmoType = _ammoType;
+		AmmoType = new AmmoType[] { _ammoType };
 
 	}
 
-	protected AmmoType ammoType;
-	public AmmoType AmmoType		{ get {	return this.ammoType; }	set {	this.ammoType = value; } }
+	public Ammo(string _itemName, string _itemDescription, int _stackSize, AmmoType[] _ammoType) {
+
+		ItemName = _itemName;
+		ItemDescription = _itemDescription;
+		StackSize = _stackSize;
+		ammoType = _ammoType;
+
+	}
+
+	protected	AmmoType[] ammoType;
+	public		AmmoType[] AmmoType		{ get {	return this.ammoType; }	set {	this.ammoType = value; } }
 
 }
 

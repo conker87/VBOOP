@@ -13,7 +13,7 @@ public class Player : Entity {
 
 		TotalExperienceNeededToLevel = XPNeededToLevel ();
 
-		EquippedAmmo = new Ammo ("Burning Ammo", "Ammo that burns, mother fucker!", 1, AmmoType.BURNING);
+		EquippedAmmo = new Ammo ("Burning Ammo", "Ammo that burns, mother fucker!", 1, new AmmoType[] { AmmoType.BURNING, AmmoType.PIERCING });
 
 	}
 

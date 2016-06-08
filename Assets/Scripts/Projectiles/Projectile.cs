@@ -61,102 +61,68 @@ public class Projectile : MonoBehaviour {
 
 		Entity targetEntity = other.GetComponentInParent<Entity> ();
 
+		// GetComponentInParent returns itself too, so the previous code could be consolidated into one monthly repayment.
 		if (targetEntity == null) {
-
-			targetEntity = other.GetComponent<Entity> ();
-
-		}
-
-		if (IsHealing == false && targetEntity != null && targetEntity.tag == "Coop") {
 
 			return;
 
 		}
 
-		// The Weapon should not do damage to enemies if it is healing (TODO: or should it but do half damage?)
-		if (IsHealing) {
+		EffectSlots effectSlots = targetEntity.GetComponent<EffectSlots> ();
 
-			// If entity isn't null and the entity tag is "Coop".
-			if (targetEntity != null && targetEntity.tag == "Coop") {
+		// If the Entity we hit is a Coop player.
+		if (targetEntity.tag == "Coop") {
+			
+			if (IsHealing) {
 
 				// Heal the entity.
 				targetEntity.Heal (ProjectileDamage, IsCrit);
 
-				EffectSlots effectSlots = targetEntity.GetComponent<EffectSlots> ();
+				// Massive gameplay change here where we let those with CurrentHealth == MaximumHealth a HoT.
+				effectSlots.Add (new Effect ("Healing", "Healing for whatever over whatever", 
+					5f, Time.time, new float[] { 1 },
+					sourceWeapon, targetEntity, new Action[] {
+					() => targetEntity.Heal (ProjectileDamage * 0.5f),
+				}, null), EffectType.BUFF);
 
-				// If doHealing is true and the entity's current health isn't it's maximum health then we should give them a HoT.
-				if (targetEntity.CurrentHealth != targetEntity.MaximumHealth) {
+			// If the AmmoType is not healing and the Entity we hit is a Coop player ([PH]), then ignore the rest of the code and passthrough.
+			} else { return; }
 
-					effectSlots.Add(new Effect("Healing", "Healing for whatever over whatever", 
-						5f, Time.time, new float[] { 1 },
-						sourceWeapon, targetEntity, new Action[] {
-							() => targetEntity.Heal(ProjectileDamage * 0.5f),
-						}, null), EffectType.BUFF);
+		}
 
-				}
-
-			}
-
-		} else {
-
-			// If entity isn't null and the entity tag is "Enemy".
-			if (targetEntity != null && targetEntity.tag == "Enemy") {
+		// If the Entity we hit is a Coop player.
+		if (targetEntity.tag == "Enemy") {
 
 				// We want to do damage only when the times hit is equal to 1 (which means this is the first enemy it has encountered),
 				// or if the times hit is more than 1 and that the enemy ID is no longer the same.
-				if (timesHit == 1 || (timesHit > 1 && enemyID != targetEntity.GetInstanceID ())) {
+			if (timesHit == 1 || (timesHit > 1 && enemyID != targetEntity.GetInstanceID ())) {
 
-					enemyID = targetEntity.GetInstanceID ();
+				// Calculate the actualDamage depending on the armor reduction.
+				// TODO: Calculate ArmorRating depending on the level of the Entity.
+				float damageReductionDueToArmor = (100 - (targetEntity.ArmorRating * UnityEngine.Random.Range(0.9f, 1.1f))) / 100;
 
-					//Debug.Log (gameObject.name + " hit " + other.transform.name + " (" + entity.gameObject.name + "), timesHit: " + timesHit + ", for damage: " + currentDamage + ", isPiercing: " + isPiercing);
+				// This Math.Round method truncates the float to 2 decimal places.
+				float actualDamage = (float) Math.Round(Mathf.Clamp(ProjectileDamage * damageReductionDueToArmor, 0f, WeaponAverageDamage * 3f), 2);
 
-					float damageReductionDueToArmor = (100 - (targetEntity.ArmorRating * UnityEngine.Random.Range(0.9f, 1.1f))) / 100;
-					float actualDamage = (float) Math.Round(Mathf.Clamp(ProjectileDamage * damageReductionDueToArmor, 0f, WeaponAverageDamage * 3f), 2);
+				targetEntity.Damage (actualDamage, IsCrit);
 
-					targetEntity.Damage (actualDamage, IsCrit);
+				// If the AmmoType IsBurning, then give the target Entity the burning DoT.
+				// This damaged is capped at 50% of the average damage.
+				if (IsBurning) {
 
-					// If the projectile (and therefore the gun) has a burning effect, them give the target Entity the burning DoT.
-					// This damaged is capped at 50% of the average damage.
-					if (IsBurning) {
-
-						EffectSlots effectSlots = targetEntity.GetComponent<EffectSlots> ();
-
-						if (effectSlots.debuffs.Count > 0) {
-
-							foreach (Effect debuff in effectSlots.debuffs) {
-
-								if (debuff.SourceWeapon != sourceWeapon) {
-
-									doBurning = true;
-
-								}
-
-							}
-
-						} else {
-
-							doBurning = true;
-
-						}
-
-						if (doBurning == true) {
-
-							effectSlots.Add(new Effect("Burning", "Burning for whatever over whatever", 
-								16f, Time.time, new float[] { 1 },
-								sourceWeapon, targetEntity, new Action[] {
-									() => targetEntity.Damage(ProjectileDamage * 0.5f)
-								}, null), EffectType.DEBUFF);
-
-						}
-
-						doBurning = false;
-
-					}
-
-					ProjectileDamage -= (ProjectileDamage / 4);
+						effectSlots.Add(new Effect("Burning", "Burning for whatever over whatever", 
+							16f, Time.time, new float[] { 1 },
+							sourceWeapon, targetEntity, new Action[] {
+								() => targetEntity.Damage(ProjectileDamage * 0.5f)
+							}, null), EffectType.DEBUFF);
+								
 				}
-			}
 
+				// Reduce the ProjectileDamage by 4 but only if it is relivant to do so.
+				if (IsPiercing) { ProjectileDamage -= (ProjectileDamage / 4); }
+				enemyID = targetEntity.GetInstanceID ();
+
+			}
 		}
 
 		// Destroy the gameObject now as it's either not a piercing round, it is and it has hit more than 4 enemies or
